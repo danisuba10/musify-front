@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  overscroll-behavior: none;
+}
+
+.homepage-container {
+  min-height: 100vh;
+  background-image: linear-gradient(to right, #191910, #191912);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: auto;
+  overflow-y: scroll;
+}

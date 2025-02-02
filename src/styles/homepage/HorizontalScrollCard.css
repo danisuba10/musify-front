@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .horizontal-scroll-card {
+    @apply relative flex-none w-[8%] min-w-[200px] min-h-[200px] h-full mb-1 overflow-hidden;
+  }
+  .horizontal-scroll-card:hover {
+    @apply bg-gray-600;
+  }
+  .horizontal-scroll-card-content {
+    @apply relative flex flex-col items-center gap-2 w-full h-full overflow-hidden;
+  }
+  .horizontal-scroll-image-container {
+    @apply relative aspect-square w-auto h-[60%];
+  }
+  .horizontal-scroll-image {
+    @apply relative w-[100%] h-[100%] object-cover mt-2;
+  }
+  .horizontal-scroll-text {
+    @apply w-[100%] flex flex-col items-center text-center;
+  }
+  .horizontal-scroll-name {
+    @apply font-semibold text-white text-sm;
+  }
+  .horizontal-scroll-name:hover {
+    @apply underline cursor-pointer;
+  }
+  .horizontal-scroll-subtitle {
+    @apply text-gray-400 text-xs;
+  }
+}
