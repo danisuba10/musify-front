@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .vertical-scroll-grid {
+    @apply overflow-y-auto h-[100vh] w-full min-h-[300px] flex flex-col flex-shrink-0 overflow-hidden;
+  }
+  .vertical-scroll-grid-header {
+    @apply relative flex min-h-[50px] justify-evenly items-center mb-4 mt-4 overflow-hidden;
+  }
+  .vertical-scroll-grid-title {
+    @apply relative min-w-[90px] text-white ml-3 text-2xl font-bold overflow-hidden;
+  }
+  .vertical-scroll-grid-title:hover {
+    @apply relative underline cursor-pointer;
+  }
+  .vertical-scroll-grid-container {
+    @apply relative h-auto;
+  }
+  .vertical-scroll-grid-scroll {
+    @apply relative flex flex-col gap-4 overflow-y-auto overflow-x-hidden scroll-smooth scrollbar-hide h-full;
+  }
+  .library-svg {
+    @apply relative w-[50%] h-[50%] mt-1.5;
+    fill: #b1b1b1;
+  }
+  .library-svg:hover {
+    @apply cursor-pointer;
+  }
+}
