@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  width: 100%;
+  overflow-y: hidden;
+}
+
 @layer components {
   .top-parent {
     @apply flex flex-col;
