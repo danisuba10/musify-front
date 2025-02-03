@@ -12,6 +12,10 @@ export default {
       minHeight: {
         250: "250px",
       },
+      colors: {
+        menuGrey: "rgb(40,36,36)",
+        svgGrey: "#b1b1b1",
+      },
     },
   },
   plugins: [scrollbarHide],
