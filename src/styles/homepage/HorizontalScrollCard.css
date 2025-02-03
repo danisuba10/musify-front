@@ -4,7 +4,7 @@
 
 @layer components {
   .horizontal-scroll-card {
-    @apply relative flex-none w-[8%] min-w-[200px] min-h-[200px] h-full mb-1 overflow-hidden;
+    @apply relative flex-none  max-w-[100px] max-h-[100px] h-full mb-1 overflow-hidden md:min-w-[200px] md:min-h-[200px];
   }
   .horizontal-scroll-card:hover {
     @apply bg-gray-600;

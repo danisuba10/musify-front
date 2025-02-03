@@ -25,6 +25,7 @@ const VerticalScrollGrid = ({ title, cards, type, compact }) => {
         <div className="vertical-scroll-grid-header">
           {/* <h2 className="vertical-scroll-grid-title">{title}</h2> */}
           <button
+            className="w-[50%]"
             onClick={() => {
               const newCompactValue = !compact;
               Cookies.set("compact", newCompactValue, {
@@ -35,8 +36,10 @@ const VerticalScrollGrid = ({ title, cards, type, compact }) => {
           >
             <Library className="library-svg" />
           </button>
-          <Plus className="library-svg" />
-          <RightArrow className="library-svg" />
+          <div className="relative flex flex-row w-[50%] gap-3  ">
+            <Plus className="library-svg" />
+            <RightArrow className="library-svg" />
+          </div>
         </div>
       )}
       {compact && (
@@ -71,6 +74,7 @@ const VerticalScrollGrid = ({ title, cards, type, compact }) => {
                 subtitle={card.subtitle}
                 creator={card.creator}
                 typeCSS={typeCSS}
+                compact={compact}
               />
             ))}
           </div>
@@ -85,7 +89,7 @@ const VerticalScrollGrid = ({ title, cards, type, compact }) => {
                 subtitle={card.subtitle}
                 creator={card.creator}
                 typeCSS={typeCSS}
-                image_only={true}
+                compact={compact}
               />
             ))}
           </div>

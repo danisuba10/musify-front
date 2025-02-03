@@ -9,6 +9,12 @@ export default function UserLibrary() {
 
   useEffect(() => {
     const handleCookieChange = () => {
+      if (window.innerHeight > window.innerWidth) {
+        if (Cookies.get("compact") === "false") {
+          setCompact(true);
+        }
+        return;
+      }
       setCompact(Cookies.get("compact") === "true");
     };
 

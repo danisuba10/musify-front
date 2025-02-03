@@ -4,19 +4,19 @@
 
 @layer components {
   .horizontal-scroll-grid {
-    @apply overflow-y-scroll h-[30vh] min-h-[300px] w-full flex flex-col flex-shrink-0 overflow-hidden;
+    @apply overflow-y-scroll min-h-[150px] md:h-[30vh] md:min-h-[220px] w-full flex flex-col flex-shrink-0 overflow-hidden;
   }
   .horizontal-scroll-grid-header {
-    @apply relative flex justify-between items-center mb-4 overflow-hidden min-h-[20px];
+    @apply relative min-h-[30px] flex justify-between items-center mb-4 overflow-hidden;
   }
   .horizontal-scroll-grid-title {
-    @apply relative text-white text-2xl font-bold ml-5 overflow-hidden;
+    @apply relative text-white text-sm md:text-2xl font-bold ml-5 overflow-hidden;
   }
   .horizontal-scroll-grid-title:hover {
     @apply relative underline cursor-pointer;
   }
   .horizontal-scroll-grid-container {
-    @apply relative h-auto;
+    @apply overflow-x-hidden relative h-auto;
   }
   .horizontal-scroll-grid-scroll {
     @apply relative flex gap-4 overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide h-full;

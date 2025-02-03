@@ -4,25 +4,31 @@
 
 @layer components {
   .vertical-scroll-card {
-    @apply relative flex-row w-[100%] min-w-[50px] min-h-[50px] h-full mb-1 overflow-hidden;
+    @apply relative flex-row w-auto max-w-[70px] max-h-[70px] md:max-w-[200px] md:max-h-[200px] md:min-w-[80px] md:min-h-[80px] h-full mt-2 ml-2 mr-2 overflow-hidden justify-center;
   }
   .vertical-scroll-card:hover {
     @apply bg-gray-600;
   }
   .vertical-scroll-card-ui-compact {
-    @apply relative flex-row w-[100%] min-w-[50px] min-h-[50px] h-full mb-1 overflow-hidden;
+    @apply relative flex-row w-[100%] max-w-[70px] max-h-[70px] min-w-[50px] min-h-[50px] h-full m-1 overflow-hidden;
+  }
+  .vertical-scroll-card-ui-compact:hover {
+    @apply bg-gray-600;
   }
   .vertical-scroll-card-content {
-    @apply relative flex flex-row items-center gap-2 w-full h-full overflow-hidden;
+    @apply relative flex flex-row items-center gap-3  w-full h-full overflow-hidden justify-center align-top;
+  }
+  .vertical-scroll-card-content-ui-compact {
+    @apply relative flex flex-row items-center gap-3  w-full h-full overflow-hidden justify-center align-top align-middle;
   }
   .vertical-scroll-image-container {
-    @apply relative aspect-square h-auto w-[70%] m-2;
+    @apply relative aspect-square h-auto w-[70%];
   }
   .vertical-scroll-image {
     @apply relative w-[100%] h-[100%] object-cover;
   }
   .vertical-scroll-text {
-    @apply w-[100%] flex flex-col items-start text-center;
+    @apply w-[100%] flex flex-col items-start text-center mr-4;
   }
   .vertical-scroll-name {
     @apply font-semibold text-white text-sm;

@@ -7,10 +7,10 @@
     @apply overflow-y-auto h-[100vh] w-full min-h-[300px] flex flex-col flex-shrink-0 overflow-hidden;
   }
   .vertical-scroll-grid-header {
-    @apply relative flex min-h-[50px] justify-evenly items-center mb-4 mt-4 overflow-hidden;
+    @apply relative flex min-h-[50px] justify-evenly items-center ml-4 mr-4 mt-6 mb-6 overflow-hidden;
   }
   .vertical-scroll-grid-title {
-    @apply relative min-w-[90px] text-white ml-3 text-2xl font-bold overflow-hidden;
+    @apply relative max-w-[80px] md:min-w-[90px] text-white ml-3 text-2xl font-bold overflow-hidden;
   }
   .vertical-scroll-grid-title:hover {
     @apply relative underline cursor-pointer;
@@ -19,10 +19,10 @@
     @apply relative h-auto;
   }
   .vertical-scroll-grid-scroll {
-    @apply relative flex flex-col gap-4 overflow-y-auto overflow-x-hidden scroll-smooth scrollbar-hide h-full;
+    @apply relative flex flex-col overflow-y-auto overflow-x-hidden scroll-smooth scrollbar-hide h-full;
   }
   .library-svg {
-    @apply relative w-[50%] h-[50%] mt-1.5;
+    @apply relative w-[50%] h-[50%];
     fill: #b1b1b1;
   }
   .library-svg:hover {

@@ -7,14 +7,17 @@ body {
   overscroll-behavior: none;
 }
 
-.library-container {
-  min-height: 100vh;
-  min-width: 140px;
-  background-image: linear-gradient(to right, #191910, #191912);
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: auto;
-  overflow-y: scroll;
+@layer components {
+  .library-container {
+    min-height: 100vh;
+    /* min-width: 140px; */
+    background-image: linear-gradient(to right, #191910, #191912);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: auto;
+    overflow-y: scroll;
+    @apply md:min-w-[80px] min-w-[70px];
+  }
 }

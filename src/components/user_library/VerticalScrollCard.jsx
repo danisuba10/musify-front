@@ -8,27 +8,41 @@ const VerticalScrollCard = ({
   subtitle,
   creator,
   typeCSS,
-  image_only,
+  compact,
 }) => {
-  return (
-    <div className="vertical-scroll-card">
-      <div className="vertical-scroll-card-content">
-        <div className="vertical-scroll-image-container">
-          <img
-            src={image}
-            alt={name}
-            className={`vertical-scroll-image ${typeCSS}`}
-          />
+  if (compact) {
+    return (
+      <div className="vertical-scroll-card-ui-compact">
+        <div className="vertical-scroll-card-content-ui-compact">
+          <div className="vertical-scroll-image-container">
+            <img
+              src={image}
+              alt={name}
+              className={`vertical-scroll-image ${typeCSS}`}
+            />
+          </div>
         </div>
-        {!image_only && (
+      </div>
+    );
+  } else {
+    return (
+      <div className="vertical-scroll-card">
+        <div className="vertical-scroll-card-content">
+          <div className="vertical-scroll-image-container">
+            <img
+              src={image}
+              alt={name}
+              className={`vertical-scroll-image ${typeCSS}`}
+            />
+          </div>
           <div className="vertical-scroll-text">
             <h3 className="vertical-scroll-name">{name}</h3>
             <p className="vertical-scroll-subtitle">{`${subtitle} ● ${creator}`}</p>
           </div>
-        )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default VerticalScrollCard;
