@@ -9,7 +9,7 @@ body {
 
 .library-container {
   min-height: 100vh;
-  max-width: 15vw;
+  min-width: 140px;
   background-image: linear-gradient(to right, #191910, #191912);
   flex-grow: 1;
   display: flex;

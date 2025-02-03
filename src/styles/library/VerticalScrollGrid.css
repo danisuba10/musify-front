@@ -26,6 +26,14 @@
     fill: #b1b1b1;
   }
   .library-svg:hover {
-    @apply cursor-pointer;
+    /* @apply cursor-pointer; */
+    fill: whitesmoke;
+  }
+  .svg-library-compact {
+    @apply relative mt-1.5;
+    fill: #b1b1b1;
+  }
+  .svg-library-compact:hover {
+    fill: whitesmoke;
   }
 }

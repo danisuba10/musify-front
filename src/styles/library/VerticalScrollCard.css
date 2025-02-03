@@ -9,14 +9,17 @@
   .vertical-scroll-card:hover {
     @apply bg-gray-600;
   }
+  .vertical-scroll-card-ui-compact {
+    @apply relative flex-row w-[100%] min-w-[50px] min-h-[50px] h-full mb-1 overflow-hidden;
+  }
   .vertical-scroll-card-content {
     @apply relative flex flex-row items-center gap-2 w-full h-full overflow-hidden;
   }
   .vertical-scroll-image-container {
-    @apply relative aspect-square h-[70%] w-[70%];
+    @apply relative aspect-square h-auto w-[70%] m-2;
   }
   .vertical-scroll-image {
-    @apply relative w-[100%] h-[100%] object-cover mt-2;
+    @apply relative w-[100%] h-[100%] object-cover;
   }
   .vertical-scroll-text {
     @apply w-[100%] flex flex-col items-start text-center;
