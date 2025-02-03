@@ -12,7 +12,7 @@ body {
   .top-parent {
     @apply flex flex-col;
   }
-  .top-bar {
+  .global-search-bar {
     @apply min-h-[10vh] bg-black;
   }
   .app-container {

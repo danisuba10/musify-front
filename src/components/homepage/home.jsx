@@ -8,7 +8,6 @@ import "../../styles/homepage/home.css";
 export default function Home() {
   return (
     <div className="homepage-container">
-      <div></div>
       <HorizontalScrollGrid
         title="Popular artists"
         artists={artists}

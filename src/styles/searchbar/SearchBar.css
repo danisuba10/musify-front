@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .search-bar-container {
+    @apply h-[10vh] w-[100%] flex flex-row justify-between overflow-hidden;
+  }
+  .logo-container {
+    @apply h-[10vh] w-auto aspect-square overflow-hidden flex items-center justify-center;
+    transition: transform 0.1s ease;
+  }
+  .logo-container:hover {
+    @apply cursor-pointer;
+    transform: scale(1.1);
+  }
+  .logo-svg {
+    @apply fill-white aspect-square w-max;
+  }
+  .home-svg {
+    @apply fill-white h-[5vh] w-auto aspect-square;
+  }
+  .search-magni-svg {
+    @apply fill-svgGrey h-[5vh] w-auto aspect-square;
+  }
+  .home-button-container {
+    @apply h-[7.5vh] w-auto aspect-square overflow-hidden flex items-center justify-center rounded-full p-3;
+    background-image: linear-gradient(to right, #191910, #191912);
+    transition: transform 0.1s ease;
+  }
+  .home-button-container:hover {
+    @apply cursor-pointer;
+    transform: scale(1.1);
+  }
+  .main {
+    @apply flex items-center justify-center gap-3;
+  }
+  .search-input {
+    @apply h-[7.5vh] w-[38vw] flex flex-row items-center rounded-full gap-1;
+    background-image: linear-gradient(to right, #191910, #191912);
+  }
+  .search-input:hover {
+    background-image: linear-gradient(to right, #454539, #454541);
+  }
+  .search-input:hover > .search-input-field {
+    background-image: linear-gradient(to right, #454539, #454541);
+  }
+  .search-input-field {
+    @apply w-[82%] text-white border-none focus:outline-none focus:ring-0;
+    background-image: linear-gradient(to right, #191910, #191912);
+  }
+  .user-part {
+    @apply flex items-center justify-center mr-3;
+  }
+}
