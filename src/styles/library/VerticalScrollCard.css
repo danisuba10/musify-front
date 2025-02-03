@@ -31,7 +31,7 @@
     @apply w-[100%] flex flex-col items-start text-center mr-4;
   }
   .vertical-scroll-name {
-    @apply font-semibold text-white text-sm;
+    @apply w-[100%] font-semibold text-white text-sm;
   }
   .vertical-scroll-name:hover {
     @apply underline cursor-pointer;
