@@ -5,7 +5,16 @@ import Home from "../../assets/home.svg?react";
 import Magnifier from "../../assets/magni.svg?react";
 import Account from "../../assets/profile.svg?react";
 
-const SearchBar = ({ onClick }) => {
+const SearchBar = ({ onClick, onSearch }) => {
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    if (value.length > 0) {
+      onSearch(true, value);
+    } else {
+      onSearch(false, "");
+    }
+  };
+
   return (
     <div className="search-bar-container">
       <div className="logo-container">
@@ -17,11 +26,12 @@ const SearchBar = ({ onClick }) => {
         </div>
         <div className="search-input">
           <Magnifier className="search-magni-svg float-left ml-3" />
-          <div classname="search-text-field"></div>
+          <div className="search-text-field"></div>
           <input
             type="text"
             className="search-input-field"
             placeholder="Search..."
+            onChange={handleInputChange}
           />
         </div>
       </div>

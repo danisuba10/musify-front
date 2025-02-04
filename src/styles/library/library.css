@@ -5,6 +5,7 @@
 html,
 body {
   overscroll-behavior: none;
+  width: 100%;
 }
 
 @layer components {

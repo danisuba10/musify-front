@@ -19,3 +19,25 @@ body {
   overflow-y: scroll;
   gap: 2rem;
 }
+
+@layer components {
+  .search-filter-container {
+    @apply flex flex-row p-4 gap-2;
+  }
+  .search-filter-button {
+    @apply text-white rounded-full pr-4 pl-4 pt-1 pb-1;
+    background-image: linear-gradient(to right, #454539, #454541);
+  }
+  .search-filter-button:hover {
+    background-image: linear-gradient(to right, #5b5b4e, #5b5b51);
+    transform: scale(1.03);
+  }
+  .search-filter-button-selected {
+    @apply text-black rounded-full pr-4 pl-4 pt-1 pb-1;
+    background-image: linear-gradient(to right, #e0e0d2, #e0e0d7);
+  }
+  /* .search-filter-button-selected:hover {
+    background-image: linear-gradient(to right, #5b5b4e, #5b5b51);
+    transform: scale(1.03);
+  } */
+}

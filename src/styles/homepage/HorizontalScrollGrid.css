@@ -4,7 +4,7 @@
 
 @layer components {
   .horizontal-scroll-grid {
-    @apply overflow-y-scroll min-h-[150px] md:h-[30vh] md:min-h-[220px] w-full flex flex-col flex-shrink-0 overflow-hidden;
+    @apply overflow-y-scroll min-h-[120px] h-auto md:min-h-[220px] w-full flex flex-col flex-shrink-0 overflow-hidden pl-4 pr-4;
   }
   .horizontal-scroll-grid-header {
     @apply relative min-h-[30px] flex justify-between items-center mb-4 overflow-hidden;
@@ -19,6 +19,6 @@
     @apply overflow-x-hidden relative h-auto;
   }
   .horizontal-scroll-grid-scroll {
-    @apply relative flex gap-4 overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide h-full;
+    @apply relative flex gap-2 overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide h-auto;
   }
 }

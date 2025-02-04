@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .table-container {
+  }
+  .table-title {
+    @apply relative text-white text-sm md:text-2xl font-bold ml-5 overflow-x-hidden;
+  }
+  .table-container {
+    @apply relative h-auto overflow-x-hidden;
+  }
+  .table-element-container {
+    @apply grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4 p-4 overflow-x-hidden;
+  }
+}

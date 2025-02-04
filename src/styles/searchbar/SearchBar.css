@@ -46,7 +46,7 @@
     background-image: linear-gradient(to right, #454539, #454541);
   }
   .search-input-field {
-    @apply w-[82%] text-white border-none focus:outline-none focus:ring-0;
+    @apply w-[60%] md:w-[82%] text-white border-none focus:outline-none focus:ring-0;
     background-image: linear-gradient(to right, #191910, #191912);
   }
   .user-part {

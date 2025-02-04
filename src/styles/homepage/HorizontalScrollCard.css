@@ -4,30 +4,36 @@
 
 @layer components {
   .horizontal-scroll-card {
-    @apply relative flex-none  max-w-[100px] max-h-[100px] h-full mb-1 overflow-hidden md:min-w-[200px] md:min-h-[200px];
+    @apply relative min-w-[110px] min-h-[160px] max-w-[100px] max-h-[100px] h-full w-auto mb-1 overflow-hidden md:min-w-[200px] md:min-h-[250px];
   }
   .horizontal-scroll-card:hover {
     @apply bg-gray-600;
   }
+  .table-card {
+    @apply relative overflow-hidden h-full w-full md:min-w-[200px] md:min-h-[250px];
+  }
   .horizontal-scroll-card-content {
-    @apply relative flex flex-col items-center gap-2 w-full h-full overflow-hidden;
+    @apply relative flex flex-col items-center gap-2 w-full h-full overflow-hidden hover:bg-gray-600;
+  }
+  .table-card-content {
+    @apply relative flex flex-col items-center gap-2 w-full h-auto overflow-hidden hover:bg-gray-600;
   }
   .horizontal-scroll-image-container {
-    @apply relative aspect-square w-auto h-[60%];
+    @apply relative aspect-square w-auto h-[60%] overflow-hidden;
   }
   .horizontal-scroll-image {
-    @apply relative w-[100%] h-[100%] object-cover mt-2;
+    @apply relative w-[100%] h-[100%] object-cover p-2;
   }
   .horizontal-scroll-text {
-    @apply w-[100%] flex flex-col items-center text-center;
+    @apply w-[100%] flex flex-col items-center text-center mb-4;
   }
   .horizontal-scroll-name {
-    @apply font-semibold text-white text-sm;
+    @apply font-semibold text-white text-sm h-auto;
   }
   .horizontal-scroll-name:hover {
     @apply underline cursor-pointer;
   }
   .horizontal-scroll-subtitle {
-    @apply text-gray-400 text-xs;
+    @apply text-gray-400 text-xs h-auto;
   }
 }

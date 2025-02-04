@@ -8,6 +8,7 @@ import "../../styles/homepage/home.css";
 export default function Home() {
   return (
     <div className="homepage-container">
+      <div className="mt-2"></div>
       <HorizontalScrollGrid
         title="Popular artists"
         artists={artists}
@@ -26,6 +27,7 @@ export default function Home() {
         type="circle"
       />
       <HorizontalScrollGrid title="Favourite artists" artists={artists} />
+      <div className="mt-10"></div>
     </div>
   );
 }

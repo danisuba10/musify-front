@@ -10,13 +10,13 @@ body {
 
 @layer components {
   .top-parent {
-    @apply flex flex-col;
+    @apply flex flex-col w-full;
   }
   .global-search-bar {
     @apply min-h-[10vh] bg-black;
   }
   .app-container {
-    @apply flex flex-row gap-5 bg-black;
+    @apply flex flex-row gap-5 bg-black w-full;
     overflow-y: hidden;
   }
 
