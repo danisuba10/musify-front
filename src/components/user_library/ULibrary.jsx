@@ -23,9 +23,12 @@ export default function UserLibrary() {
     return () => clearInterval(cookieChangeListener);
   }, []);
 
-  const width = compact ? "5vw" : "15vw";
   return (
-    <div className="library-container" style={{ maxWidth: `${width}` }}>
+    <div
+      className={`library-container ${
+        compact ? `w-[5vw]` : " md:min-w-[220px] w-[15vw]"
+      }`}
+    >
       <VerticalScrollGrid title="Library" cards={library} compact={compact} />
     </div>
   );
