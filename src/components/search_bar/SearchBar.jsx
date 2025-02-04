@@ -5,9 +5,7 @@ import Home from "../../assets/home.svg?react";
 import Magnifier from "../../assets/magni.svg?react";
 import Account from "../../assets/profile.svg?react";
 
-export default function SearchBar() {
-  const width = 0;
-
+const SearchBar = ({ onClick }) => {
   return (
     <div className="search-bar-container">
       <div className="logo-container">
@@ -28,10 +26,12 @@ export default function SearchBar() {
         </div>
       </div>
       <div className="user-part float-right">
-        <div className="home-button-container">
+        <button className="home-button-container" onClick={onClick}>
           <Account className="home-svg" />
-        </div>
+        </button>
       </div>
     </div>
   );
-}
+};
+
+export default SearchBar;
