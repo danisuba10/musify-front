@@ -186,3 +186,18 @@ export const library = [
     creator: "Creator15",
   },
 ];
+
+export const artist = {
+  image:
+    "https://i.pinimg.com/736x/6e/0e/55/6e0e55a04903ee72de25d40af28fbbf5.jpg",
+  artist_img:
+    "https://render.fineartamerica.com/images/rendered/default/poster/5.5/8/break/images/artworkimages/medium/3/1-dave-mustaine-megadeth-concert-photos.jpg",
+  name: "Album1",
+  creator: "Dave Mustaine",
+  type: "Album",
+  details: {
+    year: 2000,
+    song_count: 12,
+    total_length_str: "40 min 23 sec",
+  },
+};

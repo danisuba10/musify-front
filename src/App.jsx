@@ -10,6 +10,8 @@ import LoginOverlay from "./components/auth/LoginForm";
 import AuthOverlay from "./components/auth/AuthOverlay";
 
 import Search from "./components/search/Search";
+import CollectionDetail from "./components/details/CollectionDetail";
+import { artist } from "./assets/Constants";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -29,7 +31,12 @@ function App() {
       </div>
       <div className="app-container">
         <UserLibrary />
-        {isSearch ? <Search term={term} /> : <Home />}
+        {/* {isSearch ? <Search term={term} /> : <Home />} */}
+        {isSearch ? (
+          <Search term={term} />
+        ) : (
+          <CollectionDetail collection={artist} />
+        )}
       </div>
       {showLogin && <AuthOverlay onClose={() => setShowLogin(false)} />}
     </div>

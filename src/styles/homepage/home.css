@@ -20,6 +20,19 @@ body {
   gap: 2rem;
 }
 
+.detail-container {
+  min-height: 100vh;
+  height: 100%;
+  background-image: linear-gradient(to right, #191910, #191912);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
 @layer components {
   .search-filter-container {
     @apply flex flex-row p-4 gap-2;

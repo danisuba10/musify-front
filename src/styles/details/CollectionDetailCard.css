@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .collection-detail-card-container {
+    @apply overflow-hidden grid grid-cols-1 sm:gap-2 sm:grid-cols-[auto_1fr] gap-4 h-fit w-full p-4 items-center;
+    background-image: linear-gradient(to bottom, #749cc4, #203c64);
+  }
+  .collection-detail-image-container {
+    @apply relative overflow-hidden flex p-2 h-auto items-center justify-center;
+    width: clamp(100%, 15vw, 15vw);
+    height: clamp(100px, 15vw, 15vw);
+  }
+  .collection-detail-img {
+    @apply relative aspect-square h-[100%] w-auto;
+  }
+  .collection-detail-about {
+    @apply flex flex-col overflow-hidden h-fit w-full sm:items-start items-center;
+  }
+  .collection-detail-type {
+    @apply text-white text-base;
+  }
+  .collection-detail-name {
+    @apply relative text-white sm:text-2xl md:text-8xl font-bold h-fit;
+  }
+  .collection-detail-details {
+    @apply flex flex-col sm:flex-row gap-1 mt-4 h-fit;
+  }
+  .artist-container {
+    @apply relative flex h-fit items-center sm:mr-2  w-full sm:max-w-[50%];
+  }
+  .artist-image {
+    @apply aspect-square h-[5vh] w-auto rounded-full;
+  }
+  .artist-name {
+    @apply relative text-white w-full h-auto flex items-center justify-center font-bold overflow-x-hidden break-words whitespace-normal;
+    word-break: break-all;
+  }
+
+  .about-info {
+    @apply flex flex-col sm:flex-row items-center justify-center gap-1;
+  }
+  .about-info-entry {
+    @apply relative text-svgGrey w-fit text-nowrap;
+  }
+}

@@ -5,22 +5,23 @@
 html,
 body {
   width: 100%;
+  height: 100%;
   overflow-y: hidden;
 }
 
 @layer components {
   .top-parent {
-    @apply flex flex-col w-full;
+    @apply flex flex-col w-full h-full;
   }
   .global-search-bar {
     @apply min-h-[10vh] bg-black;
   }
   .app-container {
-    @apply flex flex-row gap-5 bg-black w-full;
+    @apply flex flex-row gap-5 bg-black w-full h-full;
     overflow-y: hidden;
   }
 
   .app-container > * {
-    @apply rounded-lg;
+    @apply rounded-lg overflow-y-scroll h-full;
   }
 }
