@@ -26,7 +26,9 @@ export default function UserLibrary() {
   return (
     <div
       className={`library-container ${
-        compact ? `w-[5vw]` : " md:min-w-[220px] w-[15vw]"
+        compact
+          ? `w-[5vw] max-w-[5vw]`
+          : " md:min-w-[220px] w-[15vw] max-w-[15vw]"
       }`}
     >
       <VerticalScrollGrid title="Library" cards={library} compact={compact} />
