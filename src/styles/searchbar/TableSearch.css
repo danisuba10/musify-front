@@ -6,7 +6,7 @@
   .table-container {
   }
   .table-title {
-    @apply relative text-white text-sm md:text-2xl font-bold ml-5 overflow-x-hidden;
+    @apply relative text-white text-sm md:text-2xl font-bold ml-5 pl-4 overflow-x-hidden;
   }
   .table-container {
     @apply relative h-auto overflow-x-hidden;

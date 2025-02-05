@@ -13,7 +13,7 @@
     @apply relative overflow-hidden h-full w-full md:min-w-[200px] md:min-h-[250px];
   }
   .horizontal-scroll-card-content {
-    @apply relative flex flex-col items-center gap-2 w-full h-full overflow-hidden hover:bg-gray-600;
+    @apply relative flex flex-col items-center gap-2 w-full h-fit overflow-hidden hover:bg-gray-600;
   }
   .table-card-content {
     @apply relative flex flex-col items-center gap-2 w-full h-auto overflow-hidden hover:bg-gray-600;
