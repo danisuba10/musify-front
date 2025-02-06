@@ -21,6 +21,9 @@
   .horizontal-scroll-image-container {
     @apply relative aspect-square w-auto h-[60%] overflow-hidden;
   }
+  .horizontal-scroll-image-container:hover {
+    @apply cursor-pointer;
+  }
   .horizontal-scroll-image {
     @apply relative w-[100%] h-[100%] object-cover p-2;
   }

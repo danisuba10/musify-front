@@ -13,8 +13,13 @@ export default function Home() {
         title="Popular artists"
         artists={artists}
         type="circle"
+        route="/artist/"
       />
-      <HorizontalScrollGrid title="Favourite artists" artists={artists} />
+      <HorizontalScrollGrid
+        title="Favourite albums"
+        artists={artists}
+        route="/album/"
+      />
       <HorizontalScrollGrid
         title="Popular artists"
         artists={artists}

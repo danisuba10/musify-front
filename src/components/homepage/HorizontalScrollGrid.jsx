@@ -3,7 +3,7 @@ import ArtistCard from "./HorizontalScrollCard";
 import "../../styles/homepage/HorizontalScrollGrid.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const HorizontalScrollGrid = ({ title, artists, type }) => {
+const HorizontalScrollGrid = ({ title, artists, type, route }) => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
 
@@ -61,10 +61,12 @@ const HorizontalScrollGrid = ({ title, artists, type }) => {
           {artists.map((artist, index) => (
             <ArtistCard
               key={index}
+              id={artist.id}
               image={artist.image}
               name={artist.name}
               subtitle={artist.subtitle}
               typeCSS={typeCSS}
+              route={route}
             />
           ))}
         </div>

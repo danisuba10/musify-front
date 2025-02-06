@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 
 import "./App.css";
-import Home from "./components/homepage/home";
+import Home from "./components/homepage/Home";
 import "./styles/tailwind.css";
 import UserLibrary from "./components/user_library/ULibrary";
 import SearchBar from "./components/search_bar/SearchBar";
@@ -40,6 +40,16 @@ function App() {
             />
             <Route
               path="/artist/:id"
+              element={
+                isSearch ? (
+                  <Search term={term} />
+                ) : (
+                  <CollectionDetail collection={artist} elements={songs} />
+                )
+              }
+            />
+            <Route
+              path="/album/:id"
               element={
                 isSearch ? (
                   <Search term={term} />

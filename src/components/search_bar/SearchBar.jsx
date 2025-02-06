@@ -21,7 +21,7 @@ const SearchBar = ({ onClick, onSearch }) => {
 
   return (
     <div className="search-bar-container">
-      <div className="logo-container">
+      <div className="logo-container" onClick={handleHomeClick}>
         <Logo className="logo-svg" />
       </div>
       <div className="main">
