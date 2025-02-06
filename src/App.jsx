@@ -6,8 +6,6 @@ import Home from "./components/homepage/Home";
 import "./styles/tailwind.css";
 import UserLibrary from "./components/user_library/ULibrary";
 import SearchBar from "./components/search_bar/SearchBar";
-import { use } from "react";
-import LoginOverlay from "./components/auth/LoginForm";
 import AuthOverlay from "./components/auth/AuthOverlay";
 
 import Search from "./components/search/Search";
