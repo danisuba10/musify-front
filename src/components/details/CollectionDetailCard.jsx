@@ -5,7 +5,12 @@ import "../../styles/details/CollectionDetailCard.css";
 const CollectionDetailCard = ({ collection }) => {
   return (
     <>
-      <div className="collection-detail-card-container">
+      <div
+        className="collection-detail-card-container"
+        style={{
+          backgroundImage: `linear-gradient(to bottom, ${collection.colors.low}, ${collection.colors.middle})`,
+        }}
+      >
         <div className="collection-detail-image-container">
           <img className="collection-detail-img" src={collection.image} />
         </div>

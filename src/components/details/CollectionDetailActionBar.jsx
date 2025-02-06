@@ -5,10 +5,15 @@ import Play from "../../assets/play.svg?react";
 
 import "../../styles/details/ColelctionDetailActionBar.css";
 
-const CollectionDetailActionBar = () => {
+const CollectionDetailActionBar = ({ middleColor, topColor }) => {
   return (
     <>
-      <div className="collection-detail-action-bar">
+      <div
+        className="collection-detail-action-bar"
+        style={{
+          backgroundImage: `linear-gradient(to bottom, ${middleColor}, ${topColor})`,
+        }}
+      >
         <button className="play-button-container">
           <Play className="play-button" />
         </button>

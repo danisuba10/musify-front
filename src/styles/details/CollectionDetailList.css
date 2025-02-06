@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .collection-list-container {
+    @apply bg-displayBlack w-full h-fit;
+  }
+  .header-container {
+    @apply w-full h-[10vh] flex flex-row;
+  }
+  .header-container-inside {
+    @apply w-full h-full flex pt-3 pb-3 justify-between border-b border-b-svgGrey ml-6 mr-6;
+  }
+  .left-container {
+    @apply w-fit h-full flex flex-row gap-8 items-center justify-start pl-6;
+  }
+  .left-container-element {
+    @apply text-svgGrey;
+  }
+  .right-container {
+    @apply w-fit flex flex-row items-center p-2 justify-end pr-6 h-[90%];
+  }
+  .duration-svg {
+    @apply fill-svgGrey h-full w-full;
+  }
+  .list-container {
+    @apply w-full h-fit grid grid-cols-1 gap-1 p-4;
+  }
+  .list-row {
+    @apply flex w-full h-fit;
+  }
+}
