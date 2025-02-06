@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 
 import "./App.css";
 import Home from "./components/homepage/home";
@@ -11,7 +12,7 @@ import AuthOverlay from "./components/auth/AuthOverlay";
 
 import Search from "./components/search/Search";
 import CollectionDetail from "./components/details/CollectionDetail";
-import { artist } from "./assets/Constants";
+import { artist, songs } from "./assets/Constants";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -19,27 +20,39 @@ function App() {
   const [term, setTerm] = useState("");
 
   return (
-    <div className="top-parent">
-      <div className="global-search-bar">
-        <SearchBar
-          onClick={() => setShowLogin(true)}
-          onSearch={(is, e) => {
-            setIsSearch(is);
-            setTerm(e);
-          }}
-        />
+    <Router>
+      <div className="top-parent">
+        <div className="global-search-bar">
+          <SearchBar
+            onClick={() => setShowLogin(true)}
+            onSearch={(is, e) => {
+              setIsSearch(is);
+              setTerm(e);
+            }}
+          />
+        </div>
+        <div className="app-container">
+          <UserLibrary />
+          <Routes>
+            <Route
+              path="/"
+              element={isSearch ? <Search term={term} /> : <Home />}
+            />
+            <Route
+              path="/artist/:id"
+              element={
+                isSearch ? (
+                  <Search term={term} />
+                ) : (
+                  <CollectionDetail collection={artist} elements={songs} />
+                )
+              }
+            />
+          </Routes>
+        </div>
+        {showLogin && <AuthOverlay onClose={() => setShowLogin(false)} />}
       </div>
-      <div className="app-container">
-        <UserLibrary />
-        {/* {isSearch ? <Search term={term} /> : <Home />} */}
-        {isSearch ? (
-          <Search term={term} />
-        ) : (
-          <CollectionDetail collection={artist} />
-        )}
-      </div>
-      {showLogin && <AuthOverlay onClose={() => setShowLogin(false)} />}
-    </div>
+    </Router>
   );
 }
 

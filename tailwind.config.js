@@ -15,6 +15,7 @@ export default {
       colors: {
         menuGrey: "rgb(40,36,36)",
         svgGrey: "#b1b1b1",
+        displayBlack: "#201c1c",
       },
       screens: {
         sm: "600px",

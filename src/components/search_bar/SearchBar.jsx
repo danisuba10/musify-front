@@ -15,13 +15,17 @@ const SearchBar = ({ onClick, onSearch }) => {
     }
   };
 
+  const handleHomeClick = () => {
+    window.location.href = "/";
+  };
+
   return (
     <div className="search-bar-container">
       <div className="logo-container">
         <Logo className="logo-svg" />
       </div>
       <div className="main">
-        <div className="home-button-container">
+        <div className="home-button-container" onClick={handleHomeClick}>
           <Home className="home-svg" />
         </div>
         <div className="search-input">
