@@ -21,9 +21,10 @@ export default function Home() {
         route="/album/"
       />
       <HorizontalScrollGrid
-        title="Popular artists"
+        title="Popular users"
         artists={artists}
         type="circle"
+        route="/profile/"
       />
       <HorizontalScrollGrid title="Favourite artists" artists={artists} />
       <HorizontalScrollGrid

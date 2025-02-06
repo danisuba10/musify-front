@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .profile-detail-action-bar {
+    @apply flex flex-row h-[10vh] w-full gap-3 pr-2 pl-6 pt-4 pb-4 justify-center sm:justify-start;
+  }
+  .follow-button-container {
+    @apply relative flex justify-center items-center rounded-3xl p-2 border border-svgGrey h-auto w-[50%] sm:w-[10%];
+    transition: transform 0.1s ease;
+  }
+  .follow-button-container:hover {
+    transform: scale(1.03);
+  }
+  .follow-button {
+    @apply text-white text-sm font-bold;
+  }
+}

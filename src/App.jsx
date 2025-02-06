@@ -9,8 +9,10 @@ import SearchBar from "./components/search_bar/SearchBar";
 import AuthOverlay from "./components/auth/AuthOverlay";
 
 import Search from "./components/search/Search";
-import CollectionDetail from "./components/details/CollectionDetail";
-import { artist, songs } from "./assets/Constants";
+import CollectionDetail from "./components/details/CollectionDetail/CollectionDetail";
+import ProfileDetail from "./components/details/ProfileDetail/ProfileDetail";
+
+import { artist, songs, profile } from "./assets/Constants";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -42,7 +44,11 @@ function App() {
                 isSearch ? (
                   <Search term={term} />
                 ) : (
-                  <CollectionDetail collection={artist} elements={songs} />
+                  <CollectionDetail
+                    collection={artist}
+                    elements={songs}
+                    type="album"
+                  />
                 )
               }
             />
@@ -53,6 +59,16 @@ function App() {
                   <Search term={term} />
                 ) : (
                   <CollectionDetail collection={artist} elements={songs} />
+                )
+              }
+            />
+            <Route
+              path="/profile/:id"
+              element={
+                isSearch ? (
+                  <Search term={term} />
+                ) : (
+                  <ProfileDetail profile={profile} />
                 )
               }
             />
