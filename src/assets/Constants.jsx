@@ -294,3 +294,20 @@ export const songs = [
     duration: 386, // 6 minutes 26 seconds
   },
 ];
+
+export const profile = {
+  colors: {
+    low: "#6f3a73",
+    middle: "#3a1e3c",
+    top: "#2a162c",
+  },
+  image:
+    "https://render.fineartamerica.com/images/rendered/default/poster/5.5/8/break/images/artworkimages/medium/3/1-dave-mustaine-megadeth-concert-photos.jpg",
+  name: "User Profile",
+  type: "Profile",
+  details: {
+    public_playlist_cnt: 16,
+    followers: 3,
+    following: 7,
+  },
+};

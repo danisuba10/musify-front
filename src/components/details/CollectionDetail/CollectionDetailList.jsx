@@ -1,7 +1,7 @@
 import React from "react";
 
-import "../../styles/details/CollectionDetailList.css";
-import Duration from "../../assets/duration.svg?react";
+import "../../../styles/details/CollectionDetailList.css";
+import Duration from "../../../assets/duration.svg?react";
 import CollectionDetailListCard from "./CollectionDetailListCard";
 
 const CollectionDetailList = ({ elements }) => {

@@ -27,10 +27,16 @@
   .list-card-name {
     @apply relative text-xl text-white;
   }
+  .list-card-name:hover {
+    @apply underline;
+  }
   .list-card-artists {
     @apply relative flex flex-row;
   }
   .artist-style {
     @apply text-base text-svgGrey;
+  }
+  .artist-style:hover {
+    @apply underline;
   }
 }

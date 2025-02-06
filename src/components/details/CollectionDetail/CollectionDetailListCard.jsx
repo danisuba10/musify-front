@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../../styles/details/CollectionDetailListCard.css";
+import "../../../styles/details/CollectionDetailListCard.css";
 
 const CollectionDetailListCard = ({ details }) => {
   function duration_to_str(duration) {

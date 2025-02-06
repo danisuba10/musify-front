@@ -25,6 +25,10 @@
   .collection-detail-name {
     @apply relative text-white sm:text-2xl md:text-6xl font-bold h-fit;
   }
+  .collection-detail-name {
+    @apply relative text-white sm:text-2xl md:text-6xl font-bold h-fit;
+  }
+
   .collection-detail-details {
     @apply flex flex-col sm:flex-row gap-1 mt-4 h-fit;
   }
