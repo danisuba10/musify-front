@@ -1,8 +1,7 @@
 import React from "react";
 
 import Add from "../../../assets/add.svg?react";
-import Play from "../../../assets/play.svg?react";
-
+import PlayButton from "./PlayButton";
 import "../../../styles/details/ColelctionDetailActionBar.css";
 
 const CollectionDetailActionBar = ({ middleColor, topColor }) => {
@@ -14,9 +13,7 @@ const CollectionDetailActionBar = ({ middleColor, topColor }) => {
           backgroundImage: `linear-gradient(to bottom, ${middleColor}, ${topColor})`,
         }}
       >
-        <button className="play-button-container">
-          <Play className="play-button" />
-        </button>
+        <PlayButton />
         <button className="add-button-container">
           <Add className="add-button" />
         </button>
