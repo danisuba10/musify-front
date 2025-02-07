@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "../../../styles/details/CollectionDetailListCard.css";
+import PlayButton from "./PlayButton";
 
 const CollectionDetailListCard = ({ details }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   function duration_to_str(duration) {
     const hours = Math.floor(duration / 3600);
     const minutes = Math.floor((duration % 3600) / 60);
@@ -17,10 +20,16 @@ const CollectionDetailListCard = ({ details }) => {
 
   return (
     <>
-      <div className="detail-list-card">
+      <div
+        className="detail-list-card"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <div className="detail-list-card-container">
           <div className="song-part">
-            <div className="list-card-order">{details.order}</div>
+            <div className="list-card-order">
+              {!isHovered && details.order} {isHovered && <PlayButton />}
+            </div>
             <div className="list-card-details">
               <div className="list-card-name">{details.name}</div>
               <div className="list-card-artists">

@@ -19,7 +19,7 @@
     @apply relative w-fit h-auto text-svgGrey text-lg;
   }
   .list-card-order {
-    @apply relative flex items-center justify-center text-xl w-[5%] h-min text-svgGrey p-4 aspect-square;
+    @apply relative flex items-center justify-center text-xl w-[7%] h-min text-svgGrey p-4 aspect-square;
   }
   .list-card-details {
     @apply w-full h-fit relative flex flex-col justify-center items-start;
