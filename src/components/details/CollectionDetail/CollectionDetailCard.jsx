@@ -1,9 +1,27 @@
 import React, { useEffect, useState } from "react";
+import Modify from "../../../assets/edit.svg?react";
 
 import "../../../styles/details/CollectionDetailCard.css";
 
-const CollectionDetailCard = ({ collection, typeCSS, type }) => {
+const CollectionDetailCard = ({ collection, typeCSS, type, isModify }) => {
   const [followsUser, setFollowsUser] = useState(true);
+  const [imageFile, setImageFile] = useState(null);
+  const [nameInput, setNameInput] = useState(collection.name || "");
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(URL.createObjectURL(file));
+    }
+  };
+
+  const handleNameChange = (e) => {
+    setNameInput(e.target.value);
+  };
+
+  const triggerFileInput = () => {
+    document.getElementById("imageInput").click();
+  };
 
   const type_prop = typeCSS === "circle" ? "rounded-full" : "";
   return (
@@ -15,14 +33,48 @@ const CollectionDetailCard = ({ collection, typeCSS, type }) => {
         }}
       >
         <div className="collection-detail-image-container">
-          <img
-            className={`collection-detail-img ${type_prop}`}
-            src={collection.image}
-          />
+          {isModify && (
+            <>
+              <input
+                id="imageInput"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+              />
+              <img
+                className={`collection-detail-img ${type_prop}`}
+                src={imageFile || collection.image}
+              />
+              <div
+                onClick={triggerFileInput}
+                className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gradient-to-b from-gray-600/60 to-gray-900/60 opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+              >
+                <Modify className="w-12 h-12 fill-white" />
+              </div>
+            </>
+          )}
+          {!isModify && (
+            <img
+              className={`collection-detail-img ${type_prop}`}
+              src={imageFile || collection.image}
+            />
+          )}
         </div>
-        <div className="collection-detail-about">
+        <div className="collection-detail-about gap-3">
           <div className="collection-detail-type">{collection.type}</div>
-          <div className="collection-detail-name">{collection.name}</div>
+          {isModify && (
+            <textarea
+              value={nameInput}
+              onChange={handleNameChange}
+              className="collection-detail-name text-3xl w-[90%] bg-transparent ml-1 min-h-[100px] focus:ring-2 focus:ring-green-500 outline-none"
+              placeholder={"Enter album name"}
+              rows={1}
+            />
+          )}
+          {!isModify && (
+            <div className="collection-detail-name">{collection.name}</div>
+          )}
           <div className="collection-detail-details">
             {type === "album" && (
               <>

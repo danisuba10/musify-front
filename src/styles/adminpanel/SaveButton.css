@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 @layer components {
-  .delete-button-container {
-    @apply relative h-[80%] flex justify-center items-center bg-svgGrey rounded-full aspect-square p-2;
+  .save-button-container {
+    @apply relative flex justify-center h-[80%] items-center bg-svgGrey rounded-full aspect-square p-2;
     transition: transform 0.1s ease;
   }
-  .delete-button-container:hover {
+  .save-button-container:hover {
     @apply bg-gray-400;
     transform: scale(1.05);
   }
-  .delete-button {
+  .save-button {
     @apply relative flex w-[80%] h-auto;
   }
 }

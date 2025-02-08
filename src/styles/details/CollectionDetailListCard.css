@@ -4,25 +4,25 @@
 
 @layer components {
   .detail-list-card {
-    @apply relative h-fit w-full;
+    @apply relative h-full w-full flex flex-row;
   }
   .detail-list-card-container {
     @apply relative h-fit w-auto flex flex-row justify-between;
   }
   .song-part {
-    @apply relative h-min w-full flex flex-row pr-4 pl-4 pt-2 pb-2 gap-2 items-center justify-center;
+    @apply relative h-min w-full flex flex-row pr-4 pl-4 pt-2 pb-2 gap-2 items-center justify-start;
   }
   .song-duration-part {
-    @apply relative h-auto w-[15%] flex flex-row pr-4 pl-4 pt-2 pb-2 gap-2 items-center justify-center;
+    @apply relative h-auto w-[35%] flex flex-grow flex-row pr-4 pl-4 pt-2 pb-2 gap-2 items-center justify-center;
   }
   .song-duration {
-    @apply relative w-fit h-auto text-svgGrey text-lg;
+    @apply relative w-fit h-full text-svgGrey text-lg flex flex-grow items-center justify-center;
   }
   .list-card-order {
     @apply relative flex items-center justify-center text-xl w-[7%] h-min text-svgGrey p-4 aspect-square;
   }
   .list-card-details {
-    @apply w-full h-fit relative flex flex-col justify-center items-start;
+    @apply w-fit h-fit relative flex flex-col justify-center items-start;
   }
   .list-card-name {
     @apply relative text-xl text-white;

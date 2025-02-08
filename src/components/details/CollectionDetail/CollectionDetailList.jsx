@@ -2,9 +2,16 @@ import React from "react";
 
 import "../../../styles/details/CollectionDetailList.css";
 import Duration from "../../../assets/duration.svg?react";
+import DeleteButton from "../../../assets/delete.svg?react";
+
 import CollectionDetailListCard from "./CollectionDetailListCard";
 
-const CollectionDetailList = ({ elements }) => {
+const CollectionDetailList = ({
+  elements,
+  isModify,
+  toDelete,
+  itemsToBeDeleted,
+}) => {
   return (
     <>
       <div className="collection-list-container">
@@ -22,7 +29,14 @@ const CollectionDetailList = ({ elements }) => {
         <div className="list-container">
           {elements.map((element, index) => (
             <div key={index} className="list-row">
-              <CollectionDetailListCard details={element} />
+              <CollectionDetailListCard
+                details={element}
+                isModify={isModify}
+                isMarkedForDelete={
+                  itemsToBeDeleted && itemsToBeDeleted.has(element.id)
+                }
+                toDelete={() => toDelete(element.id)}
+              />
             </div>
           ))}
           <div className="mt-16"></div>

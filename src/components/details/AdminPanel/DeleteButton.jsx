@@ -4,8 +4,8 @@ import DeleteSVG from "../../../assets/delete.svg?react";
 
 const DeleteButton = ({ onClickFunc }) => {
   return (
-    <button className="play-button-container" onClick={onClickFunc}>
-      <DeleteSVG className="play-button" />
+    <button className="delete-button-container" onClick={onClickFunc}>
+      <DeleteSVG className="delete-button" />
     </button>
   );
 };

@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import Add from "../../../assets/add.svg?react";
 import PlayButton from "./PlayButton";
-import "../../../styles/details/ColelctionDetailActionBar.css";
+import EditButton from "../../../assets/edit.svg?react";
+import "../../../styles/details/CollectionDetailActionBar.css";
+import DeleteButton from "../AdminPanel/DeleteButton";
+import { AuthContext } from "../../auth/AuthProvider";
 
-const CollectionDetailActionBar = ({ middleColor, topColor }) => {
+const CollectionDetailActionBar = ({
+  middleColor,
+  topColor,
+  isModify,
+  toDelete,
+}) => {
+  const { isAdmin } = useContext(AuthContext);
+
   return (
     <>
       <div
@@ -13,10 +23,28 @@ const CollectionDetailActionBar = ({ middleColor, topColor }) => {
           backgroundImage: `linear-gradient(to bottom, ${middleColor}, ${topColor})`,
         }}
       >
-        <PlayButton />
-        <button className="add-button-container">
-          <Add className="add-button" />
-        </button>
+        {isModify && (
+          <>
+            <div className="add-button-container">
+              <DeleteButton className="add-button" onClickFunc={toDelete} />
+            </div>
+          </>
+        )}
+        {!isModify && (
+          <>
+            <button className="add-button-container">
+              <PlayButton />
+            </button>
+            <button className="add-button-container">
+              <Add className="add-button" />
+            </button>
+            {isAdmin && (
+              <button className="add-button-container">
+                <EditButton className="add-button" />
+              </button>
+            )}
+          </>
+        )}
       </div>
     </>
   );
