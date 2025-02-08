@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 
 import "../../styles/auth/Auth.css";
+import { AuthContext } from "./AuthProvider";
 
-const RegisterForm = ({ toLogin }) => {
+const RegisterForm = ({ toLogin, close }) => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const { register } = useContext(AuthContext);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password === confirmPassword) {
+      register(email, password);
+      close();
+    }
+  };
 
   return (
     <>
       <h2 className="login-title">Register</h2>
-      <form className="login-form">
+      <form className="login-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label className="form-label">Username</label>
           <input

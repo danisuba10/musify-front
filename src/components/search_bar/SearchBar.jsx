@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../../styles/searchbar/SearchBar.css";
 import Logo from "../../assets/spotify.svg?react";
 import Home from "../../assets/home.svg?react";
 import Magnifier from "../../assets/magni.svg?react";
 import Account from "../../assets/profile.svg?react";
+import Admin from "../../assets/admin.svg?react";
+import { AuthContext } from "../auth/AuthProvider";
 
 const SearchBar = ({ onClick, onSearch }) => {
+  const { isAdmin } = useContext(AuthContext);
+
   const handleInputChange = (e) => {
     const value = e.target.value;
     if (value.length > 0) {
@@ -17,6 +21,9 @@ const SearchBar = ({ onClick, onSearch }) => {
 
   const handleHomeClick = () => {
     window.location.href = "/";
+  };
+  const handleAdminPanelClick = () => {
+    window.location.href = "/admin/";
   };
 
   return (
@@ -40,6 +47,14 @@ const SearchBar = ({ onClick, onSearch }) => {
         </div>
       </div>
       <div className="user-part float-right">
+        {isAdmin && (
+          <button
+            className="home-button-container"
+            onClick={handleAdminPanelClick}
+          >
+            <Admin className="home-svg" />
+          </button>
+        )}
         <button className="home-button-container" onClick={onClick}>
           <Account className="home-svg" />
         </button>

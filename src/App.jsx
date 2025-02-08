@@ -13,6 +13,8 @@ import CollectionDetail from "./components/details/CollectionDetail/CollectionDe
 import ProfileDetail from "./components/details/ProfileDetail/ProfileDetail";
 
 import { artist, songs, profile } from "./assets/Constants";
+import AdminPanel from "./components/details/AdminPanel/AdminPanel";
+import AuthProvider from "./components/auth/AuthProvider";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -20,63 +22,66 @@ function App() {
   const [term, setTerm] = useState("");
 
   return (
-    <Router>
-      <div className="top-parent">
-        <div className="global-search-bar">
-          <SearchBar
-            onClick={() => setShowLogin(true)}
-            onSearch={(is, e) => {
-              setIsSearch(is);
-              setTerm(e);
-            }}
-          />
+    <AuthProvider>
+      <Router>
+        <div className="top-parent">
+          <div className="global-search-bar">
+            <SearchBar
+              onClick={() => setShowLogin(true)}
+              onSearch={(is, e) => {
+                setIsSearch(is);
+                setTerm(e);
+              }}
+            />
+          </div>
+          <div className="app-container">
+            <UserLibrary />
+            <Routes>
+              <Route
+                path="/"
+                element={isSearch ? <Search term={term} /> : <Home />}
+              />
+              <Route
+                path="/artist/:id"
+                element={
+                  isSearch ? (
+                    <Search term={term} />
+                  ) : (
+                    <CollectionDetail
+                      collection={artist}
+                      elements={songs}
+                      type="album"
+                    />
+                  )
+                }
+              />
+              <Route
+                path="/album/:id"
+                element={
+                  isSearch ? (
+                    <Search term={term} />
+                  ) : (
+                    <CollectionDetail collection={artist} elements={songs} />
+                  )
+                }
+              />
+              <Route
+                path="/profile/:id"
+                element={
+                  isSearch ? (
+                    <Search term={term} />
+                  ) : (
+                    <ProfileDetail profile={profile} />
+                  )
+                }
+              />
+              <Route path="/admin/*" element={<AdminPanel />} />
+            </Routes>
+          </div>
+          {showLogin && <AuthOverlay onClose={() => setShowLogin(false)} />}
         </div>
-        <div className="app-container">
-          <UserLibrary />
-          <Routes>
-            <Route
-              path="/"
-              element={isSearch ? <Search term={term} /> : <Home />}
-            />
-            <Route
-              path="/artist/:id"
-              element={
-                isSearch ? (
-                  <Search term={term} />
-                ) : (
-                  <CollectionDetail
-                    collection={artist}
-                    elements={songs}
-                    type="album"
-                  />
-                )
-              }
-            />
-            <Route
-              path="/album/:id"
-              element={
-                isSearch ? (
-                  <Search term={term} />
-                ) : (
-                  <CollectionDetail collection={artist} elements={songs} />
-                )
-              }
-            />
-            <Route
-              path="/profile/:id"
-              element={
-                isSearch ? (
-                  <Search term={term} />
-                ) : (
-                  <ProfileDetail profile={profile} />
-                )
-              }
-            />
-          </Routes>
-        </div>
-        {showLogin && <AuthOverlay onClose={() => setShowLogin(false)} />}
-      </div>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 

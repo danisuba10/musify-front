@@ -50,6 +50,6 @@
     background-image: linear-gradient(to right, #191910, #191912);
   }
   .user-part {
-    @apply flex items-center justify-center mr-3;
+    @apply flex items-center justify-center mr-3 gap-3;
   }
 }

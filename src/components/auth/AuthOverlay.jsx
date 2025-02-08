@@ -14,9 +14,9 @@ const AuthOverlay = ({ onClose }) => {
           ✕
         </button>
         {isLogin ? (
-          <LoginForm toRegister={() => setIsLogin(false)} />
+          <LoginForm toRegister={() => setIsLogin(false)} close={onClose} />
         ) : (
-          <RegisterForm toLogin={() => setIsLogin(true)} />
+          <RegisterForm toLogin={() => setIsLogin(true)} close={onClose} />
         )}
       </div>
     </div>

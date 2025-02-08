@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .admin-menu-container {
+    @apply w-[50%] h-[100%] flex flex-col gap-6 items-center justify-center rounded-lg;
+    transition: transform 0.1s ease;
+    background-image: linear-gradient(to right, #191910, #191912);
+  }
+  .admin-menu-button {
+    @apply rounded-full pl-4 pr-4 pt-2 pb-2 w-[20vw] border border-white;
+  }
+  .admin-menu-button:hover {
+    transform: scale(1.04);
+  }
+  .admin-menu-entry {
+    @apply text-white text-2xl font-bold;
+  }
+}

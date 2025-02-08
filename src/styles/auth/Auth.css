@@ -12,14 +12,19 @@
   .login-container {
     @apply relative bg-zinc-900 rounded-lg shadow-xl flex flex-col;
     width: clamp(300px, 40vw, 800px);
-    height: clamp(400px, 40vh, 600px);
+    /* height: clamp(400px, 40vh, 800px); */
+    height: fit-content;
     padding: clamp(1rem, 3vh, 2rem) clamp(1.5rem, 4vw, 3rem);
   }
   .register-container {
-    @apply relative bg-zinc-900 rounded-lg shadow-xl flex flex-col;
+    @apply relative bg-zinc-900 rounded-lg shadow-xl flex flex-col overflow-y-auto;
     width: clamp(300px, 40vw, 800px);
-    height: clamp(400px, 80vh, 600px);
-    padding: clamp(1rem, 3vh, 2rem) clamp(1.5rem, 4vw, 3rem);
+    /* height: clamp(400px, 80vh, 600px); */
+    height: min-content;
+    padding-top: clamp(1rem, 3vh, 2rem);
+    padding-bottom: clamp(1rem, 3vh, 2rem);
+    padding-left: clamp(1.5rem, 4vw, 3rem);
+    padding-right: clamp(1.5rem, 4vw, 3rem);
   }
   .login-close-button {
     @apply absolute text-gray-400 hover:text-white transition-colors;
@@ -34,19 +39,19 @@
   }
   .login-form {
     @apply flex flex-col flex-1 overflow-hidden;
-    gap: clamp(0.75rem, 2vh, 1.5rem);
+    /* gap: clamp(0.75rem, 2vh, 1.5rem); */
   }
   .form-group {
-    @apply flex flex-col;
-    gap: clamp(0.25rem, 1vh, 0.75rem);
+    @apply flex flex-col gap-1 mb-0;
+    /* gap: clamp(0.25rem, 1vh, 0.75rem); */
   }
   .form-label {
     @apply text-gray-300;
     font-size: clamp(0.75rem, 1.5vh, 1rem);
   }
   .form-input {
-    @apply bg-zinc-800 text-white rounded ml-1 mr-1;
-    height: clamp(2.5rem, 5vh, 3rem);
+    @apply bg-zinc-800 text-white rounded ml-1 mr-1 h-[6vh];
+    /* height: clamp(2.5rem, 5vh, 3rem); */
     padding: 0 clamp(0.75rem, 1.5vw, 1.25rem);
     font-size: clamp(0.875rem, 1.5vh, 1rem);
   }
