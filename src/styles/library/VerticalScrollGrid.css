@@ -7,7 +7,7 @@
     @apply overflow-y-auto h-[100vh] w-full min-h-[300px] flex flex-col flex-shrink-0 overflow-hidden;
   }
   .vertical-scroll-grid-header {
-    @apply relative flex min-h-[50px] justify-evenly items-center ml-4 mr-4 mt-6 mb-6 overflow-hidden;
+    @apply relative flex min-h-[50px] justify-evenly items-center mt-6 mb-6 overflow-hidden;
   }
   .vertical-scroll-grid-title {
     @apply relative max-w-[80px] md:min-w-[90px] text-white ml-3 text-2xl font-bold overflow-hidden;
@@ -30,7 +30,7 @@
     fill: whitesmoke;
   }
   .svg-library-compact {
-    @apply relative mt-1.5;
+    @apply relative pt-1.5 pb-1.5;
     fill: #b1b1b1;
   }
   .svg-library-compact:hover {

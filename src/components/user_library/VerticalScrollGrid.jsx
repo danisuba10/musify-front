@@ -45,6 +45,7 @@ const VerticalScrollGrid = ({ title, cards, type, compact }) => {
       {compact && (
         <div className="vertical-scroll-grid-header">
           <button
+            className="w-max flex items-center justify-center"
             onClick={() => {
               const newCompactValue = !compact;
               Cookies.set("compact", newCompactValue, {
@@ -53,8 +54,8 @@ const VerticalScrollGrid = ({ title, cards, type, compact }) => {
               });
             }}
           >
-            <div className="vertical-scroll-card-ui-compact">
-              <div className="vertical-scroll-card-content">
+            <div className="vertical-scroll-card-ui-compact hover:bg-transparent">
+              <div className="vertical-scroll-card-content h-auto">
                 <div className="vertical-scroll-image-container">
                   <Library className="svg-library-compact" />
                 </div>

@@ -5,6 +5,7 @@
 html,
 body {
   overscroll-behavior: none;
+  height: 100%;
   width: 100%;
 }
 
@@ -17,8 +18,9 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
-    overflow: auto;
-    overflow-y: scroll;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    max-height: 100vh;
     @apply md:min-w-[80px] min-w-[70px];
   }
 }
