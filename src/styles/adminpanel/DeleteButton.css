@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .play-button-container {
+    @apply relative flex justify-center items-center bg-svgGrey rounded-full aspect-square p-2;
+    transition: transform 0.1s ease;
+  }
+  .play-button-container:hover {
+    @apply bg-gray-400;
+    transform: scale(1.05);
+  }
+  .play-button {
+    @apply relative flex w-[80%] h-auto;
+  }
+}

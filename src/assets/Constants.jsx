@@ -219,75 +219,81 @@ export const artist = {
     song_count: 12,
     total_length_str: "40 min 23 sec",
   },
-  accent: {
-    low: "#749cc4",
-    mid: "#203c64",
-    highS: "#072e64",
-  },
 };
 
 export const songs = [
   {
+    id: "song1",
     order: 1,
     name: "Skin o' My Teeth",
     artists: ["Megadeth"],
     duration: 189, // 3 minutes 9 seconds
   },
   {
+    id: "song2",
     order: 2,
     name: "Symphony of Destruction",
     artists: ["Megadeth"],
     duration: 251, // 4 minutes 11 seconds
   },
   {
+    id: "song3",
     order: 3,
     name: "Architecture of Aggression",
     artists: ["Megadeth"],
     duration: 193, // 3 minutes 13 seconds
   },
   {
+    id: "song4",
     order: 4,
     name: "Foreclosure of a Dream",
     artists: ["Megadeth"],
     duration: 255, // 4 minutes 15 seconds
   },
   {
+    id: "song5",
     order: 5,
     name: "Sweating Bullets",
     artists: ["Megadeth"],
     duration: 322, // 5 minutes 22 seconds
   },
   {
+    id: "song6",
     order: 6,
     name: "This Was My Life",
     artists: ["Megadeth"],
     duration: 221, // 3 minutes 41 seconds
   },
   {
+    id: "song7",
     order: 7,
     name: "Countdown to Extinction",
     artists: ["Megadeth"],
     duration: 258, // 4 minutes 18 seconds
   },
   {
+    id: "song8",
     order: 8,
     name: "High Speed Dirt",
     artists: ["Megadeth"],
     duration: 248, // 4 minutes 8 seconds
   },
   {
+    id: "song9",
     order: 9,
     name: "Psychotron",
     artists: ["Megadeth"],
     duration: 276, // 4 minutes 36 seconds
   },
   {
+    id: "song10",
     order: 10,
     name: "Captive Honour",
     artists: ["Megadeth"],
     duration: 238, // 3 minutes 58 seconds
   },
   {
+    id: "song11",
     order: 11,
     name: "Ashes in Your Mouth",
     artists: ["Megadeth"],

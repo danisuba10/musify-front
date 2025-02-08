@@ -16,6 +16,8 @@ export default {
         menuGrey: "rgb(40,36,36)",
         svgGrey: "#b1b1b1",
         displayBlack: "#201c1c",
+        formGrey: "#302c2c",
+        deleteOrange: "d37032",
       },
       screens: {
         sm: "600px",
