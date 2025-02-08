@@ -27,7 +27,7 @@ export default function UserLibrary() {
     <div
       className={`library-container ${
         compact
-          ? `w-[5vw] max-w-[5vw]`
+          ? `md:min-w-fit w-[5vw] max-w-[5vw]`
           : " md:min-w-[220px] w-[15vw] max-w-[15vw]"
       }`}
     >
