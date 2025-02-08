@@ -19,6 +19,6 @@
     @apply fill-white;
   }
   .add-button {
-    @apply relative flex w-[80%] fill-svgGrey;
+    @apply relative flex w-[80%] h-full fill-svgGrey;
   }
 }
