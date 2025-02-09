@@ -31,7 +31,10 @@
     @apply underline;
   }
   .list-card-artists {
-    @apply relative flex flex-row;
+    @apply relative flex flex-row items-center gap-2 w-fit h-fit;
+  }
+  .artist-button {
+    @apply relative flex items-center h-fit w-fit;
   }
   .artist-style {
     @apply text-base text-svgGrey;
