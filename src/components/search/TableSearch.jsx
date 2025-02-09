@@ -17,6 +17,7 @@ const TableSearch = ({ title, type, elements, selectionFunc }) => {
             {elements.map((card, index) => (
               <TableElementCard
                 key={index}
+                id={card.id}
                 image={card.image}
                 name={card.name}
                 type={card.subtitle}
