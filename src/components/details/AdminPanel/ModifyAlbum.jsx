@@ -5,7 +5,7 @@ import CollectionDetailCard from "../CollectionDetail/CollectionDetailCard";
 import CollectionDetailActionBar from "../CollectionDetail/CollectionDetailActionBar";
 import CollectionDetailList from "../CollectionDetail/CollectionDetailList";
 
-const ModifyAlbum = ({ id, collection, elements }) => {
+const ModifyAlbum = ({ id, collection, elements, searchTerm }) => {
   const [markedToBeDeleted, setMarkedToBeDeleted] = useState(false);
   const [songsToBeDeleted, setSongsToBeDeleted] = useState(new Set());
 
@@ -30,7 +30,11 @@ const ModifyAlbum = ({ id, collection, elements }) => {
     <>
       <div className="detail-container">
         <div className="overflow-y-scroll overflow-x-hidden scroll-smooth h-full">
-          <CollectionDetailCard collection={collection} isModify={true} />
+          <CollectionDetailCard
+            collection={collection}
+            type="album"
+            isModify={true}
+          />
           <CollectionDetailActionBar
             middleColor={collection.colors.middle}
             topColor={collection.colors.top}
@@ -42,6 +46,7 @@ const ModifyAlbum = ({ id, collection, elements }) => {
             isModify={true}
             toDelete={deleteItemFromList}
             itemsToBeDeleted={songsToBeDeleted}
+            searchTerm={searchTerm}
           />
         </div>
       </div>
