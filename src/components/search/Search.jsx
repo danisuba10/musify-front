@@ -8,8 +8,8 @@ import { artists } from "../../assets/Constants";
 import "../../styles/homepage/home.css";
 import TableSearch from "./TableSearch";
 
-export default function Search({ term }) {
-  const [filter, setFilter] = useState("All");
+export default function Search({ term, selectionFunc, defaultFilter = "All" }) {
+  const [filter, setFilter] = useState(defaultFilter);
   const [searchDisplay, setSearchDisplay] = useState(<MixedSearch />);
 
   const handleFilterClick = (filterValue) => {
@@ -28,7 +28,12 @@ export default function Search({ term }) {
         break;
       case "Artists":
         setSearchDisplay(
-          <TableSearch title="Artists" type="circle" elements={artists} />
+          <TableSearch
+            title="Artists"
+            type="circle"
+            elements={artists}
+            selectionFunc={selectionFunc}
+          />
         );
         break;
       case "Playlists":

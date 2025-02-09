@@ -4,7 +4,7 @@ import scrollbarHide from "tailwind-scrollbar-hide";
 export default {
   content: [
     "./src/**/*.{js,jsx,ts,tsx,html}",
-    "./src/**/*.{css}",
+    "./src/**/*.css",
     "./index.html",
   ],
   theme: {

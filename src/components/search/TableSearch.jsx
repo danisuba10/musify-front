@@ -4,7 +4,7 @@ import { useState } from "react";
 import "../../styles/searchbar/TableSearch.css";
 import TableElementCard from "./TableElementCard";
 
-const TableSearch = ({ title, type, elements }) => {
+const TableSearch = ({ title, type, elements, selectionFunc }) => {
   const typeCSS = type === "circle" ? "rounded-full" : "";
   const containerRef = useRef(null);
 
@@ -21,6 +21,7 @@ const TableSearch = ({ title, type, elements }) => {
                 name={card.name}
                 type={card.subtitle}
                 typeCSS={typeCSS}
+                selectionFunc={selectionFunc}
               />
             ))}
           </div>

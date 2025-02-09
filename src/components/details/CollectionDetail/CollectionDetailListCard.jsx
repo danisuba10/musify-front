@@ -13,8 +13,19 @@ const CollectionDetailListCard = ({
 }) => {
   const [newName, setNewName] = useState(details.name);
   const [newOrder, setNewOrder] = useState(details.order);
+  const [oldDuration, setOldDuration] = useState(
+    duration_to_object(details.duration)
+  );
   const [newDuration, setNewDuration] = useState(
     duration_to_object(details.duration)
+  );
+  const [newArtists, setNewArtists] = useState(
+    new Set(
+      details.artists.map((artist) => ({
+        id: artist.id,
+        name: artist.name,
+      }))
+    )
   );
 
   const [isHovered, setIsHovered] = useState(false);
@@ -38,6 +49,23 @@ const CollectionDetailListCard = ({
     console.log(
       `API call has been made to change data for song with ID: ${details.id}!`
     );
+  };
+
+  const addOrRemoveArtist = ({ id, name }, type) => {
+    setNewArtists((oldArtists) => {
+      const updatedArtists = new Set(oldArtists);
+      if (type === "add") {
+        console.log(`Artist {id:${id}} name:${name}} added!`);
+        updatedArtists.add({ id, name });
+      } else if (type === "remove") {
+        updatedArtists.forEach((artist) => {
+          if (artist.id === id && artist.name === name) {
+            updatedArtists.delete(artist);
+          }
+        });
+      }
+      return updatedArtists;
+    });
   };
 
   function object_to_seconds(durationObj) {
@@ -140,13 +168,19 @@ const CollectionDetailListCard = ({
             </div>
             <div className="list-card-artists">
               {details.artists.map((artist, index) => (
-                <button key={index}>
-                  <div className="artist-style">{artist}</div>
+                <React.Fragment key="index">
+                  <button>
+                    <div className="artist-style">{artist.name}</div>
+                  </button>
                   {index < details.artists.length - 1 && (
-                    <div className="artist-style">, </div>
+                    <span className="artist-style mr-2">,</span>
                   )}
-                </button>
+                </React.Fragment>
               ))}
+              <div className="artist-style mr-2">, </div>
+              <button>
+                <div className="artist-style">Add artist</div>
+              </button>
             </div>
           </div>
         </div>
@@ -156,30 +190,30 @@ const CollectionDetailListCard = ({
             {isModify && (
               <div className="relative w-full h-fit flex flex-grow sm:flex-row flex-col gap-1 items-center justify-center pl-2 pr-2">
                 <input
-                  className="w-full min-w-[3vw] text-svgGrey text-left bg-displayBlack"
+                  className="w-full min-w-[3vw] text-svgGrey text-center bg-displayBlack"
                   id="newOrder"
                   type="text"
-                  placeholder={`${newDuration.hours}`}
+                  placeholder={`${newDuration.hours || oldDuration.hours}`}
                   onChange={handleHourChange}
                 />
                 <span className="relative w-full sm:w-min flex items-start text-start">
                   h
                 </span>
                 <input
-                  className="w-full min-w-[3vw] text-svgGrey bg-displayBlack"
+                  className="w-full min-w-[3vw] text-svgGrey text-center bg-displayBlack"
                   id="newOrder"
                   type="text"
-                  placeholder={`${newDuration.minutes}`}
+                  placeholder={`${newDuration.minutes || oldDuration.seconds}`}
                   onChange={handleMinuteChange}
                 />
                 <span className="relative w-full sm:w-min flex items-start text-start">
                   m
                 </span>
                 <input
-                  className="w-full min-w-[3vw] text-svgGrey bg-displayBlack"
+                  className="w-full min-w-[3vw] text-svgGrey text-center bg-displayBlack"
                   id="newOrder"
                   type="text"
-                  placeholder={`${newDuration.seconds}`}
+                  placeholder={`${newDuration.seconds || oldDuration.seconds}`}
                   onChange={handleSecondChange}
                 />
                 <span className="relative w-full sm:w-min flex items-start text-start">
