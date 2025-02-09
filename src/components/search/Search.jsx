@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import HorizontalScrollGrid from "../homepage/HorizontalScrollGrid";
 import MixedSearch from "./MixedSearch";
@@ -8,11 +8,17 @@ import { artists } from "../../assets/Constants";
 import "../../styles/homepage/home.css";
 import TableSearch from "./TableSearch";
 
-export default function Search({ term, selectionFunc, defaultFilter = "All" }) {
+export default function Search({
+  initialTerm,
+  selectionFunc,
+  defaultFilter = "All",
+  onlyFilter = false,
+}) {
   const [filter, setFilter] = useState(defaultFilter);
-  const [searchDisplay, setSearchDisplay] = useState(<MixedSearch />);
+  const [searchDisplay, setSearchDisplay] = useState(null);
+  const [term, setTerm] = useState(initialTerm);
 
-  const handleFilterClick = (filterValue) => {
+  const updateSearchDisplay = (filterValue) => {
     setFilter(filterValue);
     switch (filterValue) {
       case "All":
@@ -29,7 +35,7 @@ export default function Search({ term, selectionFunc, defaultFilter = "All" }) {
       case "Artists":
         setSearchDisplay(
           <TableSearch
-            title="Artists"
+            title={`Artists - ${initialTerm}`}
             type="circle"
             elements={artists}
             selectionFunc={selectionFunc}
@@ -49,69 +55,97 @@ export default function Search({ term, selectionFunc, defaultFilter = "All" }) {
     }
   };
 
+  useEffect(() => {
+    updateSearchDisplay(filter);
+  }, [filter, term]);
+
+  useEffect(() => {
+    updateSearchDisplay(defaultFilter);
+  }, [defaultFilter]);
+
+  useEffect(() => {
+    setTerm(initialTerm);
+  }, [initialTerm]);
+
+  const handleFilterClick = (filterValue) => {
+    setFilter(filterValue);
+  };
+
   return (
     <div className="homepage-container overflow-x-hidden">
       <div className="search-filter-container">
-        <button
-          className={
-            filter === "All"
-              ? "search-filter-button-selected"
-              : "search-filter-button"
-          }
-          onClick={() => handleFilterClick("All")}
-        >
-          All
-        </button>
-        <button
-          className={
-            filter === "Songs"
-              ? "search-filter-button-selected"
-              : "search-filter-button"
-          }
-          onClick={() => handleFilterClick("Songs")}
-        >
-          Songs
-        </button>
-        <button
-          className={
-            filter === "Albums"
-              ? "search-filter-button-selected"
-              : "search-filter-button"
-          }
-          onClick={() => handleFilterClick("Albums")}
-        >
-          Albums
-        </button>
-        <button
-          className={
-            filter === "Artists"
-              ? "search-filter-button-selected"
-              : "search-filter-button"
-          }
-          onClick={() => handleFilterClick("Artists")}
-        >
-          Artists
-        </button>
-        <button
-          className={
-            filter === "Playlists"
-              ? "search-filter-button-selected"
-              : "search-filter-button"
-          }
-          onClick={() => handleFilterClick("Playlists")}
-        >
-          Playlists
-        </button>
-        <button
-          className={
-            filter === "Users"
-              ? "search-filter-button-selected"
-              : "search-filter-button"
-          }
-          onClick={() => handleFilterClick("Users")}
-        >
-          Users
-        </button>
+        {(onlyFilter && defaultFilter === "All") || !onlyFilter ? (
+          <button
+            className={
+              filter === "All"
+                ? "search-filter-button-selected"
+                : "search-filter-button"
+            }
+            onClick={() => handleFilterClick("All")}
+          >
+            All
+          </button>
+        ) : null}
+        {(onlyFilter && defaultFilter === "Songs") || !onlyFilter ? (
+          <button
+            className={
+              filter === "Songs"
+                ? "search-filter-button-selected"
+                : "search-filter-button"
+            }
+            onClick={() => handleFilterClick("Songs")}
+          >
+            Songs
+          </button>
+        ) : null}
+        {(onlyFilter && defaultFilter === "Albums") || !onlyFilter ? (
+          <button
+            className={
+              filter === "Albums"
+                ? "search-filter-button-selected"
+                : "search-filter-button"
+            }
+            onClick={() => handleFilterClick("Albums")}
+          >
+            Albums
+          </button>
+        ) : null}
+        {(onlyFilter && defaultFilter === "Artists") || !onlyFilter ? (
+          <button
+            className={
+              filter === "Artists"
+                ? "search-filter-button-selected"
+                : "search-filter-button"
+            }
+            onClick={() => handleFilterClick("Artists")}
+          >
+            Artists
+          </button>
+        ) : null}
+        {(onlyFilter && defaultFilter === "Playlists") || !onlyFilter ? (
+          <button
+            className={
+              filter === "Playlists"
+                ? "search-filter-button-selected"
+                : "search-filter-button"
+            }
+            onClick={() => handleFilterClick("Playlists")}
+          >
+            Playlists
+          </button>
+        ) : null}
+        {(onlyFilter && defaultFilter === "Users") || !onlyFilter ? (
+          <button
+            className={
+              filter === "Users"
+                ? "search-filter-button-selected"
+                : "search-filter-button"
+            }
+            onClick={() => handleFilterClick("Users")}
+          >
+            Users
+          </button>
+        ) : null}
       </div>
       {searchDisplay !== null && searchDisplay}
     </div>

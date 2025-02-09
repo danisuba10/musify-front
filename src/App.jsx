@@ -39,13 +39,15 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={isSearch ? <Search term={term} /> : <Home />}
+                element={
+                  isSearch ? <Search initialTerm={term} key={term} /> : <Home />
+                }
               />
               <Route
                 path="/artist/:id"
                 element={
                   isSearch ? (
-                    <Search term={term} />
+                    <Search initialTerm={term} key={term} />
                   ) : (
                     <CollectionDetail
                       collection={artist}
@@ -59,7 +61,7 @@ function App() {
                 path="/album/:id"
                 element={
                   isSearch ? (
-                    <Search term={term} />
+                    <Search initialTerm={term} key={term} />
                   ) : (
                     <CollectionDetail collection={artist} elements={songs} />
                   )
@@ -69,13 +71,16 @@ function App() {
                 path="/profile/:id"
                 element={
                   isSearch ? (
-                    <Search term={term} />
+                    <Search initialTerm={term} key={term} />
                   ) : (
                     <ProfileDetail profile={profile} />
                   )
                 }
               />
-              <Route path="/admin/*" element={<AdminPanel />} />
+              <Route
+                path="/admin/*"
+                element={<AdminPanel searchTerm={term} />}
+              />
             </Routes>
           </div>
           {showLogin && <AuthOverlay onClose={() => setShowLogin(false)} />}

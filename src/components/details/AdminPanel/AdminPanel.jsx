@@ -12,7 +12,7 @@ import { artist, songs } from "../../../assets/Constants";
 
 import Home from "../../homepage/Home";
 
-const AdminPanel = () => {
+const AdminPanel = ({ searchTerm }) => {
   const { isAdmin } = useContext(AuthContext);
 
   if (!isAdmin) {
@@ -28,7 +28,13 @@ const AdminPanel = () => {
             {/* <Route path="modify-artist" /> */}
             <Route
               path="modify-album"
-              element={<ModifyAlbum collection={artist} elements={songs} />}
+              element={
+                <ModifyAlbum
+                  collection={artist}
+                  elements={songs}
+                  searchTerm={searchTerm}
+                />
+              }
             />
           </Routes>
         </div>
