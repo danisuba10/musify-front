@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import "../../../styles/adminpanel/AdminPanel.css";
+import "../../styles/adminpanel/AdminPanel.css";
 import AdminMenu from "./AdminMenu";
 import AddArtist from "./AddArtist";
 import AddAlbum from "./AddAlbum";
 import ModifyAlbum from "./ModifyAlbum";
-import { AuthContext } from "../../auth/AuthProvider";
+import { AuthContext } from "../auth/AuthProvider";
 
-import { artist, songs } from "../../../assets/Constants";
+import { artist, songs } from "../../assets/Constants";
 
-import Home from "../../homepage/Home";
+import Home from "../homepage/Home";
 
 const AdminPanel = ({ searchTerm }) => {
   const { isAdmin } = useContext(AuthContext);

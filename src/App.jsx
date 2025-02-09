@@ -13,7 +13,7 @@ import CollectionDetail from "./components/details/CollectionDetail/CollectionDe
 import ProfileDetail from "./components/details/ProfileDetail/ProfileDetail";
 
 import { artist, songs, profile } from "./assets/Constants";
-import AdminPanel from "./components/details/AdminPanel/AdminPanel";
+import AdminPanel from "./components/AdminPanel/AdminPanel";
 import AuthProvider from "./components/auth/AuthProvider";
 
 function App() {

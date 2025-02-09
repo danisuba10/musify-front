@@ -1,6 +1,6 @@
 import React from "react";
-import "../../../styles/adminpanel/SaveButton.css";
-import SaveSVG from "../../../assets/save.svg?react";
+import "../../styles/adminpanel/SaveButton.css";
+import SaveSVG from "../../assets/save.svg?react";
 
 const SaveButton = ({ onClickFunc }) => {
   return (

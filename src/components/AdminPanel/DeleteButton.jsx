@@ -1,6 +1,6 @@
 import React from "react";
-import "../../../styles/adminpanel/DeleteButton.css";
-import DeleteSVG from "../../../assets/delete.svg?react";
+import "../../styles/adminpanel/DeleteButton.css";
+import DeleteSVG from "../../assets/delete.svg?react";
 
 const DeleteButton = ({ onClickFunc }) => {
   return (

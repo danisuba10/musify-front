@@ -16,7 +16,7 @@
     @apply relative h-auto w-[35%] flex flex-grow flex-row pr-4 pl-4 pt-2 pb-2 gap-2 items-center justify-center;
   }
   .song-duration {
-    @apply relative w-fit h-full text-svgGrey text-lg flex flex-grow items-center justify-center;
+    @apply relative w-fit h-full text-svgGrey text-lg flex flex-grow items-center justify-end;
   }
   .list-card-order {
     @apply relative flex items-center justify-center text-xl w-[7%] h-min text-svgGrey p-4 aspect-square;

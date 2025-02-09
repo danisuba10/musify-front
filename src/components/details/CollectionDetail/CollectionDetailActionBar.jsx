@@ -4,7 +4,7 @@ import Add from "../../../assets/add.svg?react";
 import PlayButton from "./PlayButton";
 import EditButton from "../../../assets/edit.svg?react";
 import "../../../styles/details/CollectionDetailActionBar.css";
-import DeleteButton from "../AdminPanel/DeleteButton";
+import DeleteButton from "../../AdminPanel/DeleteButton";
 import { AuthContext } from "../../auth/AuthProvider";
 
 const CollectionDetailActionBar = ({

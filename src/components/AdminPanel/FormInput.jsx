@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../../../styles/adminpanel/FormInput.css";
+import "../../styles/adminpanel/FormInput.css";
 
 const FormInput = ({ fields, handleSubmit }) => {
   const onSubmit = (e) => {

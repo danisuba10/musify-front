@@ -3,7 +3,6 @@ import { useState, useRef } from "react";
 
 import "../../../styles/details/CollectionDetailList.css";
 import Duration from "../../../assets/duration.svg?react";
-import DeleteButton from "../../../assets/delete.svg?react";
 import Search from "../../search/Search";
 
 import CollectionDetailListCard from "./CollectionDetailListCard";

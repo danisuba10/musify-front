@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-import "../../../styles/homepage/home.css";
-import CollectionDetailCard from "../CollectionDetail/CollectionDetailCard";
-import CollectionDetailActionBar from "../CollectionDetail/CollectionDetailActionBar";
-import CollectionDetailList from "../CollectionDetail/CollectionDetailList";
+import "../../styles/homepage/home.css";
+import CollectionDetailCard from "../details/CollectionDetail/CollectionDetailCard";
+import CollectionDetailActionBar from "../details/CollectionDetail/CollectionDetailActionBar";
+import CollectionDetailList from "../details/CollectionDetail/CollectionDetailList";
 
 const ModifyAlbum = ({ id, collection, elements, searchTerm }) => {
   const [markedToBeDeleted, setMarkedToBeDeleted] = useState(false);

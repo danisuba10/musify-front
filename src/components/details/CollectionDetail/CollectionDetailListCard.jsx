@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 import "../../../styles/details/CollectionDetailListCard.css";
 import PlayButton from "./PlayButton";
-import DeleteButton from "../AdminPanel/DeleteButton";
-import SaveButton from "../AdminPanel/SaveButton";
+import DeleteButton from "../../AdminPanel/DeleteButton";
+import SaveButton from "../../AdminPanel/SaveButton";
 
 const CollectionDetailListCard = ({
   details,

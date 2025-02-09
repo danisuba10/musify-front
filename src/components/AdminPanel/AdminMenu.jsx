@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../../../styles/adminpanel/AdminMenu.css";
+import "../../styles/adminpanel/AdminMenu.css";
 
 const AdminMenu = () => {
   const addArtistRedir = () => {
