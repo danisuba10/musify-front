@@ -12,6 +12,6 @@
     transform: scale(1.05);
   }
   .delete-button {
-    @apply relative flex w-[80%] h-auto;
+    @apply relative flex w-full h-auto;
   }
 }
