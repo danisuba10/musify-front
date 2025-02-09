@@ -102,6 +102,7 @@ export const artists = [
 
 export const library = [
   {
+    id: "1l",
     image:
       "https://i.pinimg.com/736x/6e/0e/55/6e0e55a04903ee72de25d40af28fbbf5.jpg",
     name: "Megadeth",
@@ -109,6 +110,7 @@ export const library = [
     creator: "Creator1",
   },
   {
+    id: "2l",
     image:
       "https://render.fineartamerica.com/images/rendered/default/poster/5.5/8/break/images/artworkimages/medium/3/1-dave-mustaine-megadeth-concert-photos.jpg",
     name: "Dave Mustaine",
@@ -116,18 +118,21 @@ export const library = [
     creator: "Creator2",
   },
   {
+    id: "3l",
     image: "https://i.scdn.co/image/ab6761610000e5eb69ca98dd3083f1082d740e44",
     name: "Metallica",
     subtitle: "Artist",
     creator: "Creator3",
   },
   {
+    id: "4l",
     image: "https://f4.bcbits.com/img/0027280266_25.jpg",
     name: "Sabaton",
     subtitle: "Artist",
     creator: "Creator4",
   },
   {
+    id: "5l",
     image:
       "https://media.newyorker.com/photos/5ad6313540fc7c73d830a3a8/1:1/w_3004,h_3004,c_limit/St-Felix-Kendrick-Lamar-Pulitzer.jpg",
     name: "Kendrick Lamar",
@@ -135,6 +140,7 @@ export const library = [
     creator: "Creator5",
   },
   {
+    id: "6l",
     image:
       "https://i.pinimg.com/736x/6e/0e/55/6e0e55a04903ee72de25d40af28fbbf5.jpg",
     name: "Megadeth",
@@ -142,6 +148,7 @@ export const library = [
     creator: "Creator6",
   },
   {
+    id: "7l",
     image:
       "https://render.fineartamerica.com/images/rendered/default/poster/5.5/8/break/images/artworkimages/medium/3/1-dave-mustaine-megadeth-concert-photos.jpg",
     name: "Dave Mustaine",
@@ -149,18 +156,21 @@ export const library = [
     creator: "Creator7",
   },
   {
+    id: "8l",
     image: "https://i.scdn.co/image/ab6761610000e5eb69ca98dd3083f1082d740e44",
     name: "Metallica",
     subtitle: "Artist",
     creator: "Creator8",
   },
   {
+    id: "9l",
     image: "https://f4.bcbits.com/img/0027280266_25.jpg",
     name: "Sabaton",
     subtitle: "Artist",
     creator: "Creator9",
   },
   {
+    id: "10l",
     image:
       "https://media.newyorker.com/photos/5ad6313540fc7c73d830a3a8/1:1/w_3004,h_3004,c_limit/St-Felix-Kendrick-Lamar-Pulitzer.jpg",
     name: "Kendrick Lamar",
@@ -168,6 +178,7 @@ export const library = [
     creator: "Creator10",
   },
   {
+    id: "11l",
     image:
       "https://i.pinimg.com/736x/6e/0e/55/6e0e55a04903ee72de25d40af28fbbf5.jpg",
     name: "Megadeth",
@@ -175,6 +186,7 @@ export const library = [
     creator: "Creator11",
   },
   {
+    id: "12l",
     image:
       "https://render.fineartamerica.com/images/rendered/default/poster/5.5/8/break/images/artworkimages/medium/3/1-dave-mustaine-megadeth-concert-photos.jpg",
     name: "Dave Mustaine",
@@ -182,18 +194,21 @@ export const library = [
     creator: "Creator12",
   },
   {
+    id: "13l",
     image: "https://i.scdn.co/image/ab6761610000e5eb69ca98dd3083f1082d740e44",
     name: "Metallica",
     subtitle: "Artist",
     creator: "Creator13",
   },
   {
+    id: "14l",
     image: "https://f4.bcbits.com/img/0027280266_25.jpg",
     name: "Sabaton",
     subtitle: "Artist",
     creator: "Creator14",
   },
   {
+    id: "15l",
     image:
       "https://media.newyorker.com/photos/5ad6313540fc7c73d830a3a8/1:1/w_3004,h_3004,c_limit/St-Felix-Kendrick-Lamar-Pulitzer.jpg",
     name: "Kendrick Lamar",
