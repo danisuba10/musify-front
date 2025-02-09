@@ -10,6 +10,7 @@ const CollectionDetailListCard = ({
   isModify,
   toDelete,
   isMarkedForDelete,
+  onAddArtist,
 }) => {
   const [newName, setNewName] = useState(details.name);
   const [newOrder, setNewOrder] = useState(details.order);
@@ -49,6 +50,10 @@ const CollectionDetailListCard = ({
     console.log(
       `API call has been made to change data for song with ID: ${details.id}!`
     );
+  };
+
+  const selectionFunc = (artist) => {
+    addOrRemoveArtist(artist, "add");
   };
 
   const addOrRemoveArtist = ({ id, name }, type) => {
@@ -167,20 +172,36 @@ const CollectionDetailListCard = ({
               )}
             </div>
             <div className="list-card-artists">
-              {details.artists.map((artist, index) => (
-                <React.Fragment key="index">
-                  <button>
+              {isModify &&
+                Array.from(newArtists).map((artist, index) => (
+                  <div key={index} className="artist-button">
+                    <button className="flex flex-row">
+                      <div className="artist-style">{artist.name}</div>
+                      {index <= Array.from(newArtists).length - 1 && (
+                        <span className="artist-style mr-2">,</span>
+                      )}
+                    </button>
+                    <div className="relative h-12 w-auto aspect-square flex items-center justify-center">
+                      <DeleteButton
+                        onClickFunc={() => addOrRemoveArtist(artist, "remove")}
+                      />
+                    </div>
+                  </div>
+                ))}
+              {!isModify &&
+                details.artists.map((artist, index) => (
+                  <button key={index}>
                     <div className="artist-style">{artist.name}</div>
+                    {index < details.artists.length - 1 && (
+                      <div className="artist-style">, </div>
+                    )}
                   </button>
-                  {index < details.artists.length - 1 && (
-                    <span className="artist-style mr-2">,</span>
-                  )}
-                </React.Fragment>
-              ))}
-              <div className="artist-style mr-2">, </div>
-              <button>
-                <div className="artist-style">Add artist</div>
-              </button>
+                ))}
+              {isModify && (
+                <button onClick={() => onAddArtist(selectionFunc)}>
+                  <div className="artist-style">Add artist</div>
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -190,7 +211,7 @@ const CollectionDetailListCard = ({
             {isModify && (
               <div className="relative w-full h-fit flex flex-grow sm:flex-row flex-col gap-1 items-center justify-center pl-2 pr-2">
                 <input
-                  className="w-full min-w-[3vw] text-svgGrey text-center bg-displayBlack"
+                  className="w-full min-w-[3vw] text-svgGrey text-center bg-displayBlack focus:ring-1 focus:ring-green-500 outline-none"
                   id="newOrder"
                   type="text"
                   placeholder={`${newDuration.hours || oldDuration.hours}`}
@@ -200,7 +221,7 @@ const CollectionDetailListCard = ({
                   h
                 </span>
                 <input
-                  className="w-full min-w-[3vw] text-svgGrey text-center bg-displayBlack"
+                  className="w-full min-w-[3vw] text-svgGrey text-center bg-displayBlack focus:ring-1 focus:ring-green-500 outline-none"
                   id="newOrder"
                   type="text"
                   placeholder={`${newDuration.minutes || oldDuration.seconds}`}
@@ -210,7 +231,7 @@ const CollectionDetailListCard = ({
                   m
                 </span>
                 <input
-                  className="w-full min-w-[3vw] text-svgGrey text-center bg-displayBlack"
+                  className="w-full min-w-[3vw] text-svgGrey text-center bg-displayBlack focus:ring-1 focus:ring-green-500 outline-none"
                   id="newOrder"
                   type="text"
                   placeholder={`${newDuration.seconds || oldDuration.seconds}`}
