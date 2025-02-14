@@ -6,11 +6,7 @@ const FormInput = ({ fields, handleSubmit }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const data = {};
-    formData.forEach((value, key) => {
-      data[key] = value;
-    });
-    handleSubmit(data);
+    handleSubmit(formData);
   };
 
   return (
