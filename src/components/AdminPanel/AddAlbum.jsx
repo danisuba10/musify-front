@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import FormInput from "./FormInput";
 import AddSong from "./AddSong";
+import { AuthContext } from "../auth/AuthProvider";
+import ModifyAlbum from "./ModifyAlbum";
+import { emptyAlbum } from "../../assets/Constants";
 
 const AddAlbum = () => {
   const formFields = [
@@ -18,10 +21,12 @@ const AddAlbum = () => {
       required: false,
     },
   ];
+
   return (
     <>
-      <FormInput fields={formFields} />
-      <AddSong />
+      {/* <FormInput fields={formFields} />
+      <AddSong /> */}
+      <ModifyAlbum isAdd={true} />
     </>
   );
 };
