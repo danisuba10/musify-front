@@ -5,18 +5,29 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [userToken, setUserToken] = useState(null);
   const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
-    const token = sessionStorage.getItem("userToken");
+    const token = localStorage.getItem("userToken");
     if (token) {
       setUserToken(token);
       setIsAuthenticated(true);
       decodeToken(token);
     }
   }, []);
+
+  const isAdmin = () => {
+    console.log("Is Admin check successfull!");
+    if (!userToken) return false;
+    try {
+      const decoded = jwtDecode(userToken);
+      return decoded?.role === "Admin";
+    } catch (error) {
+      console.error("Error decoding token!", error);
+      return false;
+    }
+  };
 
   const isTokenExpired = (token) => {
     try {
@@ -33,11 +44,7 @@ const AuthProvider = ({ children }) => {
     try {
       const decoded = jwtDecode(token);
       console.log("Decoded Token: ", decoded);
-      const isAdminBool = decoded?.role === "Admin";
-      setIsAdmin(isAdminBool);
       setUserInfo(decoded);
-      sessionStorage.setItem("isAdmin", isAdmin);
-      console.log(isAdmin);
     } catch (error) {
       console.log("Error decoding token ", error);
     }
@@ -49,28 +56,25 @@ const AuthProvider = ({ children }) => {
     decodeToken(token);
   };
 
-  //Interval possibly does not work
-  useEffect(() => {
-    const token = sessionStorage.getItem("userToken");
-    if (token) {
-      if (isTokenExpired(token)) {
-        console.log("Login expired 1!");
+  const startTokenExpirationCheck = () => {
+    const interval = setInterval(() => {
+      const token = localStorage.getItem("userToken");
+      if (token && isTokenExpired(token)) {
+        console.log("Login expired!");
+        clearInterval(interval);
         logout();
-      } else {
-        handleValidToken(token);
       }
+    }, 5 * 60 * 1000);
 
-      const interval = setInterval(() => {
-        const token = sessionStorage.getItem("userToken");
-        if (token && isTokenExpired(token)) {
-          console.log("Login expired 2!");
-          logout();
-        }
-      }, 5 * 60 * 1000);
+    return () => clearInterval(interval);
+  };
 
-      return () => clearInterval(interval);
+  useEffect(() => {
+    if (userToken) {
+      const clearExpirationCheck = startTokenExpirationCheck();
+      return () => clearExpirationCheck();
     }
-  }, []);
+  }, [userToken]);
 
   const login = async (email, password) => {
     try {
@@ -85,7 +89,7 @@ const AuthProvider = ({ children }) => {
 
       if (response.ok) {
         const token = await response.text();
-        sessionStorage.setItem("userToken", token);
+        localStorage.setItem("userToken", token);
         handleValidToken(token);
       } else {
         console.error("Login failed!");
@@ -108,7 +112,7 @@ const AuthProvider = ({ children }) => {
 
       if (response.ok) {
         const token = await response.text();
-        sessionStorage.setItem("userToken", token);
+        localStorage.setItem("userToken", token);
         handleValidToken(token);
       } else {
         console.error("Register failed!");
@@ -123,8 +127,8 @@ const AuthProvider = ({ children }) => {
     setIsAdmin(false);
     setUserToken(null);
     setUserInfo({});
-    sessionStorage.removeItem("userToken");
-    sessionStorage.removeItem("isAdmin");
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("isAdmin");
   };
 
   return (

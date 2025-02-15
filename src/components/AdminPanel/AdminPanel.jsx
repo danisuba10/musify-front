@@ -15,7 +15,7 @@ import Home from "../homepage/Home";
 const AdminPanel = ({ searchTerm }) => {
   const { isAdmin } = useContext(AuthContext);
 
-  if (!isAdmin) {
+  if (!isAdmin()) {
     return <Home />;
   } else {
     return (

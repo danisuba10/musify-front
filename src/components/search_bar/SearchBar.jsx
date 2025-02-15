@@ -47,7 +47,7 @@ const SearchBar = ({ onClick, onSearch }) => {
         </div>
       </div>
       <div className="user-part float-right">
-        {isAdmin && (
+        {isAdmin() && (
           <button
             className="home-button-container"
             onClick={handleAdminPanelClick}
