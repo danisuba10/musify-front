@@ -6,12 +6,15 @@ import EditButton from "../../../assets/edit.svg?react";
 import "../../../styles/details/CollectionDetailActionBar.css";
 import DeleteButton from "../../AdminPanel/DeleteButton";
 import { AuthContext } from "../../auth/AuthProvider";
+import SaveButton from "../../AdminPanel/SaveButton";
 
 const CollectionDetailActionBar = ({
   middleColor,
   topColor,
   isModify,
   toDelete,
+  isAdd,
+  toSave,
 }) => {
   const { isAdmin } = useContext(AuthContext);
 
@@ -25,9 +28,14 @@ const CollectionDetailActionBar = ({
       >
         {isModify && (
           <>
-            <div className="add-button-container">
-              <DeleteButton className="add-button" onClickFunc={toDelete} />
-            </div>
+            {!isAdd && (
+              <div className="add-button-container">
+                <DeleteButton className="add-button" onClickFunc={toDelete} />
+              </div>
+            )}
+            {isModify && (
+              <SaveButton className="add-button" onClickFunc={toSave} />
+            )}
           </>
         )}
         {!isModify && (
