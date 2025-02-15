@@ -12,46 +12,11 @@ const CollectionDetailList = ({
   isModify,
   toDelete,
   itemsToBeDeleted,
-  searchTerm,
+  handleAddArtist,
 }) => {
-  const [showArtistSearch, setShowArtistSearch] = useState(false);
-  const [currentSelectionFunc, setCurrentSelectionFunc] = useState(null);
-
-  const searchRef = useRef(null);
-
-  const handleAddArtist = (selectionFunc) => {
-    setCurrentSelectionFunc(() => selectionFunc);
-    setShowArtistSearch(true);
-  };
-
-  const closeSearch = () => {
-    setShowArtistSearch(false);
-  };
-
-  useEffect(() => {
-    if (showArtistSearch && searchRef.current) {
-      searchRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [showArtistSearch]);
-
   return (
     <>
       <div className="collection-list-container flex flex-col items-center justify-center">
-        {showArtistSearch && (
-          <div ref={searchRef} className="w-[95%]">
-            <Search
-              initialTerm={searchTerm}
-              selectionFunc={(artist) => {
-                if (currentSelectionFunc) {
-                  currentSelectionFunc(artist);
-                }
-                setShowArtistSearch(false);
-              }}
-              defaultFilter="Artists"
-              onlyFilter={true}
-            />
-          </div>
-        )}
         <div className="header-container">
           <div className="header-container-inside">
             <div className="left-container">
