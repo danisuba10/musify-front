@@ -30,16 +30,16 @@
   }
 
   .collection-detail-details {
-    @apply flex flex-col sm:flex-row gap-1 mt-4 h-fit;
+    @apply flex flex-col sm:flex-row gap-1 mt-4 h-fit w-fit;
   }
   .artist-container {
-    @apply relative flex h-fit items-center sm:mr-2  w-full sm:max-w-[50%];
+    @apply relative flex flex-wrap h-fit items-center sm:mr-2  w-full sm:max-w-[50%] gap-2;
   }
   .artist-image {
     @apply aspect-square h-[5vh] w-auto rounded-full;
   }
   .artist-name {
-    @apply relative text-white w-full h-auto flex items-center justify-center font-bold overflow-x-hidden break-words whitespace-normal;
+    @apply relative text-white w-fit h-auto flex items-center justify-center font-bold overflow-x-hidden break-words whitespace-normal;
     word-break: break-all;
   }
 

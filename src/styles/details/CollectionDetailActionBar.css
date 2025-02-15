@@ -4,12 +4,12 @@
 
 @layer components {
   .collection-detail-action-bar {
-    @apply flex flex-row h-[10vh] w-full gap-3 justify-start pt-2 pb-2 pr-6 pl-6;
+    @apply flex flex-row h-[10vh] w-full gap-3 justify-start pt-2 pb-2 pr-6 pl-6 items-center;
     /* background-image: linear-gradient(to bottom, #203c64, #072e64); */
     /* background-image: linear-gradient(to bottom, #bacb71, #889453); */
   }
   .add-button-container {
-    @apply relative flex justify-center items-center rounded-full aspect-square;
+    @apply relative flex justify-center items-center rounded-full aspect-square h-full;
     transition: transform 0.1s ease;
   }
   .add-button-container:hover {
