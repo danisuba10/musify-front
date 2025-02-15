@@ -229,10 +229,12 @@ export const artist = {
   name: "Countdown to Extinction",
   creator: "Dave Mustaine",
   type: "Album",
+  creators: [],
   details: {
     year: 2000,
     song_count: 12,
     total_length_str: "40 min 23 sec",
+    length: 321,
   },
 };
 
@@ -330,5 +332,24 @@ export const profile = {
     public_playlist_cnt: 16,
     followers: 3,
     following: 7,
+  },
+};
+
+export const emptyAlbum = {
+  colors: {
+    low: "#6f3a73",
+    middle: "#3a1e3c",
+    top: "#2a162c",
+  },
+  image: "",
+
+  name: "Album name",
+  creators: [],
+  type: "Album",
+  details: {
+    year: 1000,
+    song_count: 0,
+    total_length_str: "0",
+    length: 0,
   },
 };
