@@ -31,7 +31,7 @@ const TableElementCard = ({
           <p className="horizontal-scroll-subtitle">{type}</p>
           <div
             className="border-2 border-svgGrey p-2 rounded-full mt-2"
-            onClick={() => selectionFunc({ id, name })}
+            onClick={() => selectionFunc({ id, name, image })}
           >
             <h3 className="horizontal-scroll-name">Select</h3>
           </div>
