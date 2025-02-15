@@ -4,6 +4,11 @@ import "../../../styles/details/CollectionDetailListCard.css";
 import PlayButton from "./PlayButton";
 import DeleteButton from "../../AdminPanel/DeleteButton";
 import SaveButton from "../../AdminPanel/SaveButton";
+import {
+  duration_to_str,
+  duration_to_object,
+  object_to_seconds,
+} from "../../Service/TimeService";
 
 const CollectionDetailListCard = ({
   details,
@@ -72,30 +77,6 @@ const CollectionDetailListCard = ({
       return updatedArtists;
     });
   };
-
-  function object_to_seconds(durationObj) {
-    return (
-      durationObj.hours * 3600 + durationObj.minutes * 60 + durationObj.seconds
-    );
-  }
-
-  function duration_to_object(duration) {
-    return {
-      hours: Math.floor(duration / 3600),
-      minutes: Math.floor((duration % 3600) / 60),
-      seconds: duration % 60,
-    };
-  }
-
-  function duration_to_str(duration) {
-    const hours = Math.floor(duration / 3600);
-    const minutes = Math.floor((duration % 3600) / 60);
-    const seconds = duration % 60;
-
-    return `${hours > 0 ? `${hours}h : ` : ""}${
-      minutes > 0 ? `${minutes}m : ` : ""
-    }${seconds}s`;
-  }
 
   const duration_str = duration_to_str(details.duration);
 
