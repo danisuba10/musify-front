@@ -34,9 +34,6 @@ const CollectionDetailCard = forwardRef(
     const [oldDuration, setOldDuration] = useState(
       duration_to_object(collection?.details.length) || duration_to_object(0)
     );
-    const [newSongCount, setNewSongCount] = useState(
-      collection?.details.songCount || 0
-    );
     const [newDuration, setNewDuration] = useState(
       duration_to_object(collection?.details.length) || duration_to_object(0)
     );
@@ -45,7 +42,6 @@ const CollectionDetailCard = forwardRef(
       getAlbumInfoDTO: () => ({
         name: nameInput,
         year: newYear,
-        songCount: newSongCount,
         duration: object_to_seconds(newDuration),
         file: imageFile,
       }),
@@ -175,19 +171,12 @@ const CollectionDetailCard = forwardRef(
                       )}
                     </div>
                     <span className="about-info-entry"> • </span>
-                    <div className="about-info-entry">
-                      Songs: {!isModify && collection?.details.song_count}{" "}
-                      {isModify && (
-                        <input
-                          className="w-full min-w-[3vw] text-svgGrey text-center bg-displayBlack focus:ring-1 focus:ring-green-500 outline-none"
-                          id="newSongCount"
-                          type="text"
-                          placeholder={`${newSongCount || "0"}`}
-                          onChange={(e) => setNewSongCount(e.target.value)}
-                        />
-                      )}
-                    </div>
-                    <span className="about-info-entry"> • </span>
+                    {!isModify && (
+                      <div className="about-info-entry">
+                        Songs: {collection?.details.song_count}
+                      </div>
+                    )}
+                    {!isModify && <span className="about-info-entry"> • </span>}
                     <div className="about-info-entry">
                       Duration:{" "}
                       {!isModify && collection?.details.total_length_str}{" "}
