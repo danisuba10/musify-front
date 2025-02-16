@@ -99,11 +99,12 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (email, password) => {
+  const register = async (email, password, displayName) => {
     try {
       const formData = new FormData();
-      formData.append("userName", email);
-      formData.append("password", password);
+      formData.append("Email", email);
+      formData.append("Password", password);
+      formData.append("DisplayName", displayName);
 
       const response = await fetch("http://localhost:5231/user/register", {
         method: "POST",
@@ -114,11 +115,16 @@ const AuthProvider = ({ children }) => {
         const token = await response.text();
         localStorage.setItem("userToken", token);
         handleValidToken(token);
+        console.log("Token after register:", token);
       } else {
-        console.error("Register failed!");
+        console.log("Register failed! Checking codes now!");
+        if (response.status === 409) {
+          throw new Error("User already exists with this email!");
+        }
       }
     } catch (error) {
-      console.error("Error during register:", error);
+      console.log(error);
+      throw error;
     }
   };
 

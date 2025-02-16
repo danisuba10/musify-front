@@ -10,19 +10,35 @@ const RegisterForm = ({ toLogin, close }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { register } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-      register(email, password);
-      close();
+    if (password === confirmPassword && userName !== "") {
+      try {
+        await register(email, password, userName);
+        close();
+      } catch (error) {
+        setErrorMessage(error.message);
+      }
+    } else {
+      if (password !== confirmPassword) {
+        setErrorMessage("Passwords do not match!");
+      } else if (userName === "") {
+        setErrorMessage("Username is required!");
+      }
     }
   };
 
   return (
     <>
       <h2 className="login-title">Register</h2>
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form className="form-label" onSubmit={handleSubmit}>
+        {errorMessage && (
+          <div className="error-popup">
+            <p>{errorMessage}</p>
+          </div>
+        )}
         <div className="form-group">
           <label className="form-label">Username</label>
           <input
