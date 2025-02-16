@@ -35,7 +35,7 @@ const RegisterForm = ({ toLogin, close }) => {
       <h2 className="login-title">Register</h2>
       <form className="form-label" onSubmit={handleSubmit}>
         {errorMessage && (
-          <div className="error-popup">
+          <div className="error-popup border-2 border-orange-500 rounded-md pl-2 pr-2">
             <p>{errorMessage}</p>
           </div>
         )}
