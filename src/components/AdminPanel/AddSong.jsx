@@ -2,7 +2,7 @@ import React from "react";
 
 import FormInput from "./FormInput";
 
-const AddSong = () => {
+const AddSong = ({ handleSubmit }) => {
   const formFields = [
     { label: "Song name", name: "songName", type: "text", required: true },
     {
@@ -40,7 +40,8 @@ const AddSong = () => {
       required: true,
     },
   ];
-  return <FormInput fields={formFields} />;
+
+  return <FormInput fields={formFields} handleSubmit={handleSubmit} />;
 };
 
 export default AddSong;

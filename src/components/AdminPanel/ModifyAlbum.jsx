@@ -5,11 +5,106 @@ import CollectionDetailCard from "../details/CollectionDetail/CollectionDetailCa
 import CollectionDetailActionBar from "../details/CollectionDetail/CollectionDetailActionBar";
 import CollectionDetailList from "../details/CollectionDetail/CollectionDetailList";
 import Search from "../search/Search";
+import AddSong from "./AddSong";
+import { artists, songs } from "../../assets/Constants";
+import {
+  duration_to_str,
+  duration_to_object,
+  object_to_seconds,
+} from "../Service/TimeService";
 
-const ModifyAlbum = ({ id, collection, elements, searchTerm, isAdd }) => {
+const ModifyAlbum = ({ id, searchTerm, isAdd }) => {
   const [markedToBeDeleted, setMarkedToBeDeleted] = useState(false);
   const [songsToBeDeleted, setSongsToBeDeleted] = useState(new Set());
-  const [creators, setCreators] = useState(collection?.creators || []);
+  const [creators, setCreators] = useState([]);
+  const [songs, setSongs] = useState([]);
+  const [addSongErrorMessage, setAddSongErrorMessage] = useState("");
+  const [albumView, setAlbumView] = useState(null);
+  const [songsV, setSongsV] = useState(null);
+
+  const getData = async () => {
+    //collection: response.name, response.year, response.id, response.artists: each .id, .imageLocation, .name
+    //elements: response.songs.$values: for each .title, .duration, .positionInAlbum, .albumId, .artists: for each .id, .name, .imageLocation
+    try {
+      console.log("Get data called!");
+      const response = await fetch(`http://localhost:5231/album/${id}`);
+      console.log(response);
+      const data = await response.json();
+
+      const collection2 = {
+        type: "Album",
+        id: data.id,
+        name: data.name,
+        image: `http://localhost:5231/image/${encodeURIComponent(
+          data.image.imageLocation
+        )}`,
+        artists: data.artists.$values.map((artist) => ({
+          id: artist.id,
+          name: artist.name,
+          imageLocation: artist.imageLocation,
+          creator_img: `http://localhost:5231/image/${encodeURIComponent(
+            artist.imageLocation
+          )}`,
+        })),
+        details: {
+          year: data.year,
+          length: data.duration,
+          song_count: data.songCount,
+          total_length_str: "0",
+        },
+        colors: {
+          low: data.image.lowColor,
+          middle: data.image.middleColor,
+          top: data.image.highColor,
+        },
+      };
+
+      setAlbumView(collection2);
+      setCreators(
+        data.artists.$values.map((artist) => ({
+          id: artist.id,
+          creator: artist.name,
+          imageLocation: artist.imageLocation,
+          creator_img: `http://localhost:5231/image/${encodeURIComponent(
+            artist.imageLocation
+          )}`,
+        }))
+      );
+
+      const querriedSongs = data.songs.$values.map((song) => ({
+        id: song.id,
+        name: song.title,
+        duration: song.duration,
+        order: song.positionInAlbum,
+        albumId: song.albumId,
+        artists: song.artists.$values.map((artist) => ({
+          id: artist.id,
+          name: artist.name,
+          imageLocation: artist.imageLocation,
+        })),
+      }));
+
+      setSongs(querriedSongs);
+
+      console.log(collection2);
+      console.log(elements2);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    setSongs((prevSongs) => [...prevSongs].sort((a, b) => a.order - b.order));
+  }, [songs]);
+
+  useEffect(() => {
+    if (!albumView && id) {
+      console.log("Triggering getData");
+      getData();
+    } else {
+      console.log("AlbumView is already set or no valid id");
+    }
+  }, [albumView, id]);
 
   const cardRef = useRef(null);
   const makeChange = () => {
@@ -95,10 +190,43 @@ const ModifyAlbum = ({ id, collection, elements, searchTerm, isAdd }) => {
     }
   }, [showArtistSearch]);
 
+  const parseToNumber = (value) => {
+    const number = parseInt(value, 10);
+    return isNaN(number) ? 0 : number;
+  };
+
+  const addSong = (data) => {
+    const newSongOrder = data.get("songOrder");
+    const songExists = songs.some(
+      (song) => parseToNumber(song.order) === parseToNumber(newSongOrder)
+    );
+
+    if (songExists) {
+      setAddSongErrorMessage(
+        `A song with order ${newSongOrder} already exists.`
+      );
+      return;
+    }
+
+    var songDTO = {
+      name: data.get("songName"),
+      order: newSongOrder,
+      duration: object_to_seconds({
+        hours: parseToNumber(data.get("songDurationHours")),
+        minutes: parseToNumber(data.get("songDurationMinutes")),
+        seconds: parseToNumber(data.get("songDurationSeconds")),
+      }),
+      artists: [],
+    };
+
+    setSongs((prevSongs) => [...prevSongs, songDTO]);
+    setAddSongErrorMessage("");
+  };
+
   return (
     <>
       <div className="detail-container">
-        <div className="overflow-y-scroll overflow-x-hidden scroll-smooth h-full">
+        <div className="overflow-y-scroll overflow-x-hidden scroll-smooth h-full items-center justify-center">
           {showArtistSearch && (
             <div ref={searchRef} className="w-[95%]">
               <Search
@@ -114,26 +242,39 @@ const ModifyAlbum = ({ id, collection, elements, searchTerm, isAdd }) => {
               />
             </div>
           )}
-          <CollectionDetailCard
-            ref={cardRef}
-            collection={collection}
-            type="album"
-            isModify={true}
-            creators={creators}
-            onAddArtist={() => handleAddAlbumArtist(addAlbumArtist)}
-            onDeleteArtist={deleteCreator}
-          />
-          <CollectionDetailActionBar
-            middleColor={collection?.colors.middle || "#3a1e3c"}
-            topColor={collection?.colors.top || "#2a162c"}
-            isModify={true}
-            toDelete={deleteAlbum}
-            isAdd={isAdd}
-            toSave={makeChange}
-          />
-          {elements && (
+          {albumView && (
+            <CollectionDetailCard
+              ref={cardRef}
+              collection={albumView}
+              type="album"
+              isModify={true}
+              creators={creators}
+              onAddArtist={() => handleAddAlbumArtist(addAlbumArtist)}
+              onDeleteArtist={deleteCreator}
+            />
+          )}
+          {albumView && (
+            <CollectionDetailActionBar
+              middleColor={albumView.colors?.middle || "#3a1e3c"}
+              topColor={albumView.colors?.top || "#2a162c"}
+              isModify={true}
+              toDelete={deleteAlbum}
+              isAdd={isAdd}
+              toSave={makeChange}
+            />
+          )}
+          <div className="mt-8 w-full"></div>
+          <div className="w-full flex flex-col justify-center items-center">
+            {addSongErrorMessage && (
+              <div className="font-bold text-white mt-2 mb-2 p-2 border-2 border-orange-500 rounded-lg">
+                Error: {addSongErrorMessage}
+              </div>
+            )}
+            <AddSong handleSubmit={addSong} />
+          </div>
+          {songs && (
             <CollectionDetailList
-              elements={elements}
+              elements={songs}
               isModify={true}
               toDelete={deleteItemFromList}
               itemsToBeDeleted={songsToBeDeleted}
