@@ -30,6 +30,7 @@ const AdminPanel = ({ searchTerm }) => {
               path="modify-album"
               element={
                 <ModifyAlbum
+                  id={"05ec2d57-5c12-4487-b49b-4a03a077954d"}
                   collection={artist}
                   elements={songs}
                   searchTerm={searchTerm}
