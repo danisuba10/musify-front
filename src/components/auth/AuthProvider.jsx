@@ -93,9 +93,16 @@ const AuthProvider = ({ children }) => {
         handleValidToken(token);
       } else {
         console.error("Login failed!");
+        if (response.status === 404) {
+          throw new Error("User does not exist!");
+        }
+        if (response.status === 401) {
+          throw new Error("Invalid credentials!");
+        }
       }
     } catch (error) {
       console.error("Error during login:", error);
+      throw error;
     }
   };
 

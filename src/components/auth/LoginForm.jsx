@@ -8,17 +8,27 @@ const LoginForm = ({ toRegister, close }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    login(email, password);
-    close();
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      await login(email, password);
+      close();
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
   };
 
   return (
     <>
       <h2 className="login-title">Login</h2>
       <form className="login-form" onSubmit={handleSubmit}>
+        {errorMessage && (
+          <div className="form-label border-2 border-orange-500 rounded-md pl-2 pr-2">
+            <p>Error: {errorMessage}</p>
+          </div>
+        )}
         <div className="form-group">
           <label className="form-label">Email</label>
           <input
