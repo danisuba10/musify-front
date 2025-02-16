@@ -1,9 +1,17 @@
 import React from "react";
 
 export function object_to_seconds(durationObj) {
-  return (
-    durationObj.hours * 3600 + durationObj.minutes * 60 + durationObj.seconds
-  );
+  const hours = parseInt(durationObj.hours, 10);
+  const minutes = parseInt(durationObj.minutes, 10);
+  const seconds = parseInt(durationObj.seconds, 10);
+
+  console.log("Time object to be converted to seconds:", {
+    hours,
+    minutes,
+    seconds,
+  });
+
+  return hours * 3600 + minutes * 60 + seconds;
 }
 
 export function duration_to_object(duration) {
