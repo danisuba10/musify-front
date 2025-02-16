@@ -109,7 +109,7 @@ const CollectionDetailCard = forwardRef(
                 value={nameInput}
                 onChange={handleNameChange}
                 className="collection-detail-name text-3xl w-[90%] bg-transparent ml-1 min-h-[100px] focus:ring-2 focus:ring-green-500 outline-none"
-                placeholder={"Enter album name"}
+                placeholder={nameInput || "Enter album name"}
                 rows={1}
               />
             )}
@@ -157,7 +157,7 @@ const CollectionDetailCard = forwardRef(
                     )}
                   </div>
                   <div className={`about-info ${isModify && "flex-col"}`}>
-                    <span className="about-info-entry"> • </span>
+                    {!isModify && <span className="about-info-entry"> • </span>}
                     <div className="about-info-entry">
                       Year: {!isModify && collection?.details.year}{" "}
                       {isModify && (
@@ -170,7 +170,7 @@ const CollectionDetailCard = forwardRef(
                         />
                       )}
                     </div>
-                    <span className="about-info-entry"> • </span>
+                    {!isModify && <span className="about-info-entry"> • </span>}
                     {!isModify && (
                       <div className="about-info-entry">
                         Songs: {collection?.details.song_count}
