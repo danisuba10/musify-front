@@ -27,11 +27,35 @@ const ModifyAlbum = ({ id, searchTerm, isAdd }) => {
     //elements: response.songs.$values: for each .title, .duration, .positionInAlbum, .albumId, .artists: for each .id, .name, .imageLocation
     try {
       console.log("Get data called!");
+
+      if (!id) {
+        const emptyCollection = {
+          type: "Album",
+          id: null,
+          name: "",
+          image: "",
+          artists: [],
+          details: {
+            year: 0,
+            length: 0,
+            song_count: 0,
+            total_length_str: "0",
+          },
+          colors: {
+            low: "#A192B4",
+            middle: "#685E74",
+            top: "#4B4454",
+          },
+        };
+        setAlbumView(emptyCollection);
+        return;
+      }
+
       const response = await fetch(`http://localhost:5231/album/${id}`);
       console.log(response);
       const data = await response.json();
 
-      const collection2 = {
+      const collection = {
         type: "Album",
         id: data.id,
         name: data.name,
@@ -59,7 +83,7 @@ const ModifyAlbum = ({ id, searchTerm, isAdd }) => {
         },
       };
 
-      setAlbumView(collection2);
+      setAlbumView(collection);
       setCreators(
         data.artists.$values.map((artist) => ({
           id: artist.id,
@@ -91,14 +115,16 @@ const ModifyAlbum = ({ id, searchTerm, isAdd }) => {
     } catch (error) {
       console.log(error);
     }
+
+    setSongs(querriedSongs.sort((a, b) => a.order - b.order));
   };
 
-  useEffect(() => {
-    setSongs((prevSongs) => [...prevSongs].sort((a, b) => a.order - b.order));
-  }, [songs]);
+  // useEffect(() => {
+  //   setSongs((prevSongs) => [...prevSongs].sort((a, b) => a.order - b.order));
+  // }, [songs]);
 
   useEffect(() => {
-    if (!albumView && id) {
+    if (!albumView) {
       console.log("Triggering getData");
       getData();
     } else {
