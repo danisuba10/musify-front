@@ -24,7 +24,10 @@ const AdminPanel = ({ searchTerm }) => {
           <Routes>
             <Route path="" element={<AdminMenu />} />
             <Route path="add-artist" element={<AddArtist />} />
-            <Route path="add-album" element={<AddAlbum />} />
+            <Route
+              path="add-album"
+              element={<AddAlbum searchTerm={searchTerm} />}
+            />
             {/* <Route path="modify-artist" /> */}
             <Route
               path="modify-album"
