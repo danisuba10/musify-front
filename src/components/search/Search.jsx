@@ -17,6 +17,66 @@ export default function Search({
   const [filter, setFilter] = useState(defaultFilter);
   const [searchDisplay, setSearchDisplay] = useState(null);
   const [term, setTerm] = useState(initialTerm);
+  const [queryFunc, setQueryFunc] = useState(null);
+  const [lastFoundName, setLastFoundName] = useState(null);
+  const [lastFoundCreatedAt, setLastFoundCreatedAt] = useState(null);
+
+  const searchAlbums = () => {
+    const formData = new FormData();
+    formData.append("SearchTerm", term);
+    formData.append("LastName", "");
+    formData.append("LastCreatedAt", "");
+    formData.append("PageSize", 50);
+
+    setSearchDisplay(
+      <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
+        Loading..
+      </div>
+    );
+
+    fetch("http://localhost:5231/album/search", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Data fetched: ", data);
+        if (
+          !data.searchResults ||
+          !data.searchResults.$values ||
+          data.searchResults.$values.length === 0
+        ) {
+          setSearchDisplay(
+            <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
+              No albums found for "{term}".
+            </div>
+          );
+        } else {
+          const albums = data.searchResults.$values.map((album) => ({
+            id: album.id,
+            name: album.name,
+            image: `http://localhost:5231/image/${encodeURIComponent(
+              album.imageLocation
+            )}`,
+          }));
+          setSearchDisplay(<TableSearch title="Albums" elements={albums} />);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching albums:", error);
+        setSearchDisplay(
+          <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
+            No results.
+          </div>
+        );
+      });
+  };
+
+  useEffect(() => {
+    if (queryFunc) {
+      queryFunc();
+    }
+  }, [term]);
 
   const updateSearchDisplay = (filterValue) => {
     setFilter(filterValue);
@@ -30,7 +90,8 @@ export default function Search({
         );
         break;
       case "Albums":
-        setSearchDisplay(<TableSearch title="Albums" elements={artists} />);
+        // setSearchDisplay(<TableSearch title="Albums" elements={artists} />);
+        setQueryFunc(searchAlbums);
         break;
       case "Artists":
         setSearchDisplay(
