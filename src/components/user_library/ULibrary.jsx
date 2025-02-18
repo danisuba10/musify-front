@@ -5,7 +5,7 @@ import "../../styles/library/library.css";
 import Cookies from "js-cookie";
 
 export default function UserLibrary() {
-  const [compact, setCompact] = useState(Cookies.get("compact") === "true");
+  const [compact, setCompact] = useState(true);
 
   useEffect(() => {
     const handleCookieChange = () => {
