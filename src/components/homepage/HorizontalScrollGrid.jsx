@@ -2,10 +2,28 @@ import React, { useEffect, useRef, useState } from "react";
 import ArtistCard from "./HorizontalScrollCard";
 import "../../styles/homepage/HorizontalScrollGrid.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { search } from "../search/SearchFetches";
+import { apiURL } from "../../assets/Constants";
 
-const HorizontalScrollGrid = ({ title, artists, type, route }) => {
+const HorizontalScrollGrid = ({ title, url, subtitle, type, route }) => {
+  const [elements, setElements] = useState(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("Fetching data with URL: ", url);
+      try {
+        const result = await search(null, "", url, type === "circle", "");
+        console.log("Fetch result: ", result);
+        setElements(result || []);
+      } catch (error) {
+        console.error("Error fetching elements:", error);
+        setElements([]);
+      }
+    };
+    fetchData();
+  }, [url]);
 
   const typeCSS = type === "circle" ? "rounded-full" : "";
 
@@ -58,17 +76,18 @@ const HorizontalScrollGrid = ({ title, artists, type, route }) => {
         )}
 
         <div ref={scrollContainerRef} className="horizontal-scroll-grid-scroll">
-          {artists.map((artist, index) => (
-            <ArtistCard
-              key={index}
-              id={artist.id}
-              image={artist.image}
-              name={artist.name}
-              subtitle={artist.subtitle}
-              typeCSS={typeCSS}
-              route={route}
-            />
-          ))}
+          {elements &&
+            elements.map((element, index) => (
+              <ArtistCard
+                key={index}
+                id={element.id}
+                image={element.image}
+                name={element.name}
+                subtitle={subtitle}
+                typeCSS={typeCSS}
+                route={route}
+              />
+            ))}
         </div>
         {showRightArrow && (
           <button
