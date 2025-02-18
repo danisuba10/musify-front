@@ -12,6 +12,6 @@
     @apply relative h-auto overflow-x-hidden;
   }
   .table-element-container {
-    @apply grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4 p-4 overflow-x-hidden;
+    @apply grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-4 p-4;
   }
 }
