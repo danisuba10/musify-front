@@ -2,8 +2,10 @@ import React, { useContext } from "react";
 
 import FormInput from "./FormInput";
 import { AuthContext } from "../auth/AuthProvider";
+import { apiURL } from "../../assets/Constants";
 
 const AddArtist = () => {
+  const { userToken } = useContext(AuthContext);
   const formFields = [
     { label: "Artist name", name: "Name", type: "text", required: true },
     {
@@ -15,13 +17,11 @@ const AddArtist = () => {
   ];
 
   const handleSubmit = async (formData) => {
-    const userToken = useContext(AuthContext);
     try {
-      // Log the form data content
       for (let [key, value] of formData.entries()) {
         console.log(key, value);
       }
-      const response = await fetch("http://localhost:5231/artist/add-artist", {
+      const response = await fetch(`${apiURL}/artist/add-artist`, {
         method: "POST",
         body: formData,
         headers: {
