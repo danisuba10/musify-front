@@ -7,6 +7,8 @@ import CollectionDetailList from "../details/CollectionDetail/CollectionDetailLi
 import Search from "../search/Search";
 import AddSong from "./AddSong";
 import { artists, songs } from "../../assets/Constants";
+import { apiURL } from "../../assets/Constants";
+
 import {
   duration_to_str,
   duration_to_object,
@@ -51,7 +53,7 @@ const ModifyAlbum = ({ id, searchTerm, isAdd }) => {
         return;
       }
 
-      const response = await fetch(`http://localhost:5231/album/${id}`);
+      const response = await fetch(`${apiURL}}/album/${id}`);
       console.log(response);
       const data = await response.json();
 
@@ -59,14 +61,14 @@ const ModifyAlbum = ({ id, searchTerm, isAdd }) => {
         type: "Album",
         id: data.id,
         name: data.name,
-        image: `http://localhost:5231/image/${encodeURIComponent(
+        image: `${apiURL}/image/${encodeURIComponent(
           data.image.imageLocation
         )}`,
         artists: data.artists.$values.map((artist) => ({
           id: artist.id,
           name: artist.name,
           imageLocation: artist.imageLocation,
-          creator_img: `http://localhost:5231/image/${encodeURIComponent(
+          creator_img: `${apiURL}/image/${encodeURIComponent(
             artist.imageLocation
           )}`,
         })),
@@ -89,7 +91,7 @@ const ModifyAlbum = ({ id, searchTerm, isAdd }) => {
           id: artist.id,
           creator: artist.name,
           imageLocation: artist.imageLocation,
-          creator_img: `http://localhost:5231/image/${encodeURIComponent(
+          creator_img: `${apiURL}/image/${encodeURIComponent(
             artist.imageLocation
           )}`,
         }))

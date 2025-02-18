@@ -3,7 +3,7 @@ import { useState } from "react";
 import HorizontalScrollGrid from "../homepage/HorizontalScrollGrid";
 import MixedSearch from "./MixedSearch";
 
-import { artists } from "../../assets/Constants";
+import { apiURL, artists } from "../../assets/Constants";
 
 import "../../styles/homepage/home.css";
 import TableSearch from "./TableSearch";
@@ -37,13 +37,7 @@ export default function Search({
         break;
       case "Songs":
         setQueryFunc(() =>
-          search(
-            setSearchDisplay,
-            term,
-            "http://localhost:5231/song/search",
-            true,
-            "Songs"
-          )
+          search(setSearchDisplay, term, `${apiURL}/song/search`, true, "Songs")
         );
         break;
       case "Albums":
@@ -51,7 +45,7 @@ export default function Search({
           search(
             setSearchDisplay,
             term,
-            "http://localhost:5231/album/search",
+            `${apiURL}/album/search`,
             false,
             "Albums"
           )
@@ -62,7 +56,7 @@ export default function Search({
           search(
             setSearchDisplay,
             term,
-            "http://localhost:5231/artist/search",
+            `${apiURL}/artist/search`,
             true,
             "Artists"
           )

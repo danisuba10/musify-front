@@ -1,5 +1,6 @@
 import { React } from "react";
 import TableSearch from "./TableSearch";
+import { apiURL } from "../../assets/Constants";
 
 export const search = (
   setSearchDisplay,
@@ -49,9 +50,7 @@ export const search = (
         const albums = data.searchResults.$values.map((album) => ({
           id: album.id,
           name: album.name,
-          image: `http://localhost:5231/image/${encodeURIComponent(
-            album.imageLocation
-          )}`,
+          image: `${apiURL}/image/${encodeURIComponent(album.imageLocation)}`,
         }));
         setSearchDisplay(
           <TableSearch
@@ -73,7 +72,8 @@ export const search = (
       } else {
         setSearchDisplay(
           <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
-            An error occurred while fetching {title.toLowerCase()}.
+            An error occurred while fetching {title.toLowerCase()}. Error:{" "}
+            {error.message}
           </div>
         );
       }

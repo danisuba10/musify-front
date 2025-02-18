@@ -1,3 +1,5 @@
+export const apiURL = "http://192.168.0.184:5231";
+
 export const artists = [
   {
     id: "1a",
@@ -219,9 +221,9 @@ export const library = [
 
 export const artist = {
   colors: {
-    low: "#6f3a73",
-    middle: "#3a1e3c",
-    top: "#2a162c",
+    low: "#A192B4",
+    middle: "#685E74",
+    top: "#4B4454",
   },
   image: "https://i.scdn.co/image/ab67616d00001e027b178f928742be1492c6fba2",
   artist_img:

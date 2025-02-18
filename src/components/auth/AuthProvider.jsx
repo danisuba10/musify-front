@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
+import { apiURL } from "../../assets/Constants";
 
 export const AuthContext = createContext();
 
@@ -82,7 +83,7 @@ const AuthProvider = ({ children }) => {
       formData.append("userName", email);
       formData.append("password", password);
 
-      const response = await fetch("http://localhost:5231/user/login", {
+      const response = await fetch(`${apiURL}/user/login`, {
         method: "POST",
         body: formData,
       });
@@ -113,7 +114,7 @@ const AuthProvider = ({ children }) => {
       formData.append("Password", password);
       formData.append("DisplayName", displayName);
 
-      const response = await fetch("http://localhost:5231/user/register", {
+      const response = await fetch(`${apiURL}/user/register`, {
         method: "POST",
         body: formData,
       });
