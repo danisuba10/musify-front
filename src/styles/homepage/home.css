@@ -49,7 +49,7 @@ body {
 
 @layer components {
   .search-filter-container {
-    @apply flex flex-row p-4 gap-2;
+    @apply flex flex-row flex-wrap p-4 gap-2;
   }
   .search-filter-button {
     @apply text-white rounded-full pr-4 pl-4 pt-1 pb-1;
