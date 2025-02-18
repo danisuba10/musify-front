@@ -15,11 +15,18 @@ import ProfileDetail from "./components/details/ProfileDetail/ProfileDetail";
 import { artist, songs, profile } from "./assets/Constants";
 import AdminPanel from "./components/AdminPanel/AdminPanel";
 import AuthProvider from "./components/auth/AuthProvider";
+import ModifyAlbum from "./components/AdminPanel/ModifyAlbum";
+import { useParams } from "react-router-dom";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [term, setTerm] = useState("");
+
+  const AlbumRoute = () => {
+    const { id } = useParams();
+    return <ModifyAlbum isModify={false} id={id} isAdd={false} />;
+  };
 
   return (
     <AuthProvider>
@@ -63,7 +70,7 @@ function App() {
                   isSearch ? (
                     <Search initialTerm={term} key={term} />
                   ) : (
-                    <CollectionDetail collection={artist} elements={songs} />
+                    <AlbumRoute />
                   )
                 }
               />
