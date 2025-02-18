@@ -43,14 +43,6 @@ const CollectionDetailActionBar = ({
             <button className="add-button-container">
               <PlayButton />
             </button>
-            <button className="add-button-container">
-              <Add className="add-button" />
-            </button>
-            {isAdmin && (
-              <button className="add-button-container">
-                <EditButton className="add-button" />
-              </button>
-            )}
           </>
         )}
       </div>
