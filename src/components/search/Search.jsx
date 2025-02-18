@@ -8,6 +8,8 @@ import { artists } from "../../assets/Constants";
 import "../../styles/homepage/home.css";
 import TableSearch from "./TableSearch";
 
+import { search } from "../search/SearchFetches";
+
 export default function Search({
   initialTerm,
   selectionFunc,
@@ -20,57 +22,6 @@ export default function Search({
   const [queryFunc, setQueryFunc] = useState(null);
   const [lastFoundName, setLastFoundName] = useState(null);
   const [lastFoundCreatedAt, setLastFoundCreatedAt] = useState(null);
-
-  const searchAlbums = () => {
-    const formData = new FormData();
-    formData.append("SearchTerm", term);
-    formData.append("LastName", "");
-    formData.append("LastCreatedAt", "");
-    formData.append("PageSize", 50);
-
-    setSearchDisplay(
-      <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
-        Loading..
-      </div>
-    );
-
-    fetch("http://localhost:5231/album/search", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Data fetched: ", data);
-        if (
-          !data.searchResults ||
-          !data.searchResults.$values ||
-          data.searchResults.$values.length === 0
-        ) {
-          setSearchDisplay(
-            <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
-              No albums found for "{term}".
-            </div>
-          );
-        } else {
-          const albums = data.searchResults.$values.map((album) => ({
-            id: album.id,
-            name: album.name,
-            image: `http://localhost:5231/image/${encodeURIComponent(
-              album.imageLocation
-            )}`,
-          }));
-          setSearchDisplay(<TableSearch title="Albums" elements={albums} />);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching albums:", error);
-        setSearchDisplay(
-          <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
-            No results.
-          </div>
-        );
-      });
-  };
 
   useEffect(() => {
     if (queryFunc) {
@@ -85,22 +36,36 @@ export default function Search({
         setSearchDisplay(<MixedSearch />);
         break;
       case "Songs":
-        setSearchDisplay(
-          <TableSearch title="Songs" type="circle" elements={artists} />
+        setQueryFunc(() =>
+          search(
+            setSearchDisplay,
+            term,
+            "http://localhost:5231/song/search",
+            true,
+            "Songs"
+          )
         );
         break;
       case "Albums":
-        // setSearchDisplay(<TableSearch title="Albums" elements={artists} />);
-        setQueryFunc(searchAlbums);
+        setQueryFunc(() =>
+          search(
+            setSearchDisplay,
+            term,
+            "http://localhost:5231/album/search",
+            false,
+            "Albums"
+          )
+        );
         break;
       case "Artists":
-        setSearchDisplay(
-          <TableSearch
-            title={`Artists - ${initialTerm}`}
-            type="circle"
-            elements={artists}
-            selectionFunc={selectionFunc}
-          />
+        setQueryFunc(() =>
+          search(
+            setSearchDisplay,
+            term,
+            "http://localhost:5231/artist/search",
+            true,
+            "Artists"
+          )
         );
         break;
       case "Playlists":
