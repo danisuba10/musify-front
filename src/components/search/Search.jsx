@@ -16,21 +16,16 @@ export default function Search({
   defaultFilter = "All",
   onlyFilter = false,
 }) {
-  const [filter, setFilter] = useState(defaultFilter);
+  const initialFilter =
+    sessionStorage.getItem("selectedFilter") || defaultFilter;
+  const [filter, setFilter] = useState(initialFilter);
   const [searchDisplay, setSearchDisplay] = useState(null);
   const [term, setTerm] = useState(initialTerm);
   const [queryFunc, setQueryFunc] = useState(null);
   const [lastFoundName, setLastFoundName] = useState(null);
   const [lastFoundCreatedAt, setLastFoundCreatedAt] = useState(null);
 
-  useEffect(() => {
-    if (queryFunc) {
-      queryFunc();
-    }
-  }, [term]);
-
   const updateSearchDisplay = (filterValue) => {
-    setFilter(filterValue);
     switch (filterValue) {
       case "All":
         setSearchDisplay(<MixedSearch />);
@@ -76,6 +71,19 @@ export default function Search({
   };
 
   useEffect(() => {
+    const executeQuery = async () => {
+      if (queryFunc) {
+        await queryFunc();
+      }
+    };
+    executeQuery();
+  }, [term]);
+
+  useEffect(() => {
+    sessionStorage.setItem("selectedFilter", filter);
+  }, [filter]);
+
+  useEffect(() => {
     updateSearchDisplay(filter);
   }, [filter, term]);
 
@@ -86,6 +94,12 @@ export default function Search({
   useEffect(() => {
     setTerm(initialTerm);
   }, [initialTerm]);
+
+  useEffect(() => {
+    return () => {
+      sessionStorage.setItem("selectedFilter", "All");
+    };
+  }, []);
 
   const handleFilterClick = (filterValue) => {
     setFilter(filterValue);
