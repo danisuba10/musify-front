@@ -15,7 +15,7 @@ const TableElementCard = ({
   };
 
   return (
-    <div className="table-card">
+    <div className="table-search-card">
       <div className="table-card-content">
         <div className="horizontal-scroll-image-container" onClick={redirect}>
           <img
@@ -29,12 +29,14 @@ const TableElementCard = ({
             {name}
           </h3>
           <p className="horizontal-scroll-subtitle">{type}</p>
-          <div
-            className="border-2 border-svgGrey p-2 rounded-full mt-2"
-            onClick={() => selectionFunc({ id, name, image })}
-          >
-            <h3 className="horizontal-scroll-name">Select</h3>
-          </div>
+          {selectionFunc && (
+            <div
+              className="border-2 border-svgGrey p-2 rounded-full mt-2"
+              onClick={() => selectionFunc({ id, name, image })}
+            >
+              <h3 className="horizontal-scroll-name">Select</h3>
+            </div>
+          )}
         </div>
       </div>
     </div>
