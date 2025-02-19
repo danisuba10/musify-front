@@ -2,18 +2,27 @@ import { React } from "react";
 import TableSearch from "./TableSearch";
 import { apiURL } from "../../assets/Constants";
 
-export const search = async (
+export const search = async ({
   setSearchDisplay,
   term,
   endPoint,
   rounded = false,
-  title
-) => {
+  title,
+  setLastFoundName,
+  setLastFoundCreatedAt,
+  lastName,
+  lastCreatedAt,
+  existingResults = [],
+  setHasMore = () => {},
+  onLoadMore = () => {},
+  selectionFunc,
+}) => {
   const formData = new FormData();
   formData.append("SearchTerm", term);
-  formData.append("LastName", "");
-  formData.append("LastCreatedAt", "");
-  formData.append("PageSize", 50);
+  formData.append("LastName", lastName);
+  formData.append("LastCreatedAt", lastCreatedAt);
+  formData.append("PageSize", 25);
+  console.log("Last data: ", lastName, lastCreatedAt);
 
   if (setSearchDisplay) {
     setSearchDisplay(
@@ -43,38 +52,53 @@ export const search = async (
       !data.searchResults?.$values ||
       data.searchResults.$values.length === 0
     ) {
-      if (setSearchDisplay) {
-        setSearchDisplay(
-          <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
-            No {title.toLowerCase()} found for "{term}".
-          </div>
-        );
+      setHasMore(false);
+      if (existingResults.length === 0) {
+        if (setSearchDisplay) {
+          setSearchDisplay(
+            <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
+              No {title.toLowerCase()} found for "{term}".
+            </div>
+          );
+        }
         return [];
       }
-      return [];
+      return existingResults;
     }
 
-    const albums = data.searchResults.$values.map((album) => ({
+    const newResults = data.searchResults.$values.map((album) => ({
       id: album.id,
       name: album.name,
       image: `${apiURL}/image/${encodeURIComponent(album.imageLocation)}`,
     }));
 
-    console.log("Results before returning:", albums);
+    const allResults = [...existingResults, ...newResults];
+
+    if (setLastFoundName) {
+      setLastFoundName(data.lastName);
+    }
+    if (setLastFoundCreatedAt) {
+      setLastFoundCreatedAt(data.lastCreatedAt);
+    }
 
     if (setSearchDisplay) {
       setSearchDisplay(
         <TableSearch
           title={title}
-          elements={albums}
+          elements={allResults}
           type={rounded ? "circle" : ""}
+          selectionFunc={selectionFunc}
+          onLoadMore={onLoadMore}
+          hasMore={data.searchResults.$values.length === 25}
         />
       );
     }
-    return albums;
+    setHasMore(data.searchResults.$values.length === 25);
+    return newResults;
   } catch (error) {
     console.error("Error fetching:", error);
-    if (error.message === "Not Found") {
+    setHasMore(false);
+    if (error.message === "Not Found" && existingResults.length === 0) {
       if (setSearchDisplay) {
         setSearchDisplay(
           <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
@@ -85,14 +109,16 @@ export const search = async (
       return [];
     }
 
-    if (setSearchDisplay) {
+    if (setSearchDisplay && existingResults.length === 0) {
       setSearchDisplay(
         <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
           An error occurred while fetching {title.toLowerCase()}. Error:{" "}
           {error.message}
         </div>
       );
+      return [];
     }
-    throw error;
+
+    return existingResults;
   }
 };

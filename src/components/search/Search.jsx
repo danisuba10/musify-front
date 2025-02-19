@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import HorizontalScrollGrid from "../homepage/HorizontalScrollGrid";
 import MixedSearch from "./MixedSearch";
@@ -9,6 +9,7 @@ import "../../styles/homepage/home.css";
 import TableSearch from "./TableSearch";
 
 import { search } from "../search/SearchFetches";
+import { debounce } from "../Service/Debounce";
 
 export default function Search({
   initialTerm,
@@ -21,41 +22,71 @@ export default function Search({
   const [filter, setFilter] = useState(initialFilter);
   const [searchDisplay, setSearchDisplay] = useState(null);
   const [term, setTerm] = useState(initialTerm);
-  const [queryFunc, setQueryFunc] = useState(null);
+
+  const lastFoundNameRef = useRef(null);
+  const lastFoundCreatedAtRef = useRef(null);
   const [lastFoundName, setLastFoundName] = useState(null);
   const [lastFoundCreatedAt, setLastFoundCreatedAt] = useState(null);
 
-  const updateSearchDisplay = (filterValue) => {
+  useEffect(() => {
+    console.log("Last found:", lastFoundName, lastFoundCreatedAt);
+    lastFoundNameRef.current = lastFoundName;
+    lastFoundCreatedAtRef.current = lastFoundCreatedAt;
+  }, [lastFoundName, lastFoundCreatedAt]);
+
+  const hasMoreRef = useRef();
+  const [hasMore, setHasMore] = useState(true);
+  const resultsRef = useRef(null);
+  const [results, setResults] = useState([]);
+
+  const scrollPositionRef = useRef(0);
+
+  useEffect(() => {
+    console.log("Results changed. New results: ", results);
+    resultsRef.current = results;
+
+    const container = document.querySelector(".table-container");
+    if (container && results.length > 0) {
+      container.scrollTop = scrollPositionRef.current;
+    }
+  }, [results]);
+
+  useEffect(() => {
+    hasMoreRef.current = hasMore;
+  }, [hasMore]);
+
+  const loadMore = async (filterValue) => {
+    if (!hasMoreRef.current) return;
+
+    const searchParams = {
+      setSearchDisplay: setSearchDisplay,
+      term: term,
+      rounded: filterValue === "Songs" || filterValue === "Artists",
+      title: filterValue,
+      setLastFoundName: setLastFoundName,
+      setLastFoundCreatedAt: setLastFoundCreatedAt,
+      lastName: lastFoundNameRef.current || "",
+      lastCreatedAt: lastFoundCreatedAtRef.current || "",
+      existingResults: resultsRef.current,
+      setHasMore: setHasMore,
+      onLoadMore: () => loadMore(filterValue),
+      selectionFunc: selectionFunc,
+    };
+
+    var endPoint = "";
+
     switch (filterValue) {
       case "All":
         setSearchDisplay(<MixedSearch />);
         break;
       case "Songs":
-        setQueryFunc(() =>
-          search(setSearchDisplay, term, `${apiURL}/song/search`, true, "Songs")
-        );
+        endPoint = `${apiURL}/song/search`;
         break;
       case "Albums":
-        setQueryFunc(() =>
-          search(
-            setSearchDisplay,
-            term,
-            `${apiURL}/album/search`,
-            false,
-            "Albums"
-          )
-        );
+        endPoint = `${apiURL}/album/search`;
         break;
       case "Artists":
-        setQueryFunc(() =>
-          search(
-            setSearchDisplay,
-            term,
-            `${apiURL}/artist/search`,
-            true,
-            "Artists"
-          )
-        );
+        endPoint = `${apiURL}/artist/search`;
         break;
       case "Playlists":
         setSearchDisplay(<TableSearch title="Playlists" elements={artists} />);
@@ -68,28 +99,65 @@ export default function Search({
       default:
         setSearchDisplay(null);
     }
+
+    const container = document.querySelector(".table-container");
+    scrollPositionRef.current = container ? container.scrollTop : 0;
+
+    const newResults = await search({
+      ...searchParams,
+      endPoint: endPoint,
+    });
+
+    console.log("Old results:", resultsRef.current);
+    console.log("New results:", [newResults]);
+    setResults((prevResults) => [...prevResults, ...newResults]);
   };
 
-  useEffect(() => {
-    const executeQuery = async () => {
-      if (queryFunc) {
-        await queryFunc();
+  const updateSearchDisplay = async (filterValue) => {
+    setSearchDisplay(null);
+    setResults([]);
+    setLastFoundName("");
+    setLastFoundCreatedAt("");
+    setHasMore(true);
+
+    setTimeout(async () => {
+      switch (filterValue) {
+        case "All":
+          setSearchDisplay(<MixedSearch />);
+          break;
+        case "Playlists":
+          setSearchDisplay(
+            <TableSearch title="Playlists" elements={artists} />
+          );
+          break;
+        case "Users":
+          setSearchDisplay(
+            <TableSearch title="Users" type="circle" elements={artists} />
+          );
+          break;
+        default:
+          await loadMore(filterValue);
       }
-    };
-    executeQuery();
-  }, [term]);
+    }, 0);
+  };
+
+  const fetchData = debounce(async () => {
+    await updateSearchDisplay(filter);
+  }, 400);
 
   useEffect(() => {
     sessionStorage.setItem("selectedFilter", filter);
-  }, [filter]);
 
-  useEffect(() => {
-    updateSearchDisplay(filter);
+    // Wait for the first render
+    const timeout = setTimeout(() => {
+      fetchData();
+    }, 0);
+
+    return () => {
+      clearTimeout(timeout);
+      fetchData.cancel();
+    };
   }, [filter, term]);
-
-  useEffect(() => {
-    updateSearchDisplay(defaultFilter);
-  }, [defaultFilter]);
 
   useEffect(() => {
     setTerm(initialTerm);
@@ -98,6 +166,11 @@ export default function Search({
   useEffect(() => {
     return () => {
       sessionStorage.setItem("selectedFilter", "All");
+      setSearchDisplay(null);
+      setResults([]);
+      setLastFoundName("");
+      setLastFoundCreatedAt("");
+      setHasMore(true);
     };
   }, []);
 
