@@ -65,7 +65,7 @@ const AuthProvider = ({ children }) => {
         clearInterval(interval);
         logout();
       }
-    }, 5 * 60 * 1000);
+    }, 2 * 60 * 1000);
 
     return () => clearInterval(interval);
   };
@@ -138,7 +138,6 @@ const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setIsAuthenticated(false);
-    setIsAdmin(false);
     setUserToken(null);
     setUserInfo({});
     localStorage.removeItem("userToken");
