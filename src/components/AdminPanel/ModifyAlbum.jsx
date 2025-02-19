@@ -15,7 +15,7 @@ import {
   object_to_seconds,
 } from "../Service/TimeService";
 
-const ModifyAlbum = ({ id, searchTerm, isAdd }) => {
+const ModifyAlbum = ({ id, searchTerm, isAdd, isModify }) => {
   const [markedToBeDeleted, setMarkedToBeDeleted] = useState(false);
   const [songsToBeDeleted, setSongsToBeDeleted] = useState(new Set());
   const [creators, setCreators] = useState([]);
@@ -53,7 +53,7 @@ const ModifyAlbum = ({ id, searchTerm, isAdd }) => {
         return;
       }
 
-      const response = await fetch(`${apiURL}}/album/${id}`);
+      const response = await fetch(`${apiURL}/album/${id}`);
       console.log(response);
       const data = await response.json();
 
@@ -110,15 +110,13 @@ const ModifyAlbum = ({ id, searchTerm, isAdd }) => {
         })),
       }));
 
-      setSongs(querriedSongs);
+      setSongs(querriedSongs.sort((a, b) => a.order - b.order));
 
       console.log(collection2);
       console.log(elements2);
     } catch (error) {
       console.log(error);
     }
-
-    setSongs(querriedSongs.sort((a, b) => a.order - b.order));
   };
 
   // useEffect(() => {
@@ -130,6 +128,7 @@ const ModifyAlbum = ({ id, searchTerm, isAdd }) => {
       console.log("Triggering getData");
       getData();
     } else {
+      console.log("Id is :", id);
       console.log("AlbumView is already set or no valid id");
     }
   }, [albumView, id]);
@@ -275,7 +274,7 @@ const ModifyAlbum = ({ id, searchTerm, isAdd }) => {
               ref={cardRef}
               collection={albumView}
               type="album"
-              isModify={true}
+              isModify={isModify}
               creators={creators}
               onAddArtist={() => handleAddAlbumArtist(addAlbumArtist)}
               onDeleteArtist={deleteCreator}
@@ -285,25 +284,29 @@ const ModifyAlbum = ({ id, searchTerm, isAdd }) => {
             <CollectionDetailActionBar
               middleColor={albumView.colors?.middle || "#3a1e3c"}
               topColor={albumView.colors?.top || "#2a162c"}
-              isModify={true}
+              isModify={isModify}
               toDelete={deleteAlbum}
               isAdd={isAdd}
               toSave={makeChange}
             />
           )}
-          <div className="mt-8 w-full"></div>
-          <div className="w-full flex flex-col justify-center items-center">
-            {addSongErrorMessage && (
-              <div className="font-bold text-white mt-2 mb-2 p-2 border-2 border-orange-500 rounded-lg">
-                Error: {addSongErrorMessage}
+          {isModify && (
+            <>
+              <div className="mt-8 w-full"></div>
+              <div className="w-full flex flex-col justify-center items-center">
+                {addSongErrorMessage && (
+                  <div className="font-bold text-white mt-2 mb-2 p-2 border-2 border-orange-500 rounded-lg">
+                    Error: {addSongErrorMessage}
+                  </div>
+                )}
+                <AddSong handleSubmit={addSong} />
               </div>
-            )}
-            <AddSong handleSubmit={addSong} />
-          </div>
+            </>
+          )}
           {songs && (
             <CollectionDetailList
               elements={songs}
-              isModify={true}
+              isModify={isModify}
               toDelete={deleteItemFromList}
               itemsToBeDeleted={songsToBeDeleted}
               searchTerm={searchTerm}
