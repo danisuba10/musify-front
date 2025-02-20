@@ -27,6 +27,8 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
   const [addSongErrorMessage, setAddSongErrorMessage] = useState("");
   const [albumView, setAlbumView] = useState(null);
   const [songsV, setSongsV] = useState(null);
+  const [albumUpdateSuccessMessage, setAlbumUpdateSuccessMessage] =
+    useState(null);
   const [albumUpdateErrorMessage, setAlbumUpdateErrorMessage] = useState(null);
 
   const getData = async () => {
@@ -139,10 +141,14 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
   const cardRef = useRef(null);
 
   const makeChange = async () => {
+    setAlbumUpdateErrorMessage(null);
+    setAlbumUpdateSuccessMessage(null);
+
     const albumDTO = cardRef.current.getAlbumInfoDTO();
     const oldArtistIds = oldCreators.map((creator) => creator.id);
     const artistIds = creators.map((creator) => creator.id);
 
+    console.log("AlbumDTO: ", albumDTO);
     var albumUpdateDTO = {
       name: null,
       year: null,
@@ -158,7 +164,7 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
     if (albumDTO.year !== albumView.details.year) {
       albumUpdateDTO.year = albumDTO.year;
     }
-    if (albumDTO.file === null) {
+    if (albumDTO.file !== null) {
       albumUpdateDTO.file = albumDTO.file;
     }
     if (
@@ -169,6 +175,8 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
     ) {
       albumUpdateDTO.artistIds = artistIds;
     }
+
+    console.log("Artist ids after convert:", albumUpdateDTO.artistIds);
 
     if (
       albumUpdateDTO.name === null &&
@@ -191,7 +199,9 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
       updateAlbumData.append("FormFile", albumUpdateDTO.file);
     }
     if (albumUpdateDTO.artistIds !== null) {
-      updateAlbumData.append("ArtistIds", albumUpdateDTO.artistIds);
+      albumUpdateDTO.artistIds.forEach((artistId) => {
+        updateAlbumData.append("ArtistIds", artistId);
+      });
     }
     console.log(updateAlbumData);
 
@@ -205,6 +215,7 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
 
     if (response.ok) {
       console.log("Album updated successfully!");
+      setAlbumUpdateSuccessMessage("Album updated successfully!");
     } else {
       const errorData = await response.json();
       console.log("Error data: ", errorData);
@@ -356,10 +367,20 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
               toSave={makeChange}
             />
           )}
+          {isModify && albumUpdateSuccessMessage && (
+            <div className="w-full flex flex-wrap items-center justify-center">
+              <div className="font-bold text-white mt-2 mb-2 p-2 border-2 border-green-400 rounded-lg w-[50%] flex items-center justify-center">
+                {albumUpdateSuccessMessage}
+              </div>
+            </div>
+          )}
           {isModify && albumUpdateErrorMessage && (
             <div className="w-full flex flex-wrap items-center justify-center">
-              <div className="font-bold text-white mt-2 mb-2 p-2 border-2 border-orange-500 rounded-lg w-[50%]">
-                Album update error: {albumUpdateErrorMessage}
+              <div className=" mt-2 mb-2 p-2 border-2 border-orange-500 rounded-lg w-[50] flex items-center justify-center">
+                <span className="font-bold text-white text-center">
+                  Album update error: {albumUpdateErrorMessage}
+                </span>
+                .
               </div>
             </div>
           )}
