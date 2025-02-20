@@ -9,7 +9,12 @@ import { emptyAlbum } from "../../assets/Constants";
 const AddAlbum = ({ searchTerm }) => {
   return (
     <>
-      <ViewAlbum isAdd={true} id={null} searchTerm={searchTerm} />
+      <ViewAlbum
+        isAdd={true}
+        isModify={true}
+        id={null}
+        searchTerm={searchTerm}
+      />
     </>
   );
 };
