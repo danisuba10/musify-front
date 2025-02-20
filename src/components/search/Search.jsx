@@ -18,7 +18,9 @@ export default function Search({
   onlyFilter = false,
 }) {
   const initialFilter =
-    sessionStorage.getItem("selectedFilter") || defaultFilter;
+    defaultFilter !== "All" && defaultFilter
+      ? defaultFilter
+      : sessionStorage.getItem("selectedFilter");
   const [filter, setFilter] = useState(initialFilter);
   const [searchDisplay, setSearchDisplay] = useState(null);
   const [term, setTerm] = useState(initialTerm);
@@ -77,7 +79,7 @@ export default function Search({
 
     switch (filterValue) {
       case "All":
-        setSearchDisplay(<MixedSearch />);
+        setSearchDisplay(<div>Mixed display</div>);
         break;
       case "Songs":
         endPoint = `${apiURL}/song/search`;
@@ -121,23 +123,7 @@ export default function Search({
     setHasMore(true);
 
     setTimeout(async () => {
-      switch (filterValue) {
-        case "All":
-          setSearchDisplay(<MixedSearch />);
-          break;
-        case "Playlists":
-          setSearchDisplay(
-            <TableSearch title="Playlists" elements={artists} />
-          );
-          break;
-        case "Users":
-          setSearchDisplay(
-            <TableSearch title="Users" type="circle" elements={artists} />
-          );
-          break;
-        default:
-          await loadMore(filterValue);
-      }
+      await loadMore(filterValue);
     }, 0);
   };
 
@@ -157,7 +143,7 @@ export default function Search({
       clearTimeout(timeout);
       fetchData.cancel();
     };
-  }, [filter, term]);
+  }, [filter, term, defaultFilter]);
 
   useEffect(() => {
     setTerm(initialTerm);
