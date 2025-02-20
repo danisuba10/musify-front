@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import "../../styles/homepage/HorizontalScrollCard.css";
 
@@ -10,8 +11,10 @@ const TableElementCard = ({
   typeCSS,
   selectionFunc,
 }) => {
+  const navigate = useNavigate();
+
   const redirect = () => {
-    window.location.href = `/${type.toLowerCase()}/${id}`;
+    navigate(`/${type.toLowerCase()}/${id}`);
   };
 
   return (

@@ -1,6 +1,7 @@
 import React from "react";
 
 import "../../styles/homepage/HorizontalScrollCard.css";
+import { useNavigate } from "react-router-dom";
 
 const HorizontalScrollCard = ({
   id,
@@ -10,8 +11,10 @@ const HorizontalScrollCard = ({
   typeCSS,
   route,
 }) => {
+  const navigate = useNavigate();
+
   const redirect = () => {
-    window.location.href = `${route}${id}`;
+    navigate(`${route}${id}`);
   };
 
   return (

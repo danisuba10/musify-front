@@ -1,16 +1,19 @@
 import React from "react";
 
 import "../../styles/adminpanel/AdminMenu.css";
+import { useNavigate } from "react-router-dom";
 
 const AdminMenu = () => {
+  const navigate = useNavigate();
+
   const addArtistRedir = () => {
-    window.location.href = "/admin/add-artist";
+    navigate("/admin/add-artist");
   };
   const addAlbumRedir = () => {
-    window.location.href = "/admin/add-album";
+    navigate("/admin/add-album");
   };
   const modifyAlbumRedir = () => {
-    window.location.href = "/admin/modify-album";
+    navigate("/admin/modify-album");
   };
   return (
     <>

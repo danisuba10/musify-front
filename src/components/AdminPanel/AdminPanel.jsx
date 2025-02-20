@@ -1,5 +1,10 @@
 import React, { useContext } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 
 import "../../styles/adminpanel/AdminPanel.css";
 import AdminMenu from "./AdminMenu";
@@ -13,10 +18,13 @@ import { artist, songs } from "../../assets/Constants";
 import Home from "../homepage/Home";
 
 const AdminPanel = ({ searchTerm }) => {
+  const navigate = useNavigate();
+
   const { isAdmin } = useContext(AuthContext);
 
   if (!isAdmin()) {
-    return <Home />;
+    navigate("/");
+    return null;
   } else {
     return (
       <>
@@ -31,14 +39,7 @@ const AdminPanel = ({ searchTerm }) => {
             {/* <Route path="modify-artist" /> */}
             <Route
               path="modify-album"
-              element={
-                <ModifyAlbum
-                  id={"05ec2d57-5c12-4487-b49b-4a03a077954d"}
-                  collection={artist}
-                  elements={songs}
-                  searchTerm={searchTerm}
-                />
-              }
+              element={<ModifyAlbum searchTerm={searchTerm} />}
             />
           </Routes>
         </div>

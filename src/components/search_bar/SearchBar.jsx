@@ -6,8 +6,11 @@ import Magnifier from "../../assets/magni.svg?react";
 import Account from "../../assets/profile.svg?react";
 import Admin from "../../assets/admin.svg?react";
 import { AuthContext } from "../auth/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = ({ onClick, onSearch }) => {
+  const navigate = useNavigate();
+
   const { isAdmin } = useContext(AuthContext);
 
   const handleInputChange = (e) => {
@@ -20,10 +23,10 @@ const SearchBar = ({ onClick, onSearch }) => {
   };
 
   const handleHomeClick = () => {
-    window.location.href = "/";
+    navigate("/");
   };
   const handleAdminPanelClick = () => {
-    window.location.href = "/admin/";
+    navigate("/admin/");
   };
 
   return (
