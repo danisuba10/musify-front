@@ -119,10 +119,10 @@ const CollectionDetailCard = forwardRef(
               <div className="collection-detail-name">{collection?.name}</div>
             )}
             <div className="collection-detail-details">
-              {type === "album" && (
+              {type === "Album" && (
                 <>
                   <div className="artist-container">
-                    {creators.map((artist, index) => (
+                    {creators?.map((artist, index) => (
                       <div
                         key={index}
                         className="flex flex-col sm:flex-row justify-left items-center gap-2 h-fit w-fit"
@@ -182,66 +182,11 @@ const CollectionDetailCard = forwardRef(
                     <div className="about-info-entry">
                       {!isModify && <>Duration: </>}
                       {!isModify && collection?.details.total_length_str}{" "}
-                      {/* {isModify && (
-                        <div className="relative w-full h-fit flex flex-grow sm:flex-row flex-col gap-1 items-center justify-center pl-2 pr-2">
-                          <input
-                            className="w-full min-w-[3vw] text-svgGrey text-center bg-displayBlack focus:ring-1 focus:ring-green-500 outline-none"
-                            id="newOrder"
-                            type="text"
-                            placeholder={`${
-                              newDuration.hours || oldDuration.hours
-                            }`}
-                            onChange={(e) => {
-                              setNewDuration({
-                                hours: e.target.value,
-                                minutes: newDuration.minutes,
-                                seconds: newDuration.seconds,
-                              });
-                            }}
-                          />
-                          <span className="relative w-full sm:w-min flex items-start text-start">
-                            h
-                          </span>
-                          <input
-                            className="w-full min-w-[3vw] text-svgGrey text-center bg-displayBlack focus:ring-1 focus:ring-green-500 outline-none"
-                            id="newOrder"
-                            type="text"
-                            placeholder={`${
-                              newDuration.minutes || oldDuration.seconds
-                            }`}
-                            onChange={(e) => {
-                              setNewDuration({
-                                hours: newDuration.hours,
-                                minutes: e.target.value,
-                                seconds: newDuration.seconds,
-                              });
-                            }}
-                          />
-                          <span className="relative w-full sm:w-min flex items-start text-start">
-                            m
-                          </span>
-                          <input
-                            className="w-full min-w-[3vw] text-svgGrey text-center bg-displayBlack focus:ring-1 focus:ring-green-500 outline-none"
-                            id="newOrder"
-                            type="text"
-                            placeholder={`${
-                              newDuration.seconds || oldDuration.seconds
-                            }`}
-                            onChange={(e) => {
-                              setNewDuration({
-                                hours: newDuration.hours,
-                                minutes: newDuration.minutes,
-                                seconds: e.target.value,
-                              });
-                            }}
-                          />
-                        </div>
-                      )} */}
                     </div>
                   </div>
                 </>
               )}
-              {type === "artist" && (
+              {type === "Artist" && (
                 <>
                   <div className="about-info">
                     <div className="about-info-entry">
@@ -250,7 +195,7 @@ const CollectionDetailCard = forwardRef(
                   </div>
                 </>
               )}
-              {type === "user" && (
+              {type === "User" && (
                 <>
                   <div className="about-info">
                     <div className="about-info-entry">
