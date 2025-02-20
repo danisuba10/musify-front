@@ -5,16 +5,39 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { search } from "../search/SearchFetches";
 import { apiURL } from "../../assets/Constants";
 
-const HorizontalScrollGrid = ({ title, url, subtitle, type, route }) => {
+const HorizontalScrollGrid = ({
+  title,
+  url,
+  subtitle,
+  type,
+  route,
+  initialElements,
+}) => {
   const [elements, setElements] = useState(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
+      if (initialElements) {
+        setElements(initialElements);
+        return;
+      }
+
       console.log("Fetching data with URL: ", url);
       try {
-        const result = await search(null, "", url, type === "circle", "");
+        const result = await search({
+          setSearchDisplay: null,
+          term: "",
+          endPoint: url,
+          rounded: type === "circle",
+          title: "",
+          setLastFoundCreatedAt: null,
+          setLastFoundName: null,
+          lastName: "",
+          lastCreatedAt: "",
+          selectionFunc: null,
+        });
         console.log("Fetch result: ", result);
         setElements(result || []);
       } catch (error) {
