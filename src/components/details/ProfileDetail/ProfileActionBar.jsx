@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import Add from "../../../assets/add.svg?react";
 import Play from "../../../assets/play.svg?react";
 
 import "../../../styles/details/ProfileDetail/ProfileActionBar.css";
+import { AuthContext } from "../../auth/AuthProvider";
 
 const ProfileActionBar = ({ middleColor, topColor }) => {
+  const { userToken } = useContext(AuthContext);
+
   const [self, setSelf] = useState(false);
   const [following, setFollowing] = useState(false);
 
@@ -21,7 +24,7 @@ const ProfileActionBar = ({ middleColor, topColor }) => {
           backgroundImage: `linear-gradient(to bottom, ${middleColor}, ${topColor})`,
         }}
       >
-        {!self && (
+        {!self && userToken && (
           <button
             className="follow-button-container"
             onClick={followButtonClick}
