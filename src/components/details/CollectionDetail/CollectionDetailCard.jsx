@@ -28,6 +28,7 @@ const CollectionDetailCard = forwardRef(
   ) => {
     const [followsUser, setFollowsUser] = useState(true);
     const [imageFile, setImageFile] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
     const [nameInput, setNameInput] = useState(collection?.name || "");
 
     const [newYear, setNewYear] = useState(collection?.details.year || 0);
@@ -43,7 +44,7 @@ const CollectionDetailCard = forwardRef(
         name: nameInput,
         year: newYear,
         duration: object_to_seconds(newDuration),
-        file: imageFile,
+        file: selectedFile,
       }),
     }));
 
@@ -51,6 +52,7 @@ const CollectionDetailCard = forwardRef(
       const file = e.target.files[0];
       if (file) {
         setImageFile(URL.createObjectURL(file));
+        setSelectedFile(file);
       }
     };
 
