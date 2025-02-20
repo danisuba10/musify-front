@@ -148,7 +148,7 @@ const CollectionDetailCard = forwardRef(
                     {isModify && (
                       <div className="flex flex-col sm:flex-row justify-left items-center gap-2 h-fit w-fit">
                         <button
-                          class="artist-name border-2 border-white rounded-full pr-2 pl-2 w-fit"
+                          className="artist-name border-2 border-white rounded-full pr-2 pl-2 w-fit"
                           onClick={onAddArtist}
                         >
                           Add artist
@@ -178,9 +178,9 @@ const CollectionDetailCard = forwardRef(
                     )}
                     {!isModify && <span className="about-info-entry"> • </span>}
                     <div className="about-info-entry">
-                      Duration:{" "}
+                      {!isModify && <>Duration: </>}
                       {!isModify && collection?.details.total_length_str}{" "}
-                      {isModify && (
+                      {/* {isModify && (
                         <div className="relative w-full h-fit flex flex-grow sm:flex-row flex-col gap-1 items-center justify-center pl-2 pr-2">
                           <input
                             className="w-full min-w-[3vw] text-svgGrey text-center bg-displayBlack focus:ring-1 focus:ring-green-500 outline-none"
@@ -234,7 +234,7 @@ const CollectionDetailCard = forwardRef(
                             }}
                           />
                         </div>
-                      )}
+                      )} */}
                     </div>
                   </div>
                 </>
