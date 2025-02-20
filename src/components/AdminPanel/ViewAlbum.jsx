@@ -18,6 +18,11 @@ import {
 
 const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
   const { userToken } = useContext(AuthContext);
+  const { isAdmin } = useContext(AuthContext);
+
+  if (!isAdmin()) {
+    isModify = false;
+  }
 
   const [markedToBeDeleted, setMarkedToBeDeleted] = useState(false);
   const [songsToBeDeleted, setSongsToBeDeleted] = useState(new Set());
@@ -187,27 +192,36 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
       throw new Error("No new data supplied! Album will not change!");
     }
 
-    const updateAlbumData = new FormData();
-    updateAlbumData.append("Id", id);
+    var endPoint;
+    if (isAdd) {
+      endPoint = `${apiURL}/album/add-album`;
+    } else {
+      endPoint = `${apiURL}/album/update-album`;
+    }
+
+    const albumFormData = new FormData();
+    if (!isAdd && id) {
+      albumFormData.append("Id", id);
+    }
     if (albumUpdateDTO.name !== null) {
-      updateAlbumData.append("Name", albumUpdateDTO.name);
+      albumFormData.append("Name", albumUpdateDTO.name);
     }
     if (albumUpdateDTO.year !== null) {
-      updateAlbumData.append("Year", albumUpdateDTO.year);
+      albumFormData.append("Year", albumUpdateDTO.year);
     }
     if (albumUpdateDTO.file !== null) {
-      updateAlbumData.append("FormFile", albumUpdateDTO.file);
+      albumFormData.append("FormFile", albumUpdateDTO.file);
     }
     if (albumUpdateDTO.artistIds !== null) {
       albumUpdateDTO.artistIds.forEach((artistId) => {
-        updateAlbumData.append("ArtistIds", artistId);
+        albumFormData.append("ArtistIds", artistId);
       });
     }
-    console.log(updateAlbumData);
+    console.log(albumFormData);
 
-    const response = await fetch(`${apiURL}/album/update-album`, {
+    const response = await fetch(endPoint, {
       method: "POST",
-      body: updateAlbumData,
+      body: albumFormData,
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
@@ -350,7 +364,7 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
             <CollectionDetailCard
               ref={cardRef}
               collection={albumView}
-              type="album"
+              type="Album"
               isModify={isModify}
               creators={creators}
               onAddArtist={() => handleAddAlbumArtist(addAlbumArtist)}
