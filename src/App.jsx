@@ -45,12 +45,6 @@ function App() {
             <UserLibrary />
             <Routes>
               <Route
-                path="/"
-                element={
-                  isSearch ? <Search initialTerm={term} key={term} /> : <Home />
-                }
-              />
-              <Route
                 path="/artist/:id"
                 element={
                   isSearch ? (
@@ -87,6 +81,12 @@ function App() {
               <Route
                 path="/admin/*"
                 element={<AdminPanel searchTerm={term} />}
+              />
+              <Route
+                path="/"
+                element={
+                  isSearch ? <Search initialTerm={term} key={term} /> : <Home />
+                }
               />
             </Routes>
           </div>
