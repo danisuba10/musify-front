@@ -13,7 +13,7 @@ const FormInput = ({ fields, handleSubmit }) => {
     <>
       <form className="form-container" onSubmit={onSubmit}>
         {fields.map((field, index) => (
-          <div className="form-group" key={index}>
+          <div className="form-group" key={field.name}>
             <label htmlFor={field.name} className="form-label">
               {field.label}
             </label>
@@ -22,7 +22,7 @@ const FormInput = ({ fields, handleSubmit }) => {
                 {field.fields.map((subField, subIndex) =>
                   field.type === "file" ? (
                     <input
-                      key={subIndex}
+                      key={subField.name}
                       type="file"
                       name={subField.name}
                       id={subField.name}
@@ -32,6 +32,7 @@ const FormInput = ({ fields, handleSubmit }) => {
                     />
                   ) : (
                     <input
+                      key={subField.name}
                       type={subField.type}
                       name={subField.name}
                       id={subField.name}
