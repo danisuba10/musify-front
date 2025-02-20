@@ -16,6 +16,7 @@ export const search = async ({
   setHasMore = () => {},
   onLoadMore = () => {},
   selectionFunc,
+  onClickRedir,
 }) => {
   const formData = new FormData();
   formData.append("SearchTerm", term);
@@ -90,6 +91,7 @@ export const search = async ({
           selectionFunc={selectionFunc}
           onLoadMore={onLoadMore}
           hasMore={data.searchResults.$values.length === 25}
+          onClickRedir={onClickRedir}
         />
       );
     }

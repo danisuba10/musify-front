@@ -8,13 +8,21 @@ import Admin from "../../assets/admin.svg?react";
 import { AuthContext } from "../auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
-const SearchBar = ({ onClick, onSearch }) => {
+const SearchBar = ({ onClick, onSearch, setTerm, setIsSearch, term }) => {
   const navigate = useNavigate();
+  const [inputValue, setInputValue] = useState(term);
+
+  useEffect(() => {
+    if (term === "") {
+      setInputValue("");
+    }
+  });
 
   const { isAdmin } = useContext(AuthContext);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
+    setInputValue(value);
     if (value.length > 0) {
       onSearch(true, value);
     } else {
@@ -23,9 +31,21 @@ const SearchBar = ({ onClick, onSearch }) => {
   };
 
   const handleHomeClick = () => {
+    if (setTerm) {
+      setTerm("");
+    }
+    if (setIsSearch) {
+      setIsSearch(false);
+    }
     navigate("/");
   };
   const handleAdminPanelClick = () => {
+    if (setTerm) {
+      setTerm("");
+    }
+    if (setIsSearch) {
+      setIsSearch(false);
+    }
     navigate("/admin/");
   };
 
@@ -46,6 +66,7 @@ const SearchBar = ({ onClick, onSearch }) => {
             className="search-input-field"
             placeholder="Search..."
             onChange={handleInputChange}
+            value={inputValue}
           />
         </div>
       </div>

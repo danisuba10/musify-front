@@ -10,13 +10,19 @@ import TableSearch from "./TableSearch";
 
 import { search } from "../search/SearchFetches";
 import { debounce } from "../Service/Debounce";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Search({
   initialTerm,
   selectionFunc,
   defaultFilter = "All",
   onlyFilter = false,
+  setIsSearch = null,
+  setGlobalTerm,
 }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const initialFilter =
     defaultFilter !== "All" && defaultFilter
       ? defaultFilter
@@ -83,12 +89,27 @@ export default function Search({
         break;
       case "Songs":
         endPoint = `${apiURL}/song/search`;
+        searchParams.onClickRedir = (id) => {
+          navigate(`/song/${id}`);
+        };
         break;
       case "Albums":
         endPoint = `${apiURL}/album/search`;
+        searchParams.onClickRedir = (id) => {
+          if (setIsSearch) {
+            setIsSearch(false);
+          }
+          if (setGlobalTerm) {
+            setGlobalTerm("");
+          }
+          navigate(`/album/${id}`);
+        };
         break;
       case "Artists":
         endPoint = `${apiURL}/artist/search`;
+        searchParams.onClickRedir = (id) => {
+          navigate(`/artist/${id}`);
+        };
         break;
       case "Playlists":
         setSearchDisplay(<TableSearch title="Playlists" elements={artists} />);
@@ -114,6 +135,14 @@ export default function Search({
     console.log("New results:", [newResults]);
     setResults((prevResults) => [...prevResults, ...newResults]);
   };
+
+  useEffect(() => {
+    setSearchDisplay(null);
+    setResults([]);
+    setLastFoundName("");
+    setLastFoundCreatedAt("");
+    setHasMore(true);
+  }, [location.pathname]);
 
   const updateSearchDisplay = async (filterValue) => {
     setSearchDisplay(null);

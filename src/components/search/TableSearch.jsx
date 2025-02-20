@@ -11,6 +11,7 @@ const TableSearch = ({
   selectionFunc,
   onLoadMore,
   hasMore = true,
+  onClickRedir,
 }) => {
   const typeCSS = type === "circle" ? "rounded-full" : "";
   const containerRef = useRef(null);
@@ -57,6 +58,7 @@ const TableSearch = ({
                   type={card.subtitle}
                   typeCSS={typeCSS}
                   selectionFunc={selectionFunc}
+                  onClickRedir={onClickRedir}
                 />
               </div>
             ))}

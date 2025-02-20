@@ -17,20 +17,33 @@ import AdminPanel from "./components/AdminPanel/AdminPanel";
 import AuthProvider from "./components/auth/AuthProvider";
 import ModifyAlbum from "./components/AdminPanel/ModifyAlbum";
 import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import ViewAlbum from "./components/AdminPanel/ViewAlbum";
+import ViewArtist from "./components/AdminPanel/ViewArtist";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [term, setTerm] = useState("");
 
+  useEffect(() => {
+    console.log("New isSearch", isSearch);
+  }, [isSearch]);
+
   const AlbumRoute = () => {
     const { id } = useParams();
-    return <ModifyAlbum isModify={false} id={id} isAdd={false} />;
+    return <ViewAlbum id={id} isModify={false} />;
+  };
+
+  const ArtistRoute = () => {
+    const { id } = useParams();
+    return <ViewArtist id={id} isModify={false} />;
   };
 
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <div className="top-parent">
           <div className="global-search-bar">
             <SearchBar
@@ -39,6 +52,9 @@ function App() {
                 setIsSearch(is);
                 setTerm(e);
               }}
+              setIsSearch={setIsSearch}
+              setGlobalTerm={setTerm}
+              term={term}
             />
           </div>
           <div className="app-container">
@@ -48,13 +64,14 @@ function App() {
                 path="/artist/:id"
                 element={
                   isSearch ? (
-                    <Search initialTerm={term} key={term} />
-                  ) : (
-                    <CollectionDetail
-                      collection={artist}
-                      elements={songs}
-                      type="album"
+                    <Search
+                      initialTerm={term}
+                      key={term}
+                      setIsSearch={setIsSearch}
+                      setGlobalTerm={setTerm}
                     />
+                  ) : (
+                    <ArtistRoute />
                   )
                 }
               />
@@ -62,7 +79,12 @@ function App() {
                 path="/album/:id"
                 element={
                   isSearch ? (
-                    <Search initialTerm={term} key={term} />
+                    <Search
+                      initialTerm={term}
+                      key={term}
+                      setIsSearch={setIsSearch}
+                      setGlobalTerm={setTerm}
+                    />
                   ) : (
                     <AlbumRoute />
                   )
@@ -72,7 +94,12 @@ function App() {
                 path="/profile/:id"
                 element={
                   isSearch ? (
-                    <Search initialTerm={term} key={term} />
+                    <Search
+                      initialTerm={term}
+                      key={term}
+                      setIsSearch={setIsSearch}
+                      setGlobalTerm={setTerm}
+                    />
                   ) : (
                     <ProfileDetail profile={profile} />
                   )
@@ -85,15 +112,24 @@ function App() {
               <Route
                 path="/"
                 element={
-                  isSearch ? <Search initialTerm={term} key={term} /> : <Home />
+                  isSearch ? (
+                    <Search
+                      initialTerm={term}
+                      key={term}
+                      setIsSearch={setIsSearch}
+                      setGlobalTerm={setTerm}
+                    />
+                  ) : (
+                    <Home />
+                  )
                 }
               />
             </Routes>
           </div>
           {showLogin && <AuthOverlay onClose={() => setShowLogin(false)} />}
         </div>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 

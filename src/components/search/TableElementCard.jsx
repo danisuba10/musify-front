@@ -10,6 +10,7 @@ const TableElementCard = ({
   type,
   typeCSS,
   selectionFunc,
+  onClickRedir,
 }) => {
   const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ const TableElementCard = ({
 
   return (
     <div className="table-search-card">
-      <div className="table-card-content">
+      <div className="table-card-content" onClick={() => onClickRedir(id)}>
         <div className="horizontal-scroll-image-container" onClick={redirect}>
           <img
             src={image}
