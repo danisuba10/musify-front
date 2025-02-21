@@ -12,6 +12,7 @@ import {
 } from "../../Service/TimeService";
 
 import "../../../styles/details/CollectionDetailCard.css";
+import { useNavigate } from "react-router-dom";
 
 const CollectionDetailCard = forwardRef(
   (
@@ -26,6 +27,8 @@ const CollectionDetailCard = forwardRef(
     },
     ref
   ) => {
+    const navigate = useNavigate();
+
     const [followsUser, setFollowsUser] = useState(true);
     const [imageFile, setImageFile] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -65,6 +68,11 @@ const CollectionDetailCard = forwardRef(
     };
 
     const type_prop = typeCSS === "circle" ? "rounded-full" : "";
+
+    const artistRedir = (id) => {
+      navigate(`/artist/${id}`);
+    };
+
     return (
       <>
         <div
@@ -128,10 +136,12 @@ const CollectionDetailCard = forwardRef(
                         className="flex flex-col sm:flex-row justify-left items-center gap-2 h-fit w-fit"
                       >
                         <div className="relative">
-                          <img
-                            className="artist-image"
-                            src={artist.creator_img}
-                          />
+                          <button onClick={() => artistRedir(artist.id)}>
+                            <img
+                              className="artist-image"
+                              src={artist.creator_img}
+                            />
+                          </button>
                           {isModify && (
                             <div
                               onClick={() => onDeleteArtist(artist.id)}
@@ -144,7 +154,9 @@ const CollectionDetailCard = forwardRef(
                           )}
                         </div>
 
-                        <div className="artist-name">{artist.creator}</div>
+                        <button onClick={() => artistRedir(artist.id)}>
+                          <div className="artist-name">{artist.creator}</div>
+                        </button>
                       </div>
                     ))}
                     {isModify && (
