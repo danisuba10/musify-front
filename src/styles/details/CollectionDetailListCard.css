@@ -22,7 +22,7 @@
     @apply relative flex items-center justify-center text-xl w-[7%] h-min text-svgGrey p-4 aspect-square;
   }
   .list-card-details {
-    @apply w-fit h-fit relative flex flex-col justify-center items-start;
+    @apply w-fit h-fit relative flex flex-col flex-wrap justify-center items-start;
   }
   .list-card-name {
     @apply relative text-xl text-white;
@@ -37,7 +37,7 @@
     @apply relative flex items-center h-fit w-fit;
   }
   .artist-style {
-    @apply text-base text-svgGrey;
+    @apply text-base text-svgGrey flex flex-col items-center justify-center;
   }
   .artist-style:hover {
     @apply underline;
