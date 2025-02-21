@@ -14,9 +14,22 @@ const CollectionDetailList = ({
   itemsToBeDeleted,
   handleAddArtist,
 }) => {
+  const [songErrorMessage, setSongErrorMessage] = useState(null);
+  const [songSuccessMessage, setSongSuccessMessage] = useState(null);
+
   return (
     <>
       <div className="collection-list-container flex flex-col items-center justify-center">
+        {songErrorMessage && (
+          <div className="text-white font-bold border-2 border-orange-500 p-2 rounded-3xl mt-4">
+            {songErrorMessage}
+          </div>
+        )}
+        {songSuccessMessage && (
+          <div className="text-white font-bold border-2 border-green-400 p-2 rounded-3xl mt-4">
+            {songSuccessMessage}
+          </div>
+        )}
         <div className="header-container">
           <div className="header-container-inside">
             <div className="left-container">
@@ -39,6 +52,8 @@ const CollectionDetailList = ({
                 }
                 toDelete={() => toDelete(element.id)}
                 onAddArtist={(selectionFunc) => handleAddArtist(selectionFunc)}
+                setErrorMessage={setSongErrorMessage}
+                setSuccessMessage={setSongSuccessMessage}
               />
             </div>
           ))}
