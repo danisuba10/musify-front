@@ -119,7 +119,7 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
         artists: song.artists.$values.map((artist) => ({
           id: artist.id,
           name: artist.name,
-          imageLocation: artist.imageLocation,
+          image: `${apiURL}/image/${encodeURIComponent(artist.imageLocation)}`,
         })),
       }));
 
@@ -277,7 +277,6 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
       );
       if (!artistExists) {
         console.log(`Album artist added: ${artist.name} (${artist.id})`);
-        console.log(artist);
         return [
           ...prevCreators,
           {
@@ -327,6 +326,7 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
     }
 
     var songDTO = {
+      albumId: id,
       name: data.get("songName"),
       order: newSongOrder,
       duration: object_to_seconds({
