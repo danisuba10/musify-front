@@ -41,9 +41,13 @@ const ModifyAlbum = ({ searchTerm }) => {
             className="flex relative p-2 rounded-3xl border-2 border-white mt-4"
             onClick={onChangeAlbumClick}
           >
-            <span className="text-white font-bold">Change album</span>
+            <span className="text-white font-bold">
+              {albumId ? "Change album" : "Select album"}
+            </span>
           </button>
-          <ViewAlbum id={albumId} searchTerm={searchTerm} isModify={true} />
+          {albumId && (
+            <ViewAlbum id={albumId} searchTerm={searchTerm} isModify={true} />
+          )}
           <div className="mt-28"></div>
         </>
       )}
