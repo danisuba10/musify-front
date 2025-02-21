@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import "../../../styles/details/CollectionDetailListCard.css";
 import PlayButton from "./PlayButton";
 import DeleteButton from "../../AdminPanel/DeleteButton";
 import SaveButton from "../../AdminPanel/SaveButton";
+import { apiURL } from "../../../assets/Constants";
+
 import {
   duration_to_str,
   duration_to_object,
   object_to_seconds,
 } from "../../Service/TimeService";
+import { AuthContext } from "../../auth/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const CollectionDetailListCard = ({
   details,
@@ -16,7 +20,12 @@ const CollectionDetailListCard = ({
   toDelete,
   isMarkedForDelete,
   onAddArtist,
+  setErrorMessage,
+  setSuccessMessage,
 }) => {
+  const navigate = useNavigate();
+
+  const { userToken } = useContext(AuthContext);
   const [newName, setNewName] = useState(details.name);
   const [newOrder, setNewOrder] = useState(details.order);
   const [oldDuration, setOldDuration] = useState(
@@ -30,28 +39,99 @@ const CollectionDetailListCard = ({
       details.artists.map((artist) => ({
         id: artist.id,
         name: artist.name,
+        image: artist.image,
       }))
     )
   );
 
   const [isHovered, setIsHovered] = useState(false);
 
-  const saveSongModifications = () => {
-    if (isMarkedForDelete) {
-      console.log(`Song with ID: ${details.id} deleted using API!`);
-      return;
-    }
+  const redirToArtist = (id) => {
+    navigate(`/artist/${id}`);
+  };
+
+  const saveSongModifications = async () => {
+    setErrorMessage(null);
+    setSuccessMessage(null);
     const newDurationS = object_to_seconds(newDuration);
-    if (
-      newOrder === details.order &&
-      newName === details.name &&
-      newDurationS === details.duration
-    ) {
-      console.log(
-        `Song with ID: ${details.id} has not been modified as no new info has been supplied!`
-      );
-      return;
+
+    console.log("Details: ", details);
+    console.log("newData: ", {
+      order: newOrder,
+      name: newName,
+      duration: newDurationS,
+      artists: newArtists,
+    });
+
+    var endPoint;
+
+    if (!details.id) {
+      endPoint = `${apiURL}/song/add-song`;
+    } else if (!isMarkedForDelete) {
+      endPoint = `${apiURL}/song/update-song`;
+    } else {
+      console.log(`Song with ID: ${details.id} deleted using API!`);
+      endPoint = `${apiURL}/song/remove-song`;
     }
+
+    const songFormData = new FormData();
+    newName && !details.id ? songFormData.append("Title", newName) : null;
+    newOrder && !details.id
+      ? songFormData.append("PositionInAlbum", newOrder)
+      : null;
+    newDurationS &&
+    !isMarkedForDelete &&
+    (newDuration !== details.duration || !details.id)
+      ? songFormData.append("Duration", newDurationS)
+      : null;
+
+    if (
+      newArtists.size !== details.artists.length ||
+      !Array.from(newArtists).every((artist) =>
+        details.artists.some((detailArtist) => detailArtist.id === artist.id)
+      )
+    ) {
+      newArtists.forEach((artist) => {
+        songFormData.append("ArtistIds", artist.id);
+      });
+    }
+
+    if (!details.id) {
+      songFormData.append("AlbumId", details.albumId);
+    } else {
+      songFormData.append("Id", details.id);
+      if (
+        songFormData.has("Id") &&
+        Array.from(songFormData.keys()).length === 1 &&
+        !isMarkedForDelete
+      ) {
+        setErrorMessage("No modifications detected.");
+        return;
+      }
+    }
+
+    const response = await fetch(endPoint, {
+      method: "POST",
+      body: songFormData,
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+
+    if (response.ok) {
+      console.log("Song updated successfully!");
+      if (!isMarkedForDelete) {
+        setSuccessMessage("Song updated successfully!");
+      } else {
+        setSuccessMessage("Song removed successfully!");
+      }
+    } else {
+      const errorData = await response.json();
+      console.log("Error data: ", errorData);
+      console.log("Error data title:", errorData.title);
+      setErrorMessage(errorData.title);
+    }
+
     console.log(
       `API call has been made to change data for song with ID: ${details.id}!`
     );
@@ -61,12 +141,12 @@ const CollectionDetailListCard = ({
     addOrRemoveArtist(artist, "add");
   };
 
-  const addOrRemoveArtist = ({ id, name }, type) => {
+  const addOrRemoveArtist = ({ id, name, image }, type) => {
     setNewArtists((oldArtists) => {
       const updatedArtists = new Set(oldArtists);
       if (type === "add") {
-        console.log(`Artist {id:${id}} name:${name}} added!`);
-        updatedArtists.add({ id, name });
+        console.log(`Artist {id:${id}} name:${name} image:${image}} added!`);
+        updatedArtists.add({ id, name, image });
       } else if (type === "remove") {
         updatedArtists.forEach((artist) => {
           if (artist.id === id && artist.name === name) {
@@ -156,27 +236,48 @@ const CollectionDetailListCard = ({
               {isModify &&
                 Array.from(newArtists).map((artist, index) => (
                   <div key={index} className="artist-button">
-                    <button className="flex flex-row">
-                      <div className="artist-style">{artist.name}</div>
-                      {index <= Array.from(newArtists).length - 1 && (
-                        <span className="artist-style mr-2">,</span>
-                      )}
-                    </button>
                     <div className="relative h-12 w-auto aspect-square flex items-center justify-center">
                       <DeleteButton
                         onClickFunc={() => addOrRemoveArtist(artist, "remove")}
                       />
                     </div>
+                    <button className="flex flex-row">
+                      <div className="flex relative flex-row h-full gap-2 pt-2 pb-2">
+                        <img
+                          src={artist.image}
+                          className="rounded-full aspect-square max-h-[30px]"
+                        ></img>
+                        <div className="artist-style">{artist.name}</div>
+                        {index <= Array.from(newArtists).length - 1 && (
+                          <span className="artist-style mr-2">,</span>
+                        )}
+                      </div>
+                    </button>
                   </div>
                 ))}
               {!isModify &&
                 details.artists.map((artist, index) => (
-                  <button key={index}>
-                    <div className="artist-style">{artist.name}</div>
+                  <div className="flex flex-row" key={index}>
+                    <div className="flex relative flex-row h-full gap-2 pt-2 pb-2">
+                      <button onClick={() => redirToArtist(artist.id)}>
+                        <img
+                          src={artist.image}
+                          className="rounded-full aspect-square max-h-[30px]"
+                        ></img>
+                      </button>
+                      <button
+                        className="artist-style"
+                        onClick={() => redirToArtist(artist.id)}
+                      >
+                        {artist.name}
+                      </button>
+                    </div>
                     {index < details.artists.length - 1 && (
-                      <div className="artist-style">, </div>
+                      <div className="artist-style mr-2 flex flex-col items-center justify-center pt-2 pb-2">
+                        ,{" "}
+                      </div>
                     )}
-                  </button>
+                  </div>
                 ))}
               {isModify && (
                 <button onClick={() => onAddArtist(selectionFunc)}>
