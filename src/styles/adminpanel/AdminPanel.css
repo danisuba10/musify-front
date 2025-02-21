@@ -4,7 +4,7 @@
 
 @layer components {
   .admin-panel-container {
-    @apply relative h-full w-full flex flex-col gap-4 flex-grow overflow-y-hidden overflow-x-hidden scroll-smooth items-center justify-start pb-4;
+    @apply relative h-full w-full flex flex-col gap-4 flex-grow overflow-y-scroll overflow-x-hidden scroll-smooth items-center justify-start pb-4;
     background-image: linear-gradient(to right, #191910, #191912);
   }
 }
