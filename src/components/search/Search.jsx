@@ -194,7 +194,7 @@ export default function Search({
   };
 
   return (
-    <div className="homepage-container overflow-x-hidden">
+    <div className="homepage-container overflow-x-hidden overflow-y-hidden">
       <div className="search-filter-container">
         {(onlyFilter && defaultFilter === "All") || !onlyFilter ? (
           <button
