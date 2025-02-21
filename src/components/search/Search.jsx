@@ -17,7 +17,7 @@ export default function Search({
   selectionFunc,
   defaultFilter = "All",
   onlyFilter = false,
-  setIsSearch = null,
+  setIsSearch,
   setGlobalTerm,
 }) {
   const navigate = useNavigate();
@@ -90,6 +90,12 @@ export default function Search({
       case "Songs":
         endPoint = `${apiURL}/song/search`;
         searchParams.onClickRedir = (id) => {
+          if (setIsSearch) {
+            setIsSearch(false);
+          }
+          if (setGlobalTerm) {
+            setGlobalTerm("");
+          }
           navigate(`/song/${id}`);
         };
         break;
@@ -108,6 +114,12 @@ export default function Search({
       case "Artists":
         endPoint = `${apiURL}/artist/search`;
         searchParams.onClickRedir = (id) => {
+          if (setIsSearch) {
+            setIsSearch(false);
+          }
+          if (setGlobalTerm) {
+            setGlobalTerm("");
+          }
           navigate(`/artist/${id}`);
         };
         break;
