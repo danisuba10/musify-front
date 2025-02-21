@@ -20,8 +20,11 @@ const TableElementCard = ({
 
   return (
     <div className="table-search-card">
-      <div className="table-card-content" onClick={() => onClickRedir(id)}>
-        <div className="horizontal-scroll-image-container" onClick={redirect}>
+      <div className="table-card-content">
+        <div
+          className="horizontal-scroll-image-container"
+          onClick={() => onClickRedir(id)}
+        >
           <img
             src={image}
             alt={name}
@@ -29,7 +32,10 @@ const TableElementCard = ({
           />
         </div>
         <div className="horizontal-scroll-text">
-          <h3 className="horizontal-scroll-name" onClick={redirect}>
+          <h3
+            className="horizontal-scroll-name"
+            onClick={() => onClickRedir(id)}
+          >
             {name}
           </h3>
           <p className="horizontal-scroll-subtitle">{type}</p>
