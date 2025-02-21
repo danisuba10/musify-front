@@ -343,8 +343,8 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
 
   return (
     <>
-      <div className="detail-container">
-        <div className="overflow-y-scroll overflow-x-hidden scroll-smooth h-full items-center justify-center">
+      <div className="w-full">
+        <div className="overflow-y-hidden overflow-x-hidden scroll-smooth h-max items-center justify-center">
           {showArtistSearch && (
             <div ref={searchRef} className="w-[95%]">
               <Search
@@ -409,6 +409,7 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
                 )}
                 <AddSong handleSubmit={addSong} />
               </div>
+              <div className="mt-8 w-full"></div>
             </>
           )}
           {songs && (
