@@ -51,6 +51,13 @@ const CollectionDetailCard = forwardRef(
       }),
     }));
 
+    useImperativeHandle(ref, () => ({
+      getArtistInfoDTO: () => ({
+        name: nameInput,
+        file: selectedFile,
+      }),
+    }));
+
     const handleImageChange = (e) => {
       const file = e.target.files[0];
       if (file) {
