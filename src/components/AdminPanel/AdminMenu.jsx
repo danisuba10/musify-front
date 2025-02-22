@@ -12,6 +12,9 @@ const AdminMenu = () => {
   const addAlbumRedir = () => {
     navigate("/admin/add-album");
   };
+  const modifyArtistRedir = () => {
+    navigate("/admin/modify-artist");
+  };
   const modifyAlbumRedir = () => {
     navigate("/admin/modify-album");
   };
@@ -24,7 +27,7 @@ const AdminMenu = () => {
         <button className="admin-menu-button" onClick={addAlbumRedir}>
           <span className="admin-menu-entry">Add album</span>
         </button>
-        <button className="admin-menu-button">
+        <button className="admin-menu-button" onClick={modifyArtistRedir}>
           <span className="admin-menu-entry">Modify artist</span>
         </button>
         <button className="admin-menu-button" onClick={modifyAlbumRedir}>

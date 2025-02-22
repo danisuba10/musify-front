@@ -16,6 +16,7 @@ import { AuthContext } from "../auth/AuthProvider";
 import { artist, songs } from "../../assets/Constants";
 
 import Home from "../homepage/Home";
+import ModifyArtist from "./ModifyArtist";
 
 const AdminPanel = ({ searchTerm }) => {
   const navigate = useNavigate();
@@ -36,7 +37,10 @@ const AdminPanel = ({ searchTerm }) => {
               path="add-album"
               element={<AddAlbum searchTerm={searchTerm} />}
             />
-            {/* <Route path="modify-artist" /> */}
+            <Route
+              path="modify-artist"
+              element={<ModifyArtist searchTerm={searchTerm} />}
+            />
             <Route
               path="modify-album"
               element={<ModifyAlbum searchTerm={searchTerm} />}
