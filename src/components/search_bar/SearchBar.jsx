@@ -7,10 +7,13 @@ import Account from "../../assets/profile.svg?react";
 import Admin from "../../assets/admin.svg?react";
 import { AuthContext } from "../auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import AccountDropDown from "./AccountDropDown";
 
 const SearchBar = ({ onClick, onSearch, setTerm, setIsSearch, term }) => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState(term);
+
+  const { userToken, logout } = useContext(AuthContext);
 
   useEffect(() => {
     if (term === "") {
@@ -79,9 +82,13 @@ const SearchBar = ({ onClick, onSearch, setTerm, setIsSearch, term }) => {
             <Admin className="home-svg" />
           </button>
         )}
-        <button className="home-button-container" onClick={onClick}>
-          <Account className="home-svg" />
-        </button>
+        {userToken ? (
+          <AccountDropDown onSignOut={logout} />
+        ) : (
+          <button className="home-button-container" onClick={onClick}>
+            <Account className="home-svg" />
+          </button>
+        )}
       </div>
     </div>
   );
