@@ -141,7 +141,6 @@ const AuthProvider = ({ children }) => {
     setUserToken(null);
     setUserInfo({});
     localStorage.removeItem("userToken");
-    localStorage.removeItem("isAdmin");
   };
 
   return (
