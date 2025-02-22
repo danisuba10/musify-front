@@ -21,6 +21,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import ViewAlbum from "./components/AdminPanel/ViewAlbum";
 import ViewArtist from "./components/AdminPanel/ViewArtist";
+import React from "react";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
