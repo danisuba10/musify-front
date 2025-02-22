@@ -14,7 +14,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Search({
   initialTerm,
-  selectionFunc,
+  selectionFunc = null,
   defaultFilter = "All",
   onlyFilter = false,
   setIsSearch,
