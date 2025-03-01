@@ -11,6 +11,11 @@ const ViewArtist = ({
   setSuccessMessage = () => {},
 }) => {
   const { userToken } = useContext(AuthContext);
+
+  if (!userToken) {
+    isModify = false;
+  }
+
   const [artistView, setArtistView] = useState(null);
 
   const fetchData = async () => {
