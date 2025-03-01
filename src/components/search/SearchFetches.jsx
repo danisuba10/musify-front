@@ -67,10 +67,10 @@ export const search = async ({
       return existingResults;
     }
 
-    const newResults = data.searchResults.$values.map((album) => ({
-      id: album.id,
-      name: album.name,
-      image: `${apiURL}/image/${encodeURIComponent(album.imageLocation)}`,
+    const newResults = data.searchResults.$values.map((elem) => ({
+      id: elem.parentId ?? elem.id,
+      name: elem.name,
+      image: `${apiURL}/image/${encodeURIComponent(elem.imageLocation)}`,
     }));
 
     const allResults = [...existingResults, ...newResults];
