@@ -10,11 +10,13 @@ const HorizontalScrollCard = ({
   subtitle,
   typeCSS,
   route,
+  clearSearch,
 }) => {
   const navigate = useNavigate();
 
   const redirect = () => {
     navigate(`${route}${id}`);
+    clearSearch();
   };
 
   return (

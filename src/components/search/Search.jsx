@@ -85,8 +85,21 @@ export default function Search({
 
     switch (filterValue) {
       case "All":
-        setSearchDisplay(<div>Mixed display</div>);
-        break;
+        console.log("Term before all search: ", term);
+        setSearchDisplay(
+          <MixedSearch
+            term={term}
+            clearSearch={() => {
+              if (setIsSearch) {
+                setIsSearch(false);
+              }
+              if (setGlobalTerm) {
+                setGlobalTerm("");
+              }
+            }}
+          />
+        );
+        return;
       case "Songs":
         endPoint = `${apiURL}/song/search`;
         searchParams.onClickRedir = (id) => {
@@ -96,7 +109,7 @@ export default function Search({
           if (setGlobalTerm) {
             setGlobalTerm("");
           }
-          navigate(`/song/${id}`);
+          navigate(`/album/${id}`);
         };
         break;
       case "Albums":

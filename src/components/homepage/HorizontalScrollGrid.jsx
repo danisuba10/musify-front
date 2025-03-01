@@ -12,6 +12,7 @@ const HorizontalScrollGrid = ({
   type,
   route,
   initialElements,
+  clearSearch,
 }) => {
   const [elements, setElements] = useState(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
@@ -109,7 +110,14 @@ const HorizontalScrollGrid = ({
                 subtitle={subtitle}
                 typeCSS={typeCSS}
                 route={route}
+                clearSearch={clearSearch}
               />
+            ))}
+          {!elements ||
+            (elements.length === 0 && (
+              <div className="pl-8">
+                <span className="text-white font-bold">No results.</span>
+              </div>
             ))}
         </div>
         {showRightArrow && (
