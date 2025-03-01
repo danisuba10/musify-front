@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
     if (!userToken) return false;
     try {
       const decoded = jwtDecode(userToken);
-      return decoded?.role === "Admin";
+      return decoded?.Role === "Admin";
     } catch (error) {
       console.error("Error decoding token!", error);
       return false;
