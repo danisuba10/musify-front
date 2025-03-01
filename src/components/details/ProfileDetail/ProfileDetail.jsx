@@ -34,7 +34,7 @@ export default function ProfileDetail({
           collection={profile}
           typeCSS="circle"
           type={type}
-          isModify={true}
+          isModify={isModify}
         />
         <ProfileActionBar
           middleColor={profile.colors.middle}
