@@ -4,6 +4,7 @@ import "../../../styles/details/CollectionDetailListCard.css";
 import PlayButton from "./PlayButton";
 import DeleteButton from "../../AdminPanel/DeleteButton";
 import SaveButton from "../../AdminPanel/SaveButton";
+import SongOptionsMenu from "../MoreOptions/SongOptionsMenu";
 import { apiURL } from "../../../assets/Constants";
 
 import {
@@ -288,6 +289,11 @@ const CollectionDetailListCard = ({
           </div>
         </div>
         <div className="song-duration-part">
+          {!isModify && userToken && (
+            <div className="ml-4">
+              <SongOptionsMenu songId={details.id} songName={details.name} />
+            </div>
+          )}
           <span className="song-duration">
             {!isModify && duration_str}
             {isModify && (
