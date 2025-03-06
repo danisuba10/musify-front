@@ -49,9 +49,6 @@ const CollectionDetailCard = forwardRef(
         duration: object_to_seconds(newDuration),
         file: selectedFile,
       }),
-    }));
-
-    useImperativeHandle(ref, () => ({
       getArtistInfoDTO: () => ({
         name: nameInput,
         file: selectedFile,
