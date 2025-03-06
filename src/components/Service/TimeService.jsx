@@ -29,5 +29,5 @@ export function duration_to_str(duration) {
 
   return `${hours > 0 ? `${hours}h : ` : ""}${
     minutes > 0 ? `${minutes}m : ` : ""
-  }${seconds}s`;
+  }${seconds > 0 && seconds < 10 ? `0${seconds}` : `${seconds}`}s`;
 }
