@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .more-options-button {
+    @apply rounded-full h-8 w-8 flex items-center justify-center hover:bg-neutral-700 transition-colors duration-200;
+  }
+}
