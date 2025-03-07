@@ -4,7 +4,7 @@
 
 @layer components {
   .delete-button-container {
-    @apply relative h-[80%] flex justify-center items-center bg-svgGrey rounded-full aspect-square p-2;
+    @apply relative h-[60%] flex justify-center items-center bg-svgGrey rounded-full aspect-square p-2;
     transition: transform 0.1s ease;
   }
   .delete-button-container:hover {
