@@ -28,7 +28,7 @@
   }
 
   .collection-detail-details {
-    @apply flex flex-col sm:flex-row gap-1 mt-4 h-fit w-fit;
+    @apply flex flex-col sm:flex-row gap-1 mt-4 h-fit w-full;
   }
   .artist-container {
     @apply relative flex flex-wrap h-fit items-center sm:mr-2  w-full sm:max-w-[50%] gap-2;
