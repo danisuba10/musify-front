@@ -111,7 +111,7 @@ const MixedSearchResult = ({ term, clearSearch }) => {
               title="Playlists"
               initialElements={results.playlists}
               type="circle"
-              route="/artist/"
+              route="/playlist/"
               clearSearch={clearSearch}
             />
             <div className="mt-28"></div>
