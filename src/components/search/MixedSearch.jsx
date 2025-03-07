@@ -3,6 +3,7 @@ import { useState } from "react";
 import HorizontalScrollGrid from "../homepage/HorizontalScrollGrid";
 import { apiURL } from "../../assets/Constants";
 import { artists } from "../../assets/Constants";
+import NoImage from "../../assets/noImage.jpg";
 
 import "../../styles/homepage/home.css";
 
@@ -32,7 +33,9 @@ const MixedSearchResult = ({ term, clearSearch }) => {
 
       const artists = data.artists.$values.map((artist) => ({
         id: artist.id,
-        image: `${apiURL}/image/${encodeURIComponent(artist.imageLocation)}`,
+        image: artist.imageLocation
+          ? `${apiURL}/image/${encodeURIComponent(artist.imageLocation)}`
+          : NoImage,
         name: artist.name,
         subtitle: "Artist",
         typeCSS: "circle",
@@ -40,20 +43,33 @@ const MixedSearchResult = ({ term, clearSearch }) => {
 
       const albums = data.albums.$values.map((album) => ({
         id: album.id,
-        image: `${apiURL}/image/${encodeURIComponent(album.imageLocation)}`,
+        image: album.imageLocation
+          ? `${apiURL}/image/${encodeURIComponent(album.imageLocation)}`
+          : NoImage,
         name: album.name,
         subtitle: "Albums",
       }));
 
       const songs = data.songs.$values.map((song) => ({
         id: song.parentId,
-        image: `${apiURL}/image/${encodeURIComponent(song.imageLocation)}`,
+        image: song.imageLocation
+          ? `${apiURL}/image/${encodeURIComponent(song.imageLocation)}`
+          : NoImage,
         name: song.name,
         subtitle: "Songs",
         typeCSS: "circle",
       }));
 
-      setResults({ artists, albums, songs });
+      const playlists = data.playlists.$values.map((playlist) => ({
+        id: playlist.id,
+        image: playlist.imageLocation
+          ? `${apiURL}/image/${encodeURIComponent(playlist.imageLocation)}`
+          : NoImage,
+        name: playlist.name,
+        subtitle: "Playlists",
+      }));
+
+      setResults({ artists, albums, songs, playlists });
     } catch (error) {
       setError(error.message);
     } finally {
@@ -87,6 +103,13 @@ const MixedSearchResult = ({ term, clearSearch }) => {
               title="Artists"
               artists={artists}
               initialElements={results.artists}
+              type="circle"
+              route="/artist/"
+              clearSearch={clearSearch}
+            />
+            <HorizontalScrollGrid
+              title="Playlists"
+              initialElements={results.playlists}
               type="circle"
               route="/artist/"
               clearSearch={clearSearch}
