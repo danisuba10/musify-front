@@ -9,6 +9,7 @@ import AddSong from "./AddSong";
 import { AuthContext } from "../auth/AuthProvider";
 import { artists, songs } from "../../assets/Constants";
 import { apiURL } from "../../assets/Constants";
+import NoImage from "../../assets/noImage.jpg";
 
 import {
   duration_to_str,
@@ -73,22 +74,22 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
         type: "Album",
         id: data.id,
         name: data.name,
-        image: `${apiURL}/image/${encodeURIComponent(
-          data.image.imageLocation
-        )}`,
+        image: data.image.imageLocation
+          ? `${apiURL}/image/${encodeURIComponent(data.image.imageLocation)}`
+          : NoImage,
         artists: data.artists.$values.map((artist) => ({
           id: artist.id,
           name: artist.name,
           imageLocation: artist.imageLocation,
-          creator_img: `${apiURL}/image/${encodeURIComponent(
-            artist.imageLocation
-          )}`,
+          creator_img: artist.imageLocation
+            ? `${apiURL}/image/${encodeURIComponent(artist.imageLocation)}`
+            : NoImage,
         })),
         details: {
           year: data.year,
           length: data.duration,
           song_count: data.songCount,
-          total_length_str: "0",
+          total_length_str: duration_to_str(data.duration),
         },
         colors: {
           low: data.image.lowColor,
@@ -102,9 +103,9 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
         id: artist.id,
         creator: artist.name,
         imageLocation: artist.imageLocation,
-        creator_img: `${apiURL}/image/${encodeURIComponent(
-          artist.imageLocation
-        )}`,
+        creator_img: artist.imageLocation
+          ? `${apiURL}/image/${encodeURIComponent(artist.imageLocation)}`
+          : NoImage,
       }));
 
       setCreators(mappedArtists);
@@ -119,7 +120,9 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
         artists: song.artists.$values.map((artist) => ({
           id: artist.id,
           name: artist.name,
-          image: `${apiURL}/image/${encodeURIComponent(artist.imageLocation)}`,
+          image: artist.imageLocation
+            ? `${apiURL}/image/${encodeURIComponent(artist.imageLocation)}`
+            : NoImage,
         })),
       }));
 
@@ -420,6 +423,7 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
               itemsToBeDeleted={songsToBeDeleted}
               searchTerm={searchTerm}
               handleAddArtist={handleAddArtist}
+              parentType={"Album"}
             />
           )}
         </div>
