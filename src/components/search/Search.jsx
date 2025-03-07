@@ -137,7 +137,16 @@ export default function Search({
         };
         break;
       case "Playlists":
-        setSearchDisplay(<TableSearch title="Playlists" elements={artists} />);
+        endPoint = `${apiURL}/playlist/search`;
+        searchParams.onClickRedir = (id) => {
+          if (setIsSearch) {
+            setIsSearch(false);
+          }
+          if (setGlobalTerm) {
+            setGlobalTerm("");
+          }
+          navigate(`/playlist/${id}`);
+        };
         break;
       case "Users":
         setSearchDisplay(
