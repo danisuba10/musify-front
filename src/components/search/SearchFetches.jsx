@@ -1,6 +1,7 @@
 import { React } from "react";
 import TableSearch from "./TableSearch";
 import { apiURL } from "../../assets/Constants";
+import NoImage from "../../assets/noImage.jpg";
 
 export const search = async ({
   setSearchDisplay,
@@ -18,11 +19,12 @@ export const search = async ({
   selectionFunc,
   onClickRedir,
 }) => {
-  const formData = new FormData();
-  formData.append("SearchTerm", term);
-  formData.append("LastName", lastName);
-  formData.append("LastCreatedAt", lastCreatedAt);
-  formData.append("PageSize", 25);
+  const queryParams = new URLSearchParams({
+    SearchTerm: term,
+    LastName: lastName,
+    LastCreatedAt: lastCreatedAt,
+    PageSize: 25,
+  }).toString();
   console.log("Last data: ", lastName, lastCreatedAt);
 
   if (setSearchDisplay) {
@@ -34,9 +36,8 @@ export const search = async ({
   }
 
   try {
-    const response = await fetch(endPoint, {
-      method: "POST",
-      body: formData,
+    const response = await fetch(`${endPoint}?${queryParams}`, {
+      method: "GET",
     });
 
     if (!response.ok) {
@@ -70,7 +71,9 @@ export const search = async ({
     const newResults = data.searchResults.$values.map((elem) => ({
       id: elem.parentId ?? elem.id,
       name: elem.name,
-      image: `${apiURL}/image/${encodeURIComponent(elem.imageLocation)}`,
+      image: elem.imageLocation
+        ? `${apiURL}/image/${encodeURIComponent(elem.imageLocation)}`
+        : NoImage,
     }));
 
     const allResults = [...existingResults, ...newResults];
