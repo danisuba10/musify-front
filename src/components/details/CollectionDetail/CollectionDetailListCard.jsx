@@ -23,6 +23,8 @@ const CollectionDetailListCard = ({
   onAddArtist,
   setErrorMessage,
   setSuccessMessage,
+  parentType,
+  hasPermission,
 }) => {
   const navigate = useNavigate();
 
@@ -70,9 +72,6 @@ const CollectionDetailListCard = ({
       endPoint = `${apiURL}/song/add-song`;
     } else if (!isMarkedForDelete) {
       endPoint = `${apiURL}/song/update-song`;
-    } else {
-      console.log(`Song with ID: ${details.id} deleted using API!`);
-      endPoint = `${apiURL}/song/remove-song`;
     }
 
     const songFormData = new FormData();
@@ -208,9 +207,13 @@ const CollectionDetailListCard = ({
       >
         <div className="song-part">
           <div className="list-card-order">
-            {!isHovered && !isModify && details.order}
-            {isHovered && !isModify && <PlayButton />}
-            {isModify && (
+            {!isHovered &&
+              (!isModify || parentType === "Playlist") &&
+              details.order}
+            {isHovered && (!isModify || parentType === "Playlist") && (
+              <PlayButton />
+            )}
+            {isModify && parentType !== "Playlist" && (
               <input
                 className="w-[5vw] text-center bg-displayBlack"
                 id="newOrder"
@@ -222,8 +225,8 @@ const CollectionDetailListCard = ({
           </div>
           <div className="list-card-details">
             <div className="list-card-name">
-              {!isModify && details.name}{" "}
-              {isModify && (
+              {(!isModify || parentType === "Playlist") && details.name}{" "}
+              {isModify && parentType !== "Playlist" && (
                 <input
                   className="w-full text-svgGrey bg-displayBlack"
                   id="newOrder"
@@ -280,7 +283,7 @@ const CollectionDetailListCard = ({
                     )}
                   </div>
                 ))}
-              {isModify && (
+              {isModify && onAddArtist && (
                 <button onClick={() => onAddArtist(selectionFunc)}>
                   <div className="artist-style">Add artist</div>
                 </button>
@@ -291,12 +294,21 @@ const CollectionDetailListCard = ({
         <div className="song-duration-part">
           {!isModify && userToken && (
             <div className="ml-4">
-              <SongOptionsMenu songId={details.id} songName={details.name} />
+              <SongOptionsMenu
+                songId={details.id}
+                songName={details.name}
+                hasPermission={hasPermission}
+                onSongRemove={toDelete}
+              />
             </div>
           )}
           <span className="song-duration">
-            {!isModify && duration_str}
-            {isModify && (
+            {(!isModify || parentType === "Playlist") && (
+              <>
+                <span>{duration_str}</span>
+              </>
+            )}
+            {isModify && parentType !== "Playlist" && (
               <div className="relative w-full h-fit flex flex-grow sm:flex-row flex-col gap-1 items-center justify-center pl-2 pr-2">
                 <input
                   className="w-full min-w-[3vw] text-svgGrey text-center bg-displayBlack focus:ring-1 focus:ring-green-500 outline-none"
@@ -328,10 +340,7 @@ const CollectionDetailListCard = ({
                 <span className="relative w-full sm:w-min flex items-start text-start">
                   s
                 </span>
-                <div className="h-full w-full min-h-[60px] aspect-square">
-                  <DeleteButton onClickFunc={toDelete} />
-                </div>
-                <div className="h-full w-full min-h-[60px] aspect-square">
+                <div className="h-full w-full min-h-[60px] aspect-square flex items-center justify-center">
                   <SaveButton onClickFunc={saveSongModifications} />
                 </div>
               </div>
