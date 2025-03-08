@@ -55,6 +55,11 @@ export const PlaylistSelectionMenu = ({
         },
       });
       if (!response.ok) {
+        if (response.status === 404) {
+          return await response.text().then((errorMessage) => {
+            throw new Error(errorMessage);
+          });
+        }
         throw new Error("Failed to search playlists");
       }
 
@@ -132,7 +137,7 @@ export const PlaylistSelectionMenu = ({
       formData.append("Name", songName);
       formData.append("Description", "");
       formData.append("FirstSongId", songId);
-      formData.append("Visibility", "Private");
+      formData.append("Visibility", "Public");
 
       const createResponse = await fetch(`${apiURL}/playlist/add`, {
         method: "POST",
@@ -191,7 +196,7 @@ export const PlaylistSelectionMenu = ({
         ref={menuRef}
         className="absolute z-50 bg-neutral-800 shadow-lg rounded-md py-1 min-w-[280px] max-h-[400px] overflow-y-auto"
         style={{
-          top: `${adjustedPosition.y - 400}px`,
+          top: `${adjustedPosition.y - 200}px`,
           left: `${adjustedPosition.x - 300}px`,
         }}
       >
@@ -254,7 +259,7 @@ export const PlaylistSelectionMenu = ({
         {isLoading ? (
           <div className="text-center py-4 text-neutral-400">Loading...</div>
         ) : error ? (
-          <div className="text-center py-4 text-red-400">{error}</div>
+          <div className="text-center px-1 py-4 text-red-400">{error}</div>
         ) : playlists?.length === 0 ? (
           <div className="text-center py-4 text-neutral-400">
             No playlists found
