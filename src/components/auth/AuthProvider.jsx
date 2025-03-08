@@ -19,11 +19,21 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const isAdmin = () => {
-    console.log("Is Admin check successfull!");
     if (!userToken) return false;
     try {
       const decoded = jwtDecode(userToken);
       return decoded?.Role === "Admin";
+    } catch (error) {
+      console.error("Error decoding token!", error);
+      return false;
+    }
+  };
+
+  const getUserId = () => {
+    if (!userToken) return false;
+    try {
+      const decoded = jwtDecode(userToken);
+      return decoded.Identifier;
     } catch (error) {
       console.error("Error decoding token!", error);
       return false;
@@ -153,6 +163,7 @@ const AuthProvider = ({ children }) => {
         login,
         register,
         logout,
+        getUserId,
       }}
     >
       {children}
