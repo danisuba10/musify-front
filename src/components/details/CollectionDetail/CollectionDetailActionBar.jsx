@@ -1,22 +1,34 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import Add from "../../../assets/add.svg?react";
 import PlayButton from "./PlayButton";
 import EditButton from "../../../assets/edit.svg?react";
 import "../../../styles/details/CollectionDetailActionBar.css";
 import DeleteButton from "../../AdminPanel/DeleteButton";
+import ModifyButton from "../../AdminPanel/ModifyButton";
 import { AuthContext } from "../../auth/AuthProvider";
 import SaveButton from "../../AdminPanel/SaveButton";
 
 const CollectionDetailActionBar = ({
   middleColor,
   topColor,
-  isModify,
+  isModify: initialIsModify,
   toDelete,
   isAdd,
   toSave,
+  switchParentIsModify,
+  hasModifyPermission,
 }) => {
-  const { isAdmin } = useContext(AuthContext);
+  const { userToken, isAdmin } = useContext(AuthContext);
+  const [isModify, setIsModify] = useState(initialIsModify);
+
+  const switchModify = () => {
+    console.log("Modify switch!");
+    setIsModify(!isModify);
+    if (switchParentIsModify) {
+      switchParentIsModify();
+    }
+  };
 
   return (
     <>
@@ -26,25 +38,22 @@ const CollectionDetailActionBar = ({
           backgroundImage: `linear-gradient(to bottom, ${middleColor}, ${topColor})`,
         }}
       >
-        {isModify && (
+        {hasModifyPermission() && isModify && (
           <>
             {!isAdd && (
-              <div className="add-button-container">
-                <DeleteButton className="add-button" onClickFunc={toDelete} />
-              </div>
+              <DeleteButton className="add-button" onClickFunc={toDelete} />
             )}
-            {isModify && (
-              <SaveButton className="add-button" onClickFunc={toSave} />
-            )}
+            <SaveButton className="add-button" onClickFunc={toSave} />
           </>
         )}
         {!isModify && (
           <>
-            <button className="add-button-container">
+            <div className="add-button-container">
               <PlayButton />
-            </button>
+            </div>
           </>
         )}
+        {hasModifyPermission() && <ModifyButton onClickFunc={switchModify} />}
       </div>
     </>
   );
