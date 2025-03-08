@@ -22,24 +22,46 @@ import { useEffect } from "react";
 import ViewAlbum from "./components/AdminPanel/ViewAlbum";
 import ViewArtist from "./components/AdminPanel/ViewArtist";
 import React from "react";
+import ViewPlaylist from "./components/AdminPanel/ViewPlaylist";
+import Album from "./components/AdminPanel/Album";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
+  const [searchPopupAllowed, setSearchPopupAllowed] = useState(true);
   const [isSearch, setIsSearch] = useState(false);
   const [term, setTerm] = useState("");
 
-  useEffect(() => {
-    console.log("New isSearch", isSearch);
-  }, [isSearch]);
+  const [isModify, setIsModify] = useState(false);
+
+  const HomeRoute = () => {
+    setSearchPopupAllowed(true);
+    return <Home />;
+  };
 
   const AlbumRoute = () => {
+    setSearchPopupAllowed(true);
     const { id } = useParams();
-    return <ViewAlbum id={id} isModify={false} />;
+    return (
+      <Album
+        id={id}
+        searchTerm={term}
+        setSearchPopupAllowed={setSearchPopupAllowed}
+        isModify={isModify}
+        setIsModify={setIsModify}
+      />
+    );
+  };
+
+  const PlaylistRoute = () => {
+    setSearchPopupAllowed(true);
+    const { id } = useParams();
+    return <ViewPlaylist id={id} isModify={true} searchTerm={term} />;
   };
 
   const ArtistRoute = () => {
+    setSearchPopupAllowed(true);
     const { id } = useParams();
-    return <ViewArtist id={id} isModify={false} />;
+    return <ViewArtist id={id} isModify={false} searchTerm={term} />;
   };
 
   return (
@@ -64,7 +86,7 @@ function App() {
               <Route
                 path="/artist/:id"
                 element={
-                  isSearch ? (
+                  isSearch && searchPopupAllowed ? (
                     <Search
                       initialTerm={term}
                       key={term}
@@ -79,10 +101,10 @@ function App() {
               <Route
                 path="/album/:id"
                 element={
-                  isSearch ? (
+                  isSearch && searchPopupAllowed ? (
                     <Search
                       initialTerm={term}
-                      key={term}
+                      key={"search-over-album"}
                       setIsSearch={setIsSearch}
                       setGlobalTerm={setTerm}
                     />
@@ -92,9 +114,24 @@ function App() {
                 }
               />
               <Route
+                path="/playlist/:id"
+                element={
+                  isSearch && searchPopupAllowed ? (
+                    <Search
+                      initialTerm={term}
+                      key={term}
+                      setIsSearch={setIsSearch}
+                      setGlobalTerm={setTerm}
+                    />
+                  ) : (
+                    <PlaylistRoute />
+                  )
+                }
+              />
+              <Route
                 path="/profile/:id"
                 element={
-                  isSearch ? (
+                  isSearch && searchPopupAllowed ? (
                     <Search
                       initialTerm={term}
                       key={term}
@@ -113,7 +150,7 @@ function App() {
               <Route
                 path="/"
                 element={
-                  isSearch ? (
+                  isSearch && searchPopupAllowed ? (
                     <Search
                       initialTerm={term}
                       key={term}
@@ -121,7 +158,7 @@ function App() {
                       setGlobalTerm={setTerm}
                     />
                   ) : (
-                    <Home />
+                    <HomeRoute />
                   )
                 }
               />

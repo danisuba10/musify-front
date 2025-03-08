@@ -1,4 +1,10 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useContext,
+  useCallback,
+} from "react";
 
 import "../../styles/homepage/home.css";
 import CollectionDetailCard from "../details/CollectionDetail/CollectionDetailCard";
@@ -17,7 +23,29 @@ import {
   object_to_seconds,
 } from "../Service/TimeService";
 
-const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
+// Cache key generation function
+const generateCacheKey = (id) => `album_data_${id}`;
+
+const ViewAlbum = ({ id, searchTerm, isAdd, isModify, switchModify }) => {
+  const isPageReloaded = () => {
+    const savedSearchVisibility = JSON.parse(
+      localStorage.getItem("showArtistSearch")
+    );
+
+    if (
+      window.performance &&
+      window.performance.getEntriesByType &&
+      savedSearchVisibility !== true
+    ) {
+      const navEntries = window.performance.getEntriesByType("navigation");
+      if (navEntries.length > 0 && navEntries[0].type === "reload") {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const [showArtistSearch, setShowArtistSearch] = useState(false);
   const { userToken } = useContext(AuthContext);
   const { isAdmin } = useContext(AuthContext);
 
@@ -37,9 +65,17 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
     useState(null);
   const [albumUpdateErrorMessage, setAlbumUpdateErrorMessage] = useState(null);
 
-  const getData = async () => {
-    //collection: response.name, response.year, response.id, response.artists: each .id, .imageLocation, .name
-    //elements: response.songs.$values: for each .title, .duration, .positionInAlbum, .albumId, .artists: for each .id, .name, .imageLocation
+  // Add a ref to track if data has been fetched for current ID
+  const lastFetchedIdRef = useRef(null);
+  // Add a state to track if data is being loaded
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getData = async (forceRefresh = false) => {
+    if (isPageReloaded()) {
+      console.log("Page was reloaded!");
+      forceRefresh = true;
+    }
+
     try {
       console.log("Get data called!");
 
@@ -66,6 +102,31 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
         return;
       }
 
+      // Check if we already have data for this ID in memory
+      if (id === lastFetchedIdRef.current && albumView && !forceRefresh) {
+        console.log(`Using existing in-memory data for album ID: ${id}`);
+        return;
+      }
+
+      // Check if we have cached data in localStorage
+      const cacheKey = generateCacheKey(id);
+      const cachedData = !forceRefresh ? localStorage.getItem(cacheKey) : null;
+
+      if (cachedData && !forceRefresh) {
+        console.log(`Loading album from cache for ID: ${id}`);
+        const { albumData, songsData, artistsData, oldArtistsData } =
+          JSON.parse(cachedData);
+
+        setAlbumView(albumData);
+        setSongs(songsData);
+        setCreators(artistsData);
+        setOldCreators(oldArtistsData);
+        lastFetchedIdRef.current = id;
+        return;
+      }
+
+      // If no cached data or force refresh, fetch from API
+      setIsLoading(true);
       const response = await fetch(`${apiURL}/album/${id}`);
       console.log(response);
       const data = await response.json();
@@ -98,7 +159,6 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
         },
       };
 
-      setAlbumView(collection);
       const mappedArtists = data.artists.$values.map((artist) => ({
         id: artist.id,
         creator: artist.name,
@@ -107,9 +167,6 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
           ? `${apiURL}/image/${encodeURIComponent(artist.imageLocation)}`
           : NoImage,
       }));
-
-      setCreators(mappedArtists);
-      setOldCreators(mappedArtists);
 
       const querriedSongs = data.songs.$values.map((song) => ({
         id: song.id,
@@ -126,25 +183,72 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
         })),
       }));
 
-      setSongs(querriedSongs.sort((a, b) => a.order - b.order));
+      const sortedSongs = querriedSongs.sort((a, b) => a.order - b.order);
+
+      // Update state with fetched data
+      setAlbumView(collection);
+      setCreators(mappedArtists);
+      setOldCreators(mappedArtists);
+      setSongs(sortedSongs);
+
+      // Cache the data in localStorage
+      const cacheData = {
+        albumData: collection,
+        songsData: sortedSongs,
+        artistsData: mappedArtists,
+        oldArtistsData: mappedArtists,
+        timestamp: Date.now(),
+      };
+
+      localStorage.setItem(cacheKey, JSON.stringify(cacheData));
+      lastFetchedIdRef.current = id;
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // useEffect(() => {
-  //   setSongs((prevSongs) => [...prevSongs].sort((a, b) => a.order - b.order));
-  // }, [songs]);
+  // Add a function to refresh data when needed
+  const refreshData = () => {
+    getData(true);
+  };
 
   useEffect(() => {
-    if (!albumView) {
-      console.log("Triggering getData");
+    // Only fetch data if we don't have it for the current ID
+    if (id !== lastFetchedIdRef.current || !albumView) {
+      console.log(
+        `ID changed or albumView not set, fetching data for ID: ${id}`
+      );
       getData();
     } else {
-      console.log("Id is :", id);
-      console.log("AlbumView is already set or no valid id");
+      console.log(`Using existing data for ID: ${id}`);
     }
-  }, [albumView, id]);
+
+    // Cleanup function to invalidate cache after a certain time
+    return () => {
+      // Optional: Clean up old cache entries
+      const cleanupCache = () => {
+        const now = Date.now();
+        // Expire cache items older than 1 hour
+        Object.keys(localStorage).forEach((key) => {
+          if (key.startsWith("album_data_")) {
+            try {
+              const data = JSON.parse(localStorage.getItem(key));
+              if (data.timestamp && now - data.timestamp > 60 * 60 * 1000) {
+                localStorage.removeItem(key);
+              }
+            } catch (e) {
+              // Invalid JSON, remove the item
+              localStorage.removeItem(key);
+            }
+          }
+        });
+      };
+
+      cleanupCache();
+    };
+  }, [id]);
 
   const cardRef = useRef(null);
 
@@ -164,8 +268,6 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
       artistIds: null,
     };
 
-    console.log("New artistIDS: ", artistIds);
-    console.log("Old artistIDS: ", oldArtistIds);
     if (albumDTO.name !== albumView.name) {
       albumUpdateDTO.name = albumDTO.name;
     }
@@ -222,22 +324,35 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
     }
     console.log(albumFormData);
 
-    const response = await fetch(endPoint, {
-      method: "POST",
-      body: albumFormData,
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    });
+    try {
+      const response = await fetch(endPoint, {
+        method: "POST",
+        body: albumFormData,
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
 
-    if (response.ok) {
-      console.log("Album updated successfully!");
-      setAlbumUpdateSuccessMessage("Album updated successfully!");
-    } else {
-      const errorData = await response.json();
-      console.log("Error data: ", errorData);
-      console.log("Error data title:", errorData.title);
-      setAlbumUpdateErrorMessage(errorData.title);
+      if (response.ok) {
+        console.log("Album updated successfully!");
+        setAlbumUpdateSuccessMessage("Album updated successfully!");
+
+        // Clear the cache after successful update
+        if (id) {
+          localStorage.removeItem(generateCacheKey(id));
+        }
+
+        // Force refresh data after successful update
+        refreshData();
+      } else {
+        const errorData = await response.json();
+        console.log("Error data: ", errorData);
+        console.log("Error data title:", errorData.title);
+        setAlbumUpdateErrorMessage(errorData.title);
+      }
+    } catch (error) {
+      console.error("Error updating album:", error);
+      setAlbumUpdateErrorMessage("Network error. Please try again.");
     }
   };
 
@@ -246,31 +361,95 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
     setMarkedToBeDeleted(!markedToBeDeleted);
   };
 
-  const deleteItemFromList = (itemId) => {
-    setSongsToBeDeleted((prevSongs) => {
-      const updatedSongs = new Set(prevSongs);
-      if (prevSongs.has(itemId)) {
-        updatedSongs.delete(itemId);
+  const deleteItemFromList = async (itemId) => {
+    try {
+      const endpoint = `${apiURL}/song/${encodeURIComponent(itemId)}/remove`;
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+
+      if (response.ok) {
+        setSongs((prevSongs) => {
+          const updatedSongs = prevSongs.filter((song) => song.id !== itemId);
+          return updatedSongs;
+        });
+
+        // Update the cache with the modified songs list
+        if (id) {
+          const cacheKey = generateCacheKey(id);
+          const cachedData = localStorage.getItem(cacheKey);
+
+          if (cachedData) {
+            const parsedData = JSON.parse(cachedData);
+            parsedData.songsData = parsedData.songsData.filter(
+              (song) => song.id !== itemId
+            );
+            localStorage.setItem(
+              cacheKey,
+              JSON.stringify({
+                ...parsedData,
+                timestamp: Date.now(),
+              })
+            );
+          }
+        }
       } else {
-        updatedSongs.add(itemId);
+        return await response.text().then((errorMessage) => {
+          throw new Error(
+            `HTTP error! Status: ${response.status}, Message: ${errorMessage}`
+          );
+        });
       }
-      return updatedSongs;
-    });
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
-  const [showArtistSearch, setShowArtistSearch] = useState(false);
   const [currentSelectionFunc, setCurrentSelectionFunc] = useState(null);
 
   const searchRef = useRef(null);
 
+  const toggleArtistSearch = useCallback(
+    (show) => {
+      setShowArtistSearch(show);
+      localStorage.setItem("showArtistSearch", JSON.stringify(show));
+    },
+    [id]
+  );
+
+  useEffect(() => {
+    const savedSearchVisibility = JSON.parse(
+      localStorage.getItem("showArtistSearch")
+    );
+    console.log("Saved showArtistSearch: ", savedSearchVisibility);
+    if (savedSearchVisibility !== null) {
+      console.log("Setting showArtistSearch to: ", savedSearchVisibility);
+      setShowArtistSearch(savedSearchVisibility);
+    } else {
+      toggleArtistSearch(false);
+    }
+
+    const savedFunction = localStorage.getItem("currentSelectionFunc");
+
+    if (savedFunction) {
+      if (savedFunction === "addAlbumArtist") {
+        setCurrentSelectionFunc(() => addAlbumArtist);
+      }
+    }
+  }, []);
+
   const handleAddArtist = (selectionFunc) => {
     setCurrentSelectionFunc(() => selectionFunc);
-    setShowArtistSearch(true);
+    toggleArtistSearch(true);
   };
 
   const handleAddAlbumArtist = (selectionFunc) => {
     setCurrentSelectionFunc(() => selectionFunc);
-    setShowArtistSearch(true);
+    localStorage.setItem("currentSelectionFunc", "addAlbumArtist");
+    toggleArtistSearch(true);
   };
 
   const addAlbumArtist = (artist) => {
@@ -291,6 +470,39 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
       }
       return prevCreators;
     });
+
+    // Update the cache when artists are added
+    if (id) {
+      const cacheKey = generateCacheKey(id);
+      const cachedData = localStorage.getItem(cacheKey);
+
+      if (cachedData) {
+        const parsedData = JSON.parse(cachedData);
+
+        // Update the cached creators data
+        const updatedCreators = [...creators];
+        const artistExists = updatedCreators.some(
+          (creator) => creator.id === artist.id
+        );
+
+        if (!artistExists) {
+          updatedCreators.push({
+            id: artist.id,
+            creator: artist.name,
+            creator_img: artist.image || "",
+          });
+        }
+
+        localStorage.setItem(
+          cacheKey,
+          JSON.stringify({
+            ...parsedData,
+            artistsData: updatedCreators,
+            timestamp: Date.now(),
+          })
+        );
+      }
+    }
   };
 
   const deleteCreator = (id) => {
@@ -298,6 +510,27 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
       prevCreators.filter((creator) => creator.id !== id)
     );
     console.log(`Album artist with ID: ${id} removed!`);
+
+    // Update the cache when artists are removed
+    if (id) {
+      const cacheKey = generateCacheKey(id);
+      const cachedData = localStorage.getItem(cacheKey);
+
+      if (cachedData) {
+        const parsedData = JSON.parse(cachedData);
+        parsedData.artistsData = parsedData.artistsData.filter(
+          (creator) => creator.id !== id
+        );
+
+        localStorage.setItem(
+          cacheKey,
+          JSON.stringify({
+            ...parsedData,
+            timestamp: Date.now(),
+          })
+        );
+      }
+    }
   };
 
   const closeSearch = () => {
@@ -340,15 +573,50 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
       artists: [],
     };
 
-    setSongs((prevSongs) => [...prevSongs, songDTO]);
+    setSongs((prevSongs) => {
+      const updatedSongs = [...prevSongs, songDTO];
+
+      // Update the cache with the new song added
+      if (id) {
+        const cacheKey = generateCacheKey(id);
+        const cachedData = localStorage.getItem(cacheKey);
+
+        if (cachedData) {
+          const parsedData = JSON.parse(cachedData);
+          parsedData.songsData = updatedSongs;
+
+          localStorage.setItem(
+            cacheKey,
+            JSON.stringify({
+              ...parsedData,
+              timestamp: Date.now(),
+            })
+          );
+        }
+      }
+
+      return updatedSongs;
+    });
+
     setAddSongErrorMessage("");
   };
 
   return (
     <>
-      <div className="w-full">
+      <div
+        className="w-full"
+        style={{
+          backgroundImage: "linear-gradient(to right, #191910, #191912)",
+        }}
+      >
         <div className="overflow-y-hidden overflow-x-hidden scroll-smooth h-max items-center justify-center">
-          {showArtistSearch && (
+          {isLoading && (
+            <div className="w-full flex justify-center my-4">
+              <p className="text-white">Loading album data...</p>
+            </div>
+          )}
+
+          {showArtistSearch && currentSelectionFunc && (
             <div ref={searchRef} className="w-[95%]">
               <Search
                 initialTerm={searchTerm}
@@ -356,7 +624,7 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
                   if (currentSelectionFunc) {
                     currentSelectionFunc(artist);
                   }
-                  setShowArtistSearch(false);
+                  toggleArtistSearch(false);
                 }}
                 defaultFilter="Artists"
                 onlyFilter={true}
@@ -382,6 +650,8 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
               toDelete={deleteAlbum}
               isAdd={isAdd}
               toSave={makeChange}
+              hasModifyPermission={isAdmin}
+              switchParentIsModify={switchModify}
             />
           )}
           {isModify && albumUpdateSuccessMessage && (
@@ -424,6 +694,7 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify }) => {
               searchTerm={searchTerm}
               handleAddArtist={handleAddArtist}
               parentType={"Album"}
+              hasPermission={isAdmin}
             />
           )}
         </div>
