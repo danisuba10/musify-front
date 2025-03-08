@@ -9,7 +9,7 @@
     /* background-image: linear-gradient(to bottom, #bacb71, #889453); */
   }
   .add-button-container {
-    @apply relative flex justify-center items-center rounded-full aspect-square h-full;
+    @apply relative flex justify-center items-center rounded-full aspect-square h-[60%];
     transition: transform 0.1s ease;
   }
   .add-button-container:hover {
