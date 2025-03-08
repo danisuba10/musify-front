@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useContext } from "react";
 import TableSearch from "./TableSearch";
 import { apiURL } from "../../assets/Constants";
 import NoImage from "../../assets/noImage.jpg";
@@ -18,6 +18,7 @@ export const search = async ({
   onLoadMore = () => {},
   selectionFunc,
   onClickRedir,
+  userToken,
 }) => {
   const queryParams = new URLSearchParams({
     SearchTerm: term,
@@ -38,6 +39,9 @@ export const search = async ({
   try {
     const response = await fetch(`${endPoint}?${queryParams}`, {
       method: "GET",
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
     });
 
     if (!response.ok) {

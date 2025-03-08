@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import { useState } from "react";
 import HorizontalScrollGrid from "../homepage/HorizontalScrollGrid";
 import MixedSearch from "./MixedSearch";
@@ -11,6 +11,7 @@ import TableSearch from "./TableSearch";
 import { search } from "../search/SearchFetches";
 import { debounce } from "../Service/Debounce";
 import { useNavigate, useLocation } from "react-router-dom";
+import { AuthContext } from "../auth/AuthProvider";
 
 export default function Search({
   initialTerm,
@@ -20,6 +21,7 @@ export default function Search({
   setIsSearch,
   setGlobalTerm,
 }) {
+  const { userToken } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -79,6 +81,7 @@ export default function Search({
       setHasMore: setHasMore,
       onLoadMore: () => loadMore(filterValue),
       selectionFunc: selectionFunc,
+      userToken: userToken,
     };
 
     var endPoint = "";

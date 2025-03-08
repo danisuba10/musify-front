@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useState } from "react";
 import HorizontalScrollGrid from "../homepage/HorizontalScrollGrid";
 import { apiURL } from "../../assets/Constants";
 import { artists } from "../../assets/Constants";
 import NoImage from "../../assets/noImage.jpg";
+import { AuthContext } from "../auth/AuthProvider";
 
 import "../../styles/homepage/home.css";
 
@@ -12,6 +13,8 @@ const MixedSearchResult = ({ term, clearSearch }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [results, setResults] = useState(null);
+
+  const { userToken } = useContext(AuthContext);
 
   const fetchData = async () => {
     setLoading(true);
@@ -22,6 +25,9 @@ const MixedSearchResult = ({ term, clearSearch }) => {
       const url = `${endPoint}?term=${encodeURIComponent(term)}`;
       const response = await fetch(url, {
         method: "GET",
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
       });
 
       if (!response.ok) {
