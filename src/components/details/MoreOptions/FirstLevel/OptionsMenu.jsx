@@ -1,6 +1,13 @@
 import React, { useRef, useEffect } from "react";
 
-export const OptionsMenu = ({ isOpen, position, onClose, onAddToPlaylist }) => {
+export const OptionsMenu = ({
+  isOpen,
+  position,
+  onClose,
+  onAddToPlaylist,
+  onSongRemove,
+  hasPermission,
+}) => {
   if (!isOpen) return null;
 
   const menuRef = useRef(null);
@@ -36,6 +43,14 @@ export const OptionsMenu = ({ isOpen, position, onClose, onAddToPlaylist }) => {
         >
           Add to playlist
         </button>
+        {hasPermission() && (
+          <button
+            className="w-full text-left px-4 py-2 text-white hover:bg-neutral-700 flex items-center"
+            onClick={onSongRemove}
+          >
+            Remove song
+          </button>
+        )}
       </div>
     </>
   );
