@@ -13,6 +13,8 @@ const CollectionDetailList = ({
   toDelete,
   itemsToBeDeleted,
   handleAddArtist,
+  parentType,
+  hasPermission,
 }) => {
   const [songErrorMessage, setSongErrorMessage] = useState(null);
   const [songSuccessMessage, setSongSuccessMessage] = useState(null);
@@ -51,9 +53,15 @@ const CollectionDetailList = ({
                   itemsToBeDeleted && itemsToBeDeleted.has(element.id)
                 }
                 toDelete={() => toDelete(element.id)}
-                onAddArtist={(selectionFunc) => handleAddArtist(selectionFunc)}
+                onAddArtist={
+                  handleAddArtist
+                    ? (selectionFunc) => handleAddArtist(selectionFunc)
+                    : null
+                }
+                parentType={parentType}
                 setErrorMessage={setSongErrorMessage}
                 setSuccessMessage={setSongSuccessMessage}
+                hasPermission={hasPermission}
               />
             </div>
           ))}
