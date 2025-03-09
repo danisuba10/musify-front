@@ -17,13 +17,17 @@ COPY . .
 RUN npm run build
 
 # Use a lightweight web server to serve the built files
-FROM nginx:alpine
+FROM node:20-alpine
 
-# Copy the built files from the build stage to the nginx html directory
-COPY --from=build /app/dist /usr/share/nginx/html
+WORKDIR /app
 
-# Expose port 80
-EXPOSE 80
+# Copy the built files from the build stage
+COPY --from=build /app/dist ./dist
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Install a simple http server
+RUN npm install -g serve
+
+EXPOSE 3000
+
+# Start
+CMD ["serve", "-s", "dist", "-l", "3000"]
