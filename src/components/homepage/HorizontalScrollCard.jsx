@@ -2,6 +2,7 @@ import React from "react";
 
 import "../../styles/homepage/HorizontalScrollCard.css";
 import { useNavigate } from "react-router-dom";
+import NoImage from "../../assets/noImage.jpg";
 
 const HorizontalScrollCard = ({
   id,
@@ -19,14 +20,19 @@ const HorizontalScrollCard = ({
     clearSearch();
   };
 
+  const handleImageError = (e) => {
+    e.target.src = NoImage;
+  };
+
   return (
     <div className="horizontal-scroll-card">
       <div className="horizontal-scroll-card-content">
         <div className="horizontal-scroll-image-container" onClick={redirect}>
           <img
-            src={image}
+            src={image ?? NoImage}
             alt={name}
             className={`horizontal-scroll-image ${typeCSS}`}
+            onError={handleImageError}
           />
         </div>
         <div className="horizontal-scroll-text">
