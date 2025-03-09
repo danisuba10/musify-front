@@ -198,7 +198,10 @@ export default function Search({
   }, 400);
 
   useEffect(() => {
-    setGlobalTerm(term);
+    if (setGlobalTerm) {
+      //Force reload to fix race condition
+      setGlobalTerm(term);
+    }
     sessionStorage.setItem("selectedFilter", filter);
 
     // Wait for the first render
