@@ -39,7 +39,6 @@ const HorizontalScrollGrid = ({
           lastCreatedAt: "",
           selectionFunc: null,
         });
-        console.log("Fetch result: ", result);
         setElements(result || []);
       } catch (error) {
         console.error("Error fetching elements:", error);
