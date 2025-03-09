@@ -48,7 +48,9 @@ export const search = async ({
       if (response.status === 404) {
         throw new Error("Not Found");
       }
-      throw new Error(`HTTP error! status: ${response.status}`);
+      return await response.text().then((errorMessage) => {
+        throw new Error(errorMessage);
+      });
     }
 
     const data = await response.json();
