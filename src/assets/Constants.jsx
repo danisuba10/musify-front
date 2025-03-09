@@ -1,4 +1,4 @@
-export const apiURL = "http://192.168.0.184:5231";
+export const apiURL = "http://meloptica.stream:5231";
 
 export const artists = [
   {
