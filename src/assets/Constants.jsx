@@ -1,5 +1,4 @@
-export const apiURL = "http://meloptica.stream:5231";
-
+export const apiURL = import.meta.env.VITE_APP_API_URL;
 export const artists = [
   {
     id: "1a",
