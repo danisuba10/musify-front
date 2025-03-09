@@ -53,6 +53,10 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify, switchModify }) => {
     isModify = false;
   }
 
+  const hasModifyPermission = () => {
+    return isAdmin() && isModify === true;
+  };
+
   const [markedToBeDeleted, setMarkedToBeDeleted] = useState(false);
   const [songsToBeDeleted, setSongsToBeDeleted] = useState(new Set());
   const [creators, setCreators] = useState([]);
@@ -694,7 +698,7 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify, switchModify }) => {
               searchTerm={searchTerm}
               handleAddArtist={handleAddArtist}
               parentType={"Album"}
-              hasPermission={isAdmin}
+              hasPermission={hasModifyPermission}
             />
           )}
         </div>
