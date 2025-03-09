@@ -48,6 +48,7 @@ export default function ProfileDetail({
           <HorizontalScrollGrid
             title="Top Albums"
             initialElements={profile.albums}
+            route={"/album/"}
           />
         )}
         <div className="mt-16"></div>
