@@ -33,6 +33,7 @@ const CollectionDetailCard = forwardRef(
     const [imageFile, setImageFile] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [nameInput, setNameInput] = useState(collection?.name || "");
+    const [descInput, setDescInput] = useState(collection?.description || "");
 
     const [newYear, setNewYear] = useState(collection?.details.year || 0);
     const [oldDuration, setOldDuration] = useState(
@@ -48,6 +49,11 @@ const CollectionDetailCard = forwardRef(
         year: newYear,
         duration: object_to_seconds(newDuration),
         file: selectedFile,
+      }),
+      getPlaylistInfoDTO: () => ({
+        name: nameInput,
+        file: selectedFile,
+        description: descInput,
       }),
       getArtistInfoDTO: () => ({
         name: nameInput,
@@ -67,6 +73,10 @@ const CollectionDetailCard = forwardRef(
       setNameInput(e.target.value);
     };
 
+    const handleDescriptionChange = (e) => {
+      setDescInput(e.target.value);
+    };
+
     const triggerFileInput = () => {
       document.getElementById("imageInput").click();
     };
@@ -75,6 +85,10 @@ const CollectionDetailCard = forwardRef(
 
     const artistRedir = (id) => {
       navigate(`/artist/${id}`);
+    };
+
+    const userRedir = (id) => {
+      navigate(`/user/${id}`);
     };
 
     return (
@@ -119,16 +133,32 @@ const CollectionDetailCard = forwardRef(
           <div className="collection-detail-about gap-3">
             <div className="collection-detail-type">{collection?.type}</div>
             {isModify && (
-              <textarea
-                value={nameInput}
-                onChange={handleNameChange}
-                className="collection-detail-name text-3xl w-[90%] bg-transparent ml-1 min-h-[100px] focus:ring-2 focus:ring-green-500 outline-none"
-                placeholder={nameInput || "Enter album name"}
-                rows={1}
-              />
+              <>
+                <textarea
+                  value={nameInput}
+                  onChange={handleNameChange}
+                  className="collection-detail-name text-3xl w-[90%] bg-transparent ml-1 min-h-[100px] focus:ring-2 focus:ring-green-500 outline-none"
+                  placeholder={nameInput || "Enter album name"}
+                  rows={1}
+                />
+                {type == "Playlist" && (
+                  <textarea
+                    value={descInput}
+                    onChange={handleDescriptionChange}
+                    className="collection-detail-name text-xl w-[90%] bg-transparent ml-1 min-h-[100px] focus:ring-2 focus:ring-green-500 outline-none"
+                    placeholder={descInput || "Enter description"}
+                    rows={1}
+                  />
+                )}
+              </>
             )}
             {!isModify && (
-              <div className="collection-detail-name">{collection?.name}</div>
+              <>
+                <div className="collection-detail-name">{collection?.name}</div>
+                <div className="collection-detail-description">
+                  {collection?.description}
+                </div>
+              </>
             )}
             <div className="collection-detail-details">
               {type === "Album" && (
@@ -188,6 +218,44 @@ const CollectionDetailCard = forwardRef(
                         />
                       )}
                     </div>
+                    {!isModify && <span className="about-info-entry"> • </span>}
+                    {!isModify && (
+                      <div className="about-info-entry">
+                        Songs: {collection?.details.song_count}
+                      </div>
+                    )}
+                    {!isModify && <span className="about-info-entry"> • </span>}
+                    <div className="about-info-entry">
+                      {!isModify && <>Duration: </>}
+                      {!isModify && collection?.details.total_length_str}{" "}
+                    </div>
+                  </div>
+                </>
+              )}
+              {type === "Playlist" && (
+                <>
+                  <div className="artist-container">
+                    {creators?.map((artist, index) => (
+                      <div
+                        key={index}
+                        className="flex flex-col sm:flex-row justify-left items-center gap-2 h-fit w-fit"
+                      >
+                        <div className="relative">
+                          <button onClick={() => userRedir(artist.id)}>
+                            <img
+                              className="artist-image"
+                              src={artist.creator_img}
+                            />
+                          </button>
+                        </div>
+
+                        <button onClick={() => userRedir(artist.id)}>
+                          <div className="artist-name">{artist.name}</div>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  <div className={`about-info ${isModify && "flex-col"}`}>
                     {!isModify && <span className="about-info-entry"> • </span>}
                     {!isModify && (
                       <div className="about-info-entry">

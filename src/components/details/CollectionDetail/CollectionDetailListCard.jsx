@@ -340,6 +340,16 @@ const CollectionDetailListCard = ({
                 <span className="relative w-full sm:w-min flex items-start text-start">
                   s
                 </span>
+                {isModify && userToken && (
+                  <div className="ml-4">
+                    <SongOptionsMenu
+                      songId={details.id}
+                      songName={details.name}
+                      hasPermission={hasPermission}
+                      onSongRemove={toDelete}
+                    />
+                  </div>
+                )}
                 <div className="h-full w-full min-h-[60px] aspect-square flex items-center justify-center">
                   <SaveButton onClickFunc={saveSongModifications} />
                 </div>

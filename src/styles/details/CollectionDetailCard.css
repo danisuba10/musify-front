@@ -23,8 +23,8 @@
   .collection-detail-name {
     @apply relative text-white sm:text-2xl md:text-6xl font-bold h-fit;
   }
-  .collection-detail-name {
-    @apply relative text-white sm:text-2xl md:text-6xl font-bold h-fit;
+  .collection-detail-description {
+    @apply relative text-white sm:text-lg md:text-2xl font-normal h-fit;
   }
 
   .collection-detail-details {
