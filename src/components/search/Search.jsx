@@ -50,6 +50,7 @@ export default function Search({
   const [results, setResults] = useState([]);
 
   const scrollPositionRef = useRef(0);
+  const abortControllerRef = useRef(null);
 
   useEffect(() => {
     console.log("Results changed. New results: ", results);
@@ -68,6 +69,13 @@ export default function Search({
   const loadMore = async (filterValue) => {
     if (!hasMoreRef.current) return;
 
+    if (abortControllerRef.current) {
+      console.log("Aborting!!");
+      abortControllerRef.current.abort();
+    }
+
+    abortControllerRef.current = new AbortController();
+
     const searchParams = {
       setSearchDisplay: setSearchDisplay,
       term: term,
@@ -82,6 +90,7 @@ export default function Search({
       onLoadMore: () => loadMore(filterValue),
       selectionFunc: selectionFunc,
       userToken: userToken,
+      signal: abortControllerRef.current.signal,
     };
 
     var endPoint = "";
@@ -153,8 +162,11 @@ export default function Search({
         break;
       case "Users":
         setSearchDisplay(
-          <TableSearch title="Users" type="circle" elements={artists} />
+          <div className="text-white text-2xl pt-8 pl-4">
+            To be implemented..
+          </div>
         );
+        return;
         break;
       default:
         setSearchDisplay(null);
@@ -190,7 +202,7 @@ export default function Search({
 
     setTimeout(async () => {
       await loadMore(filterValue);
-    }, 0);
+    }, 10);
   };
 
   const fetchData = debounce(async () => {
@@ -198,9 +210,10 @@ export default function Search({
   }, 400);
 
   useEffect(() => {
+    setGlobalTerm(term);
+    console.error("Clank clank!");
     sessionStorage.setItem("selectedFilter", filter);
 
-    // Wait for the first render
     const timeout = setTimeout(() => {
       fetchData();
     }, 0);
@@ -208,12 +221,29 @@ export default function Search({
     return () => {
       clearTimeout(timeout);
       fetchData.cancel();
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
     };
   }, [filter, term, defaultFilter]);
 
   useEffect(() => {
     setTerm(initialTerm);
   }, [initialTerm]);
+
+  useEffect(() => {
+    return () => {
+      sessionStorage.setItem("selectedFilter", "All");
+      setSearchDisplay(null);
+      setResults([]);
+      setLastFoundName("");
+      setLastFoundCreatedAt("");
+      setHasMore(true);
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     return () => {
