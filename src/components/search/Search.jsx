@@ -190,7 +190,7 @@ export default function Search({
 
     setTimeout(async () => {
       await loadMore(filterValue);
-    }, 0);
+    }, 10);
   };
 
   const fetchData = debounce(async () => {
@@ -198,6 +198,7 @@ export default function Search({
   }, 400);
 
   useEffect(() => {
+    setGlobalTerm(term);
     sessionStorage.setItem("selectedFilter", filter);
 
     // Wait for the first render
