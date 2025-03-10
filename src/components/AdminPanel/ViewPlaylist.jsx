@@ -234,6 +234,7 @@ const ViewPlaylist = ({ id, searchTerm, isAdd, isModify: initalIsModify }) => {
     if (response.ok) {
       console.log("Playlist updated successfully!");
       setPlaylistUpdateSuccessMessage("Playlist updated successfully!");
+      await getData();
     } else {
       const errorData = await response.json();
       console.log("Error data: ", errorData);
