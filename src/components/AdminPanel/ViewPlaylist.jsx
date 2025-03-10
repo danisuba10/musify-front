@@ -107,7 +107,7 @@ const ViewPlaylist = ({ id, searchTerm, isAdd, isModify: initalIsModify }) => {
         id: data.id,
         name: data.name,
         description: data.description,
-        image: data.image.imageLocation
+        image: data.image?.imageLocation
           ? `${apiURL}/image/${encodeURIComponent(data.image.imageLocation)}`
           : NoImage,
         artists: [
@@ -127,9 +127,9 @@ const ViewPlaylist = ({ id, searchTerm, isAdd, isModify: initalIsModify }) => {
           total_length_str: duration_to_str(data.duration),
         },
         colors: {
-          low: data.image.lowColor,
-          middle: data.image.middleColor,
-          top: data.image.highColor,
+          low: data.image?.lowColor,
+          middle: data.image?.middleColor,
+          top: data.image?.highColor,
         },
       };
 
