@@ -22,7 +22,8 @@ export const artists = [
   },
   {
     id: "4a",
-    image: "https://f4.bcbits.com/img/0027280266_25.jpg",
+    image:
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages-wixmp-ed30a86b8c4ca887773594c2.wixmp.com%2Ff%2Fed52c9c2-3571-4878-8eae-5781fd5c5b2a%2Fdavxm3v-3e9b8667-1678-4679-8d21-9abcb55b6125.jpg%2Fv1%2Ffill%2Fw_900%2Ch_900%2Cq_75%2Cstrp%2Fsabaton_primo_victoria_by_vladimirgamer_davxm3v-fullview.jpg%3Ftoken%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTAwIiwicGF0aCI6IlwvZlwvZWQ1MmM5YzItMzU3MS00ODc4LThlYWUtNTc4MWZkNWM1YjJhXC9kYXZ4bTN2LTNlOWI4NjY3LTE2NzgtNDY3OS04ZDIxLTlhYmNiNTViNjEyNS5qcGciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.LLEoM9sJZT3HpId5le5h9VyX0_zPLfIg7POYPmgRTag&f=1&nofb=1&ipt=990220f3486b38db57a3b8de09f94627865f91e926cbb2390fa641eb892de30a&ipo=images",
     name: "Sabaton",
     subtitle: "Artist",
   },
@@ -55,7 +56,8 @@ export const artists = [
   },
   {
     id: "9a",
-    image: "https://f4.bcbits.com/img/0027280266_25.jpg",
+    image:
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages-wixmp-ed30a86b8c4ca887773594c2.wixmp.com%2Ff%2Fed52c9c2-3571-4878-8eae-5781fd5c5b2a%2Fdavxm3v-3e9b8667-1678-4679-8d21-9abcb55b6125.jpg%2Fv1%2Ffill%2Fw_900%2Ch_900%2Cq_75%2Cstrp%2Fsabaton_primo_victoria_by_vladimirgamer_davxm3v-fullview.jpg%3Ftoken%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTAwIiwicGF0aCI6IlwvZlwvZWQ1MmM5YzItMzU3MS00ODc4LThlYWUtNTc4MWZkNWM1YjJhXC9kYXZ4bTN2LTNlOWI4NjY3LTE2NzgtNDY3OS04ZDIxLTlhYmNiNTViNjEyNS5qcGciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.LLEoM9sJZT3HpId5le5h9VyX0_zPLfIg7POYPmgRTag&f=1&nofb=1&ipt=990220f3486b38db57a3b8de09f94627865f91e926cbb2390fa641eb892de30a&ipo=images",
     name: "Sabaton",
     subtitle: "Artist",
   },
@@ -88,7 +90,8 @@ export const artists = [
   },
   {
     id: "14a",
-    image: "https://f4.bcbits.com/img/0027280266_25.jpg",
+    image:
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages-wixmp-ed30a86b8c4ca887773594c2.wixmp.com%2Ff%2Fed52c9c2-3571-4878-8eae-5781fd5c5b2a%2Fdavxm3v-3e9b8667-1678-4679-8d21-9abcb55b6125.jpg%2Fv1%2Ffill%2Fw_900%2Ch_900%2Cq_75%2Cstrp%2Fsabaton_primo_victoria_by_vladimirgamer_davxm3v-fullview.jpg%3Ftoken%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTAwIiwicGF0aCI6IlwvZlwvZWQ1MmM5YzItMzU3MS00ODc4LThlYWUtNTc4MWZkNWM1YjJhXC9kYXZ4bTN2LTNlOWI4NjY3LTE2NzgtNDY3OS04ZDIxLTlhYmNiNTViNjEyNS5qcGciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.LLEoM9sJZT3HpId5le5h9VyX0_zPLfIg7POYPmgRTag&f=1&nofb=1&ipt=990220f3486b38db57a3b8de09f94627865f91e926cbb2390fa641eb892de30a&ipo=images",
     name: "Sabaton",
     subtitle: "Artist",
   },
@@ -127,7 +130,8 @@ export const library = [
   },
   {
     id: "4l",
-    image: "https://f4.bcbits.com/img/0027280266_25.jpg",
+    image:
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages-wixmp-ed30a86b8c4ca887773594c2.wixmp.com%2Ff%2Fed52c9c2-3571-4878-8eae-5781fd5c5b2a%2Fdavxm3v-3e9b8667-1678-4679-8d21-9abcb55b6125.jpg%2Fv1%2Ffill%2Fw_900%2Ch_900%2Cq_75%2Cstrp%2Fsabaton_primo_victoria_by_vladimirgamer_davxm3v-fullview.jpg%3Ftoken%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTAwIiwicGF0aCI6IlwvZlwvZWQ1MmM5YzItMzU3MS00ODc4LThlYWUtNTc4MWZkNWM1YjJhXC9kYXZ4bTN2LTNlOWI4NjY3LTE2NzgtNDY3OS04ZDIxLTlhYmNiNTViNjEyNS5qcGciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.LLEoM9sJZT3HpId5le5h9VyX0_zPLfIg7POYPmgRTag&f=1&nofb=1&ipt=990220f3486b38db57a3b8de09f94627865f91e926cbb2390fa641eb892de30a&ipo=images",
     name: "Sabaton",
     subtitle: "Artist",
     creator: "Creator4",
@@ -165,7 +169,8 @@ export const library = [
   },
   {
     id: "9l",
-    image: "https://f4.bcbits.com/img/0027280266_25.jpg",
+    image:
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages-wixmp-ed30a86b8c4ca887773594c2.wixmp.com%2Ff%2Fed52c9c2-3571-4878-8eae-5781fd5c5b2a%2Fdavxm3v-3e9b8667-1678-4679-8d21-9abcb55b6125.jpg%2Fv1%2Ffill%2Fw_900%2Ch_900%2Cq_75%2Cstrp%2Fsabaton_primo_victoria_by_vladimirgamer_davxm3v-fullview.jpg%3Ftoken%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTAwIiwicGF0aCI6IlwvZlwvZWQ1MmM5YzItMzU3MS00ODc4LThlYWUtNTc4MWZkNWM1YjJhXC9kYXZ4bTN2LTNlOWI4NjY3LTE2NzgtNDY3OS04ZDIxLTlhYmNiNTViNjEyNS5qcGciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.LLEoM9sJZT3HpId5le5h9VyX0_zPLfIg7POYPmgRTag&f=1&nofb=1&ipt=990220f3486b38db57a3b8de09f94627865f91e926cbb2390fa641eb892de30a&ipo=images",
     name: "Sabaton",
     subtitle: "Artist",
     creator: "Creator9",
@@ -203,7 +208,8 @@ export const library = [
   },
   {
     id: "14l",
-    image: "https://f4.bcbits.com/img/0027280266_25.jpg",
+    image:
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages-wixmp-ed30a86b8c4ca887773594c2.wixmp.com%2Ff%2Fed52c9c2-3571-4878-8eae-5781fd5c5b2a%2Fdavxm3v-3e9b8667-1678-4679-8d21-9abcb55b6125.jpg%2Fv1%2Ffill%2Fw_900%2Ch_900%2Cq_75%2Cstrp%2Fsabaton_primo_victoria_by_vladimirgamer_davxm3v-fullview.jpg%3Ftoken%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTAwIiwicGF0aCI6IlwvZlwvZWQ1MmM5YzItMzU3MS00ODc4LThlYWUtNTc4MWZkNWM1YjJhXC9kYXZ4bTN2LTNlOWI4NjY3LTE2NzgtNDY3OS04ZDIxLTlhYmNiNTViNjEyNS5qcGciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.LLEoM9sJZT3HpId5le5h9VyX0_zPLfIg7POYPmgRTag&f=1&nofb=1&ipt=990220f3486b38db57a3b8de09f94627865f91e926cbb2390fa641eb892de30a&ipo=images",
     name: "Sabaton",
     subtitle: "Artist",
     creator: "Creator14",
