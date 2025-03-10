@@ -242,9 +242,29 @@ const ViewPlaylist = ({ id, searchTerm, isAdd, isModify: initalIsModify }) => {
     }
   };
 
-  const deletePlaylist = () => {
+  const deletePlaylist = async () => {
     console.log(`Playlist marked to be deleted: ${!markedToBeDeleted}`);
-    setMarkedToBeDeleted(!markedToBeDeleted);
+
+    try {
+      const endPoint = `${apiURL}/playlist/${encodeURIComponent(id)}/remove`;
+      const response = await fetch(endPoint, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+      if (response.ok) {
+        navigate("/");
+      } else {
+        return await response.text().then((errorMessage) => {
+          throw new Error(
+            errorMessage ?? "Error occured when deleting playlist!"
+          );
+        });
+      }
+    } catch (error) {
+      setPlaylistUpdateErrorMessage(error.message);
+    }
   };
 
   const deleteItemFromList = async (itemId) => {

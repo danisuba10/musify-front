@@ -360,9 +360,29 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify, switchModify }) => {
     }
   };
 
-  const deleteAlbum = () => {
+  const deleteAlbum = async () => {
     console.log(`Album marked to be deleted: ${!markedToBeDeleted}`);
-    setMarkedToBeDeleted(!markedToBeDeleted);
+
+    try {
+      const endPoint = `${apiURL}/album/${encodeURIComponent(id)}/remove`;
+      const response = await fetch(endPoint, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+      if (response.ok) {
+        navigate("/");
+      } else {
+        return await response.text().then((errorMessage) => {
+          throw new Error(
+            errorMessage ?? "Error occured when deleting playlist!"
+          );
+        });
+      }
+    } catch (error) {
+      setAlbumUpdateErrorMessage(error.message);
+    }
   };
 
   const deleteItemFromList = async (itemId) => {
