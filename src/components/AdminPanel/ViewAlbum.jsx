@@ -22,11 +22,13 @@ import {
   duration_to_object,
   object_to_seconds,
 } from "../Service/TimeService";
+import { useNavigate } from "react-router-dom";
 
 // Cache key generation function
 const generateCacheKey = (id) => `album_data_${id}`;
 
 const ViewAlbum = ({ id, searchTerm, isAdd, isModify, switchModify }) => {
+  const navigate = useNavigate();
   const isPageReloaded = () => {
     const savedSearchVisibility = JSON.parse(
       localStorage.getItem("showArtistSearch")
