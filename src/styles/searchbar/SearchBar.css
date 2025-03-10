@@ -7,7 +7,7 @@
     @apply h-[10vh] w-[100%] flex flex-row justify-between overflow-hidden;
   }
   .logo-container {
-    @apply h-[10vh] w-auto aspect-square overflow-hidden flex items-center justify-center;
+    @apply h-[60%] w-auto aspect-square overflow-hidden flex items-center justify-center;
     transition: transform 0.1s ease;
   }
   .logo-container:hover {

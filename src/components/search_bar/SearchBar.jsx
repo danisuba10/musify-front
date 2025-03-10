@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../../styles/searchbar/SearchBar.css";
-import Logo from "../../assets/spotify.svg?react";
+import Logo from "../../assets/lightning.svg?react";
 import Home from "../../assets/home.svg?react";
 import Magnifier from "../../assets/magni.svg?react";
 import Account from "../../assets/profile.svg?react";
@@ -54,8 +54,10 @@ const SearchBar = ({ onClick, onSearch, setTerm, setIsSearch, term }) => {
 
   return (
     <div className="search-bar-container">
-      <div className="logo-container" onClick={handleHomeClick}>
-        <Logo className="logo-svg" />
+      <div className="h-full flex flex-col justify-center items-center aspect-square">
+        <div className="logo-container" onClick={handleHomeClick}>
+          <Logo className="logo-svg" />
+        </div>
       </div>
       <div className="main">
         <div className="home-button-container" onClick={handleHomeClick}>
