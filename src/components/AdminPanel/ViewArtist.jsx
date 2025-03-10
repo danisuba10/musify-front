@@ -87,6 +87,7 @@ const ViewArtist = ({
 
     if (response.ok) {
       setSuccessMessage("Artist updated successfully!");
+      await fetchData();
     } else {
       const errorData = await response.json();
       setErrorMessage(errorData.title);
