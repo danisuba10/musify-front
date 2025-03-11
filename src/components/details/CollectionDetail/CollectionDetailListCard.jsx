@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 import "../../../styles/details/CollectionDetailListCard.css";
 import PlayButton from "./PlayButton";
@@ -47,6 +47,19 @@ const CollectionDetailListCard = ({
     )
   );
 
+  useEffect(() => {
+    if (details.mainArtist) {
+      addOrRemoveArtist(
+        {
+          id: details.mainArtist.id,
+          name: details.mainArtist.name,
+          image: details.mainArtist.image,
+        },
+        "add"
+      );
+    }
+  }, []);
+
   const [isHovered, setIsHovered] = useState(false);
 
   const redirToArtist = (id) => {
@@ -86,7 +99,6 @@ const CollectionDetailListCard = ({
       : null;
 
     if (
-      newArtists.size !== details.artists.length ||
       !Array.from(newArtists).every((artist) =>
         details.artists.some((detailArtist) => detailArtist.id === artist.id)
       )
@@ -145,8 +157,10 @@ const CollectionDetailListCard = ({
     setNewArtists((oldArtists) => {
       const updatedArtists = new Set(oldArtists);
       if (type === "add") {
-        console.log(`Artist {id:${id}} name:${name} image:${image}} added!`);
-        updatedArtists.add({ id, name, image });
+        if (![...updatedArtists].some((artist) => artist.id === id)) {
+          console.log(`Artist {id:${id}} name:${name} image:${image}} added!`);
+          updatedArtists.add({ id, name, image });
+        }
       } else if (type === "remove") {
         updatedArtists.forEach((artist) => {
           if (artist.id === id && artist.name === name) {

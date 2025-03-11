@@ -599,6 +599,14 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify, switchModify }) => {
       artists: [],
     };
 
+    if (creators.length == 1) {
+      songDTO.mainArtist = {
+        name: creators[0].creator,
+        image: creators[0].creator_img,
+        id: creators[0].id,
+      };
+    }
+
     setSongs((prevSongs) => {
       const updatedSongs = [...prevSongs, songDTO];
 
