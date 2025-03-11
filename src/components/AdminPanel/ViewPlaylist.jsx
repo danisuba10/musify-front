@@ -141,9 +141,11 @@ const ViewPlaylist = ({ id, searchTerm, isAdd, isModify: initalIsModify }) => {
         {
           id: data.user.id,
           name: data.user.displayName,
-          imageLocation: data.user.imageLocation,
-          creator_img: data.user.imageLocation
-            ? `${apiURL}/image/${encodeURIComponent(artist.imageLocation)}`
+          imageLocation: data.user.image.imageLocation,
+          creator_img: data.user.image.imageLocation
+            ? `${apiURL}/image/${encodeURIComponent(
+                data.user.image.imageLocation
+              )}`
             : NoImage,
         },
       ];
