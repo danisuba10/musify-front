@@ -97,17 +97,23 @@ const Profile = ({ id, isModify, setIsModify }) => {
           },
         }
       );
-      const data = await response.json();
-      const topPlaylists = data.$values.map((playlist) => ({
-        id: playlist.id,
-        name: playlist.name,
-        image: playlist.imageLocation
-          ? `${apiURL}/image/${encodeURIComponent(playlist.imageLocation)}`
-          : NoImage,
-        typeCSS: "square",
-        subtitle: "Playlist",
-      }));
-      setGridDatas((prevData) => ({ ...prevData, playlists: topPlaylists }));
+      if (response.ok) {
+        const data = await response.json();
+        const topPlaylists = data.$values.map((playlist) => ({
+          id: playlist.id,
+          name: playlist.name,
+          image: playlist.imageLocation
+            ? `${apiURL}/image/${encodeURIComponent(playlist.imageLocation)}`
+            : NoImage,
+          typeCSS: "square",
+          subtitle: "Playlist",
+        }));
+        setGridDatas((prevData) => ({ ...prevData, playlists: topPlaylists }));
+      } else if (response.status === 404) {
+        return;
+      } else {
+        setErrorMessage(await response.text());
+      }
     } catch (error) {
       setErrorMessage(error.message);
     }
