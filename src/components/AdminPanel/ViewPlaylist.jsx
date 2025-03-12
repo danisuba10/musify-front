@@ -90,16 +90,13 @@ const ViewPlaylist = ({ id, searchTerm, isAdd, isModify: initalIsModify }) => {
         },
       });
       if (!response.ok) {
-        console.log("Response: ", response);
         return await response.text().then((errorMessage) => {
           throw new Error(
             `HTTP error! Status: ${response.status}, Message: ${errorMessage}`
           );
         });
       }
-      console.log(response);
       const data = await response.json();
-      console.log("Playlist data: ", data);
       setVisibility(data.visibility);
       setPlaylistCreator(data.user.id);
       const collection = {
@@ -133,14 +130,11 @@ const ViewPlaylist = ({ id, searchTerm, isAdd, isModify: initalIsModify }) => {
         },
       };
 
-      console.log("Playlist collection: ", collection);
-      console.log("Duration: ", collection.details.duration);
-
       setplaylistView(collection);
       const mappedArtists = [
         {
           id: data.user.id,
-          name: data.user.displayName,
+          name: data.user.name,
           imageLocation: data.user.image.imageLocation,
           creator_img: data.user.image.imageLocation
             ? `${apiURL}/image/${encodeURIComponent(
@@ -234,20 +228,15 @@ const ViewPlaylist = ({ id, searchTerm, isAdd, isModify: initalIsModify }) => {
     });
 
     if (response.ok) {
-      console.log("Playlist updated successfully!");
       setPlaylistUpdateSuccessMessage("Playlist updated successfully!");
       await getData();
     } else {
       const errorData = await response.json();
-      console.log("Error data: ", errorData);
-      console.log("Error data title:", errorData.title);
       setPlaylistUpdateErrorMessage(errorData.title);
     }
   };
 
   const deletePlaylist = async () => {
-    console.log(`Playlist marked to be deleted: ${!markedToBeDeleted}`);
-
     try {
       const endPoint = `${apiURL}/playlist/${encodeURIComponent(id)}/remove`;
       const response = await fetch(endPoint, {
