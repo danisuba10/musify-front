@@ -10,7 +10,8 @@
     @apply relative h-fit w-auto flex flex-row justify-between;
   }
   .song-part {
-    @apply relative h-min w-full flex flex-row pr-4 pl-4 pt-2 pb-2 gap-2 items-center justify-start;
+    @apply sm:pl-4 relative h-min w-full flex flex-row pr-4 pt-2 pb-2 gap-2 items-center justify-start;
+    @apply lg:pl-4;
   }
   .song-duration-part {
     @apply relative h-auto w-auto flex flex-grow flex-row pr-4 pl-4 pt-2 pb-2 gap-2 items-center justify-end;
@@ -19,7 +20,9 @@
     @apply relative w-fit h-full text-svgGrey text-lg flex flex-grow items-center justify-end text-nowrap;
   }
   .list-card-order {
-    @apply relative flex items-center justify-center text-xl w-[7%] h-min text-svgGrey p-4 aspect-square;
+    @apply sm:p-1 relative flex items-center justify-center text-xl w-[35%] h-min text-svgGrey aspect-square;
+    @apply md:p-2;
+    @apply lg:p-4;
   }
   .list-card-details {
     @apply w-fit h-fit relative flex flex-col flex-wrap justify-center items-start;
