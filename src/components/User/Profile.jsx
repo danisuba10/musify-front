@@ -59,9 +59,18 @@ const Profile = ({ id, isModify, setIsModify }) => {
           following: 0,
         },
         colors: {
-          low: data.image.lowColor,
-          middle: data.image.middleColor,
-          top: data.image.highColor,
+          low:
+            data.image.lowColor && data.image.lowColor !== ""
+              ? data.image.lowColor
+              : "#A192B4",
+          middle:
+            data.image.middleColor && data.image.middleColor !== ""
+              ? data.image.middleColor
+              : "#685E74",
+          top:
+            data.image.highColor && data.image.highColor !== ""
+              ? data.image.highColor
+              : "#4B4454",
         },
       };
 

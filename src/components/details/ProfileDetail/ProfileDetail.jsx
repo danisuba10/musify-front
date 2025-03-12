@@ -20,8 +20,6 @@ export default function ProfileDetail({
   toDelete = () => {},
   horizontalScrollGridDatas,
 }) {
-  console.log("ProfileDetail ismodify", isModify);
-
   const cardRef = useRef(null);
   const { isAdmin, getUserId } = useContext(AuthContext);
 
