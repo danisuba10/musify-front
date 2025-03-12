@@ -192,6 +192,7 @@ const Profile = ({ id, isModify, setIsModify }) => {
               subitle: "Playlist",
               type: "square",
               elements: gridDatas.playlists,
+              route: "/playlist/",
             },
           ]}
           toSave={(profileDTO) => saveProfile(profileDTO)}
