@@ -19,7 +19,7 @@
     @apply relative h-auto;
   }
   .horizontal-scroll-grid-scroll {
-    @apply relative grid gap-2 overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide auto-cols-[200px] grid-flow-col h-auto;
+    @apply relative flex gap-2 overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide auto-cols-[200px] grid-flow-col h-auto;
   }
   .scroll-button {
     @apply absolute top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/80 text-white rounded-full p-2 transition-all duration-200 ease-in-out backdrop:blur-sm;
