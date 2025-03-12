@@ -23,7 +23,15 @@ export default function UserLibrary() {
     return () => clearInterval(cookieChangeListener);
   }, []);
 
-  return (
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return windowWidth < 600 ? null : (
     <div
       className={`library-container ${
         compact
