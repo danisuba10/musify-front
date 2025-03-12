@@ -13,8 +13,13 @@ body {
   .top-parent {
     @apply flex flex-col w-full h-full;
   }
-  .global-search-bar {
-    @apply min-h-[10vh] bg-black;
+  .search-bar-container {
+    /* Default style for mobile */
+    @apply h-[8vh] w-[100%] flex flex-row justify-between overflow-hidden bg-black;
+    /* Style for sm breakpoint and above */
+    @apply sm:h-[8vh] bg-black;
+    /* Style for lg breakpoint */
+    @apply lg:h-[10vh] bg-black;
   }
   .app-container {
     @apply flex flex-row gap-5 bg-black w-full h-full;

@@ -4,7 +4,12 @@
 
 @layer components {
   .search-bar-container {
-    @apply h-[10vh] w-[100%] flex flex-row justify-between overflow-hidden;
+    /* Default style for mobile */
+    @apply h-[8vh] w-[100%] flex flex-row justify-between overflow-hidden;
+    /* Style for sm breakpoint and above */
+    @apply sm:h-[8vh];
+    /* Style for lg breakpoint */
+    @apply lg:h-[10vh];
   }
   .logo-container {
     @apply h-[60%] w-auto aspect-square overflow-hidden flex items-center justify-center;
@@ -24,7 +29,7 @@
     @apply fill-svgGrey h-[5vh] w-auto aspect-square;
   }
   .home-button-container {
-    @apply h-[7.5vh] w-auto aspect-square overflow-hidden flex items-center justify-center rounded-full p-3;
+    @apply h-[80%] w-auto aspect-square overflow-hidden flex relative items-center justify-center rounded-full p-3;
     background-image: linear-gradient(to right, #191910, #191912);
     transition: transform 0.1s ease;
   }
