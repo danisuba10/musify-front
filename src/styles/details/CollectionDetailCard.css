@@ -28,7 +28,8 @@
   }
 
   .collection-detail-details {
-    @apply flex flex-col sm:flex-row gap-1 mt-4 h-fit w-full;
+    @apply items-center justify-center;
+    @apply md:justify-start flex flex-col sm:flex-row gap-1 mt-4 h-fit w-full;
   }
   .artist-container {
     @apply relative flex flex-wrap h-fit w-fit items-center sm:mr-2 sm:max-w-[50%] gap-2;
