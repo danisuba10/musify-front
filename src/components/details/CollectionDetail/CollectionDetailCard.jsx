@@ -29,7 +29,7 @@ const CollectionDetailCard = forwardRef(
   ) => {
     const navigate = useNavigate();
 
-    const [followsUser, setFollowsUser] = useState(true);
+    const [followsUser, setFollowsUser] = useState(false);
     const [imageFile, setImageFile] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [nameInput, setNameInput] = useState(collection?.name || "");
