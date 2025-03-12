@@ -46,7 +46,7 @@ const Profile = ({ id, isModify, setIsModify }) => {
         `${apiURL}/user/${encodeURIComponent(id)}/profile`
       );
 
-      if (response.stauts === ok) {
+      if (response.ok) {
         const data = await response.json();
         const collection = {
           type: "Profile",
