@@ -6,4 +6,13 @@
   .more-options-button {
     @apply rounded-full h-8 w-8 flex items-center justify-center hover:bg-neutral-700 transition-colors duration-200;
   }
+
+  .playlistMenu {
+    /* Default style for mobile */
+    @apply min-w-[210px] max-w-[230px] max-h-[400px] absolute z-50 bg-neutral-800 shadow-lg rounded-md py-1 overflow-y-auto;
+    /* Style for sm breakpoint and above */
+    @apply sm:min-w-[230px] sm:max-w-[290px];
+    /* Style for lg breakpoint */
+    @apply lg:min-w-[280px] lg:max-w-[400px];
+  }
 }

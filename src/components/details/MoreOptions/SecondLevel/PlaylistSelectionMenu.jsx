@@ -21,6 +21,20 @@ export const PlaylistSelectionMenu = ({
     y: position.y,
   });
 
+  const [xToBeSubtracted, setXToBeSubtracted] = useState(200);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 600) {
+        setXToBeSubtracted(200);
+      } else {
+        setXToBeSubtracted(300);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   //Handle click outside to close menu
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -194,10 +208,10 @@ export const PlaylistSelectionMenu = ({
       {/* <div className="fixed inset-0 z-40" onClick={onClose} /> */}
       <div
         ref={menuRef}
-        className="absolute z-50 bg-neutral-800 shadow-lg rounded-md py-1 min-w-[280px] max-h-[400px] overflow-y-auto"
+        className="playlistMenu"
         style={{
           top: `${adjustedPosition.y - 200}px`,
-          left: `${adjustedPosition.x - 300}px`,
+          left: `${adjustedPosition.x - xToBeSubtracted}px`,
         }}
       >
         <div className="flex justify-between items-center px-4 py-2 border-b border-neutral-700">
