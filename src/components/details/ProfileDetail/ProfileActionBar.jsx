@@ -41,10 +41,10 @@ const ProfileActionBar = ({
         }}
       >
         <div className="flex flex-row gap-4">
-          {isModify && (
+          {isModify && hasModifyPermission() && (
             <SaveButton className="square-button" onClickFunc={onSave} />
           )}
-          {type === "Artist" && (
+          {isModify && hasModifyPermission() && type === "Artist" && (
             <DeleteButton className="square-button" onClickFunc={onDelete} />
           )}
           {hasModifyPermission() && <ModifyButton onClickFunc={switchModify} />}
