@@ -19,6 +19,7 @@ const Profile = ({ id, isModify, setIsModify }) => {
   };
 
   const fetchProfile = async () => {
+    setErrorMessage(null);
     if (!id) {
       const emptyCollection = {
         type: "Profile",
