@@ -15,7 +15,7 @@ const AccountDropDown = ({ onSignOut }) => {
     right: 0,
   });
   const navigate = useNavigate();
-  const { userInfo } = useContext(AuthContext);
+  const { userInfo, getUserId } = useContext(AuthContext);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -44,7 +44,7 @@ const AccountDropDown = ({ onSignOut }) => {
   }, [isOpen]);
 
   const handleProfileClick = () => {
-    navigate(`/profile/${userInfo.Identifier}`);
+    navigate(`/profile/${getUserId()}`);
     setIsOpen(false);
   };
 

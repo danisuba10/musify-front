@@ -24,6 +24,7 @@ import ViewArtist from "./components/AdminPanel/ViewArtist";
 import React from "react";
 import ViewPlaylist from "./components/AdminPanel/ViewPlaylist";
 import Album from "./components/AdminPanel/Album";
+import Profile from "./components/User/Profile";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -39,8 +40,10 @@ function App() {
   };
 
   const AlbumRoute = () => {
-    setSearchPopupAllowed(true);
     const { id } = useParams();
+    useEffect(() => {
+      setSearchPopupAllowed(true);
+    }, [id]);
     return (
       <Album
         id={id}
@@ -52,15 +55,27 @@ function App() {
     );
   };
 
-  const PlaylistRoute = () => {
-    setSearchPopupAllowed(true);
+  const ProfileRoute = () => {
     const { id } = useParams();
+    useEffect(() => {
+      setSearchPopupAllowed(true);
+    }, [id]);
+    return <Profile id={id} isModify={isModify} setIsModify={setIsModify} />;
+  };
+
+  const PlaylistRoute = () => {
+    const { id } = useParams();
+    useEffect(() => {
+      setSearchPopupAllowed(true);
+    }, [id]);
     return <ViewPlaylist id={id} isModify={true} searchTerm={term} />;
   };
 
   const ArtistRoute = () => {
-    setSearchPopupAllowed(true);
     const { id } = useParams();
+    useEffect(() => {
+      setSearchPopupAllowed(true);
+    }, [id]);
     return <ViewArtist id={id} isModify={false} searchTerm={term} />;
   };
 
@@ -92,6 +107,7 @@ function App() {
                       key={term}
                       setIsSearch={setIsSearch}
                       setGlobalTerm={setTerm}
+                      defaultFilter="All"
                     />
                   ) : (
                     <ArtistRoute />
@@ -107,6 +123,7 @@ function App() {
                       key={"search-over-album"}
                       setIsSearch={setIsSearch}
                       setGlobalTerm={setTerm}
+                      defaultFilter="All"
                     />
                   ) : (
                     <AlbumRoute />
@@ -122,6 +139,7 @@ function App() {
                       key={term}
                       setIsSearch={setIsSearch}
                       setGlobalTerm={setTerm}
+                      defaultFilter="All"
                     />
                   ) : (
                     <PlaylistRoute />
@@ -137,9 +155,10 @@ function App() {
                       key={term}
                       setIsSearch={setIsSearch}
                       setGlobalTerm={setTerm}
+                      defaultFilter="All"
                     />
                   ) : (
-                    <ProfileDetail profile={profile} />
+                    <ProfileRoute />
                   )
                 }
               />
@@ -156,6 +175,7 @@ function App() {
                       key={term}
                       setIsSearch={setIsSearch}
                       setGlobalTerm={setTerm}
+                      defaultFilter="All"
                     />
                   ) : (
                     <HomeRoute />

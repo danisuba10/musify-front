@@ -25,7 +25,6 @@ const HorizontalScrollGrid = ({
         return;
       }
 
-      console.log("Fetching data with URL: ", url);
       try {
         const result = await search({
           setSearchDisplay: null,
@@ -46,7 +45,7 @@ const HorizontalScrollGrid = ({
       }
     };
     fetchData();
-  }, [url]);
+  }, [url, initialElements]);
 
   const typeCSS = type === "circle" ? "rounded-full" : "";
 

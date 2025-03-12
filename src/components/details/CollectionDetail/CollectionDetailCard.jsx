@@ -279,7 +279,7 @@ const CollectionDetailCard = forwardRef(
                   </div>
                 </>
               )}
-              {type === "User" && (
+              {type === "Profile" && (
                 <>
                   <div className="about-info">
                     <div className="about-info-entry">

@@ -152,9 +152,16 @@ export default function Search({
         };
         break;
       case "Users":
-        setSearchDisplay(
-          <TableSearch title="Users" type="circle" elements={artists} />
-        );
+        endPoint = `${apiURL}/user/search`;
+        searchParams.onClickRedir = (id) => {
+          if (setIsSearch) {
+            setIsSearch(false);
+          }
+          if (setGlobalTerm) {
+            setGlobalTerm("");
+          }
+          navigate(`/profile/${id}`);
+        };
         break;
       default:
         setSearchDisplay(null);
