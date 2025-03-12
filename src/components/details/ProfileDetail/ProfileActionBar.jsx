@@ -40,7 +40,7 @@ const ProfileActionBar = ({
           backgroundImage: `linear-gradient(to bottom, ${middleColor}, ${topColor})`,
         }}
       >
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-4 items-center">
           {isModify && hasModifyPermission() && (
             <SaveButton className="square-button" onClickFunc={onSave} />
           )}
