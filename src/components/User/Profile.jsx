@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../auth/AuthProvider";
 import { apiURL } from "../../assets/Constants";
 import ProfileDetail from "../details/ProfileDetail/ProfileDetail";
+import NoImage from "../../assets/noImage.jpg";
 
 const Profile = ({ id, isModify, setIsModify }) => {
   const { isAdmin, userToken, getUserId } = useContext(AuthContext);
@@ -49,9 +50,9 @@ const Profile = ({ id, isModify, setIsModify }) => {
         type: "Profile",
         id: data.id,
         name: data.name,
-        image: `${apiURL}/image/${encodeURIComponent(
-          data.image.imageLocation
-        )}`,
+        image: data.image.imageLocation
+          ? `${apiURL}/image/${encodeURIComponent(data.image.imageLocation)}`
+          : NoImage,
         details: {
           public_playlist_cnt: data.publicPlaylistCount,
           followers: 0,
@@ -85,7 +86,9 @@ const Profile = ({ id, isModify, setIsModify }) => {
       const topPlaylists = data.$values.map((playlist) => ({
         id: playlist.id,
         name: playlist.name,
-        image: `${apiURL}/image/${encodeURIComponent(playlist.imageLocation)}`,
+        image: playlist.imageLocation
+          ? `${apiURL}/image/${encodeURIComponent(playlist.imageLocation)}`
+          : NoImage,
         typeCSS: "square",
         subtitle: "Playlist",
       }));
