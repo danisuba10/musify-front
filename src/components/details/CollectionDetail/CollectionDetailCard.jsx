@@ -88,7 +88,7 @@ const CollectionDetailCard = forwardRef(
     };
 
     const userRedir = (id) => {
-      navigate(`/user/${id}`);
+      navigate(`/profile/${id}`);
     };
 
     return (
