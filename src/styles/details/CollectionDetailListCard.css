@@ -20,9 +20,9 @@
     @apply relative w-fit h-full text-svgGrey text-lg flex flex-grow items-center justify-end text-nowrap;
   }
   .list-card-order {
-    @apply sm:p-1 relative flex items-center justify-center text-xl w-[35%] h-min text-svgGrey aspect-square;
-    @apply md:p-2;
-    @apply lg:p-4;
+    @apply sm:p-1 w-[27%] relative flex items-center justify-center text-xl h-min text-svgGrey aspect-square;
+    @apply md:p-2 md:w-[10%];
+    @apply lg:p-4 lg:w-[7%];
   }
   .list-card-details {
     @apply w-fit h-fit relative flex flex-col flex-wrap justify-center items-start;
