@@ -45,36 +45,41 @@ const Profile = ({ id, isModify, setIsModify }) => {
       const response = await fetch(
         `${apiURL}/user/${encodeURIComponent(id)}/profile`
       );
-      const data = await response.json();
 
-      const collection = {
-        type: "Profile",
-        id: data.id,
-        name: data.name,
-        image: data.image.imageLocation
-          ? `${apiURL}/image/${encodeURIComponent(data.image.imageLocation)}`
-          : NoImage,
-        details: {
-          public_playlist_cnt: data.publicPlaylistCount,
-          followers: 0,
-          following: 0,
-        },
-        colors: {
-          low:
-            data.image.lowColor && data.image.lowColor !== ""
-              ? data.image.lowColor
-              : "#A192B4",
-          middle:
-            data.image.middleColor && data.image.middleColor !== ""
-              ? data.image.middleColor
-              : "#685E74",
-          top:
-            data.image.highColor && data.image.highColor !== ""
-              ? data.image.highColor
-              : "#4B4454",
-        },
-      };
-
+      if (response.stauts === ok) {
+        const data = await response.json();
+        const collection = {
+          type: "Profile",
+          id: data.id,
+          name: data.name,
+          image: data.image.imageLocation
+            ? `${apiURL}/image/${encodeURIComponent(data.image.imageLocation)}`
+            : NoImage,
+          details: {
+            public_playlist_cnt: data.publicPlaylistCount,
+            followers: 0,
+            following: 0,
+          },
+          colors: {
+            low:
+              data.image.lowColor && data.image.lowColor !== ""
+                ? data.image.lowColor
+                : "#A192B4",
+            middle:
+              data.image.middleColor && data.image.middleColor !== ""
+                ? data.image.middleColor
+                : "#685E74",
+            top:
+              data.image.highColor && data.image.highColor !== ""
+                ? data.image.highColor
+                : "#4B4454",
+          },
+        };
+      } else if (response.status === 404) {
+        return;
+      } else {
+        setErrorMessage(await response.text());
+      }
       setProfileView(collection);
     } catch (error) {
       console.error(error);
