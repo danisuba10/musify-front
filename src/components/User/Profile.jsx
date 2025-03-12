@@ -75,12 +75,12 @@ const Profile = ({ id, isModify, setIsModify }) => {
                 : "#4B4454",
           },
         };
+        setProfileView(collection);
       } else if (response.status === 404) {
         return;
       } else {
         setErrorMessage(await response.text());
       }
-      setProfileView(collection);
     } catch (error) {
       console.error(error);
       setErrorMessage(error.message);
