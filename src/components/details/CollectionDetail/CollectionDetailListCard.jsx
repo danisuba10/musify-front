@@ -27,6 +27,7 @@ const CollectionDetailListCard = ({
   hasPermission,
 }) => {
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
 
   const { userToken } = useContext(AuthContext);
   const [newName, setNewName] = useState(details.name);
@@ -206,6 +207,27 @@ const CollectionDetailListCard = ({
     });
   };
 
+  useEffect(() => {
+    if (window.innerWidth < 600) {
+      console.log("Mobile!");
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  }, []);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 600) {
+        console.log("Mobile!");
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div
       className="detail-list-card"
@@ -221,12 +243,12 @@ const CollectionDetailListCard = ({
       >
         <div className="song-part">
           <div className="list-card-order">
-            {!isHovered &&
-              (!isModify || parentType === "Playlist") &&
+            {((!isHovered && (!isModify || parentType === "Playlist")) ||
+              isMobile) &&
               details.order}
-            {isHovered && (!isModify || parentType === "Playlist") && (
-              <PlayButton />
-            )}
+            {isHovered &&
+              !isMobile &&
+              (!isModify || parentType === "Playlist") && <PlayButton />}
             {isModify && parentType !== "Playlist" && (
               <input
                 className="w-[5vw] text-center bg-displayBlack"
