@@ -4,7 +4,7 @@
 
 @layer components {
   .profile-detail-action-bar {
-    @apply flex flex-row h-[15vh] w-full gap-3 pr-2 pl-6 pt-4 pb-4 justify-center sm:justify-start;
+    @apply flex flex-row h-[7vh] md:h-[12vh] lg:h-[15vh] w-full gap-3 pr-2 pl-6 pt-4 pb-4 justify-center sm:justify-start;
   }
   .follow-button-container {
     @apply relative flex justify-center items-center rounded-3xl p-2 border border-svgGrey h-auto w-[50%] sm:w-[10%];
