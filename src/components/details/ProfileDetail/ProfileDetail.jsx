@@ -72,7 +72,7 @@ export default function ProfileDetail({
           </>
         )}
         {type === "Profile" && <div className="flex flex-col gap-2"></div>}
-        {horizontalScrollGridDatas.map((data, index) => (
+        {horizontalScrollGridDatas?.map((data, index) => (
           <HorizontalScrollGrid
             key={index}
             title={data.title}
