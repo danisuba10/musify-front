@@ -4,7 +4,7 @@
 
 @layer components {
   .save-button-container {
-    @apply relative flex justify-center h-[100%] items-center bg-svgGrey rounded-full aspect-square p-2;
+    @apply relative flex justify-center h-[60%] items-center bg-svgGrey rounded-full aspect-square p-2;
     transition: transform 0.1s ease;
   }
   .save-button-container:hover {
