@@ -21,14 +21,16 @@ export default function Search({
   setIsSearch,
   setGlobalTerm,
 }) {
+  console.log("Default filter: ", defaultFilter);
+  console.log("Session filter: ", sessionStorage.getItem("selectedFilter"));
   const { userToken } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
   const initialFilter =
-    defaultFilter !== "All" && defaultFilter
+    defaultFilter != "All" && defaultFilter
       ? defaultFilter
-      : sessionStorage.getItem("selectedFilter");
+      : sessionStorage.getItem("selectedFilter") ?? "All";
   const [filter, setFilter] = useState(initialFilter);
   const [searchDisplay, setSearchDisplay] = useState(null);
   const [term, setTerm] = useState(initialTerm);
