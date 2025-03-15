@@ -8,8 +8,7 @@ body {
 }
 
 .homepage-container {
-  min-height: 100vh;
-  height: 100vh;
+  height: 100%;
   background-image: linear-gradient(to right, #191910, #191912);
   flex-grow: 1;
   display: flex;
