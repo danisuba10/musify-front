@@ -4,9 +4,11 @@ import "../../styles/homepage/HorizontalScrollGrid.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { search } from "../search/SearchFetches";
 import { apiURL } from "../../assets/Constants";
+import { useNavigate } from "react-router-dom";
 
 const HorizontalScrollGrid = ({
   title,
+  titleRedirect,
   url,
   subtitle,
   type,
@@ -17,6 +19,14 @@ const HorizontalScrollGrid = ({
   const [elements, setElements] = useState(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
+
+  const navigate = useNavigate();
+
+  const titleRedir = () => {
+    if (titleRedirect) {
+      navigate(titleRedirect);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,7 +94,9 @@ const HorizontalScrollGrid = ({
   return (
     <div className="horizontal-scroll-grid">
       <div className="horizontal-scroll-grid-header">
-        <h2 className="horizontal-scroll-grid-title">{title}</h2>
+        <h2 className="horizontal-scroll-grid-title" onClick={titleRedir}>
+          {title}
+        </h2>
       </div>
       <div className="horizontal-scroll-grid-container group">
         {showLeftArrow && (

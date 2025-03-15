@@ -60,6 +60,7 @@ const ViewArtist = ({
         name: album.name,
         image: `${apiURL}/image/${encodeURIComponent(album.imageLocation)}`,
       })),
+      albumsRedirect: `/artist/${encodeURI(data.id)}/albums`,
     };
 
     setArtistView(collection);

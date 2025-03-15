@@ -62,6 +62,7 @@ export default function ProfileDetail({
           <>
             <HorizontalScrollGrid
               title="Top Albums"
+              titleRedirect={profile.albumsRedirect}
               initialElements={profile.albums}
               route={"/album/"}
             />

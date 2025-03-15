@@ -20,6 +20,7 @@ export default function Search({
   onlyFilter = false,
   setIsSearch,
   setGlobalTerm,
+  customURL,
 }) {
   const { userToken } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -113,7 +114,7 @@ export default function Search({
         };
         break;
       case "Albums":
-        endPoint = `${apiURL}/album/search`;
+        endPoint = customURL ?? `${apiURL}/album/search`;
         searchParams.onClickRedir = (id) => {
           if (setIsSearch) {
             setIsSearch(false);

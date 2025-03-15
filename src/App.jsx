@@ -23,6 +23,7 @@ import ViewPlaylist from "./components/AdminPanel/ViewPlaylist";
 import Album from "./components/AdminPanel/Album";
 import Profile from "./components/User/Profile";
 import MusicPlayer from "./components/MusicPlayer/MusicPlayer";
+import { apiURL } from "./assets/Constants";
 
 const AlbumRoute = ({
   term,
@@ -57,6 +58,18 @@ const PlaylistRoute = ({ term }) => {
 const ArtistRoute = ({ term }) => {
   const { id } = useParams();
   return <ViewArtist id={id} isModify={false} searchTerm={term} />;
+};
+
+const ArtistAlbumsRoute = ({ term }) => {
+  const { id } = useParams();
+  return (
+    <Search
+      initialTerm={term}
+      defaultFilter="Albums"
+      onlyFilter={true}
+      customURL={`${apiURL}/artist/${encodeURI(id)}/albums`}
+    />
+  );
 };
 
 function App() {
@@ -128,6 +141,10 @@ function App() {
                     />
                   )
                 }
+              />
+              <Route
+                path="/artist/:id/albums"
+                element={<ArtistAlbumsRoute term={term} />}
               />
               <Route
                 path="/playlist/:id"
