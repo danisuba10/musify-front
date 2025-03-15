@@ -17,7 +17,9 @@ const HorizontalScrollCard = ({
 
   const redirect = () => {
     navigate(`${route}${id}`);
-    clearSearch();
+    if (clearSearch) {
+      clearSearch();
+    }
   };
 
   const handleImageError = (e) => {
