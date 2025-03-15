@@ -16,7 +16,32 @@ const MusicPlayer = ({ songId }) => {
   const [volume, setVolume] = useState(0.7);
   const [isMuted, setIsMuted] = useState(false);
   const [songInfo, setSongInfo] = useState(null);
+
   const audioRef = useRef(null);
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (window.innerWidth < 600) {
+      setIsMobile(true);
+      setVolume(1);
+    } else {
+      setIsMobile(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 600) {
+        setIsMobile(true);
+        setVolume(1);
+      } else {
+        setIsMobile(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (!songInfo) return;
@@ -192,23 +217,25 @@ const MusicPlayer = ({ songId }) => {
             </span>
           </div>
         </div>
-        <div className="flex items-center w-1/4 justify-end">
-          <button
-            className="text-gray-400 hover:text-white focus:outline-none mr-2"
-            onClick={toggleMute}
-          >
-            {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-          </button>
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value={isMuted ? 0 : volume}
-            onChange={handleVolumeChange}
-            className="w-24 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-green-500"
-          />
-        </div>
+        {!isMobile && (
+          <div className="flex items-center w-1/4 justify-end">
+            <button
+              className="text-gray-400 hover:text-white focus:outline-none mr-2"
+              onClick={toggleMute}
+            >
+              {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+            </button>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value={isMuted ? 0 : volume}
+              onChange={handleVolumeChange}
+              className="w-24 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-green-500"
+            />
+          </div>
+        )}
       </div>
     </div>
   );

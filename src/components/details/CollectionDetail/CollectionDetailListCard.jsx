@@ -201,6 +201,7 @@ const CollectionDetailListCard = ({
       setIsMobile(false);
     }
   }, []);
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 600) {
@@ -252,7 +253,15 @@ const CollectionDetailListCard = ({
           </div>
           <div className="list-card-details">
             <div className="list-card-name">
-              {(!isModify || parentType === "Playlist") && details.name}{" "}
+              {(!isModify || parentType === "Playlist") && (
+                <button
+                  onClick={() => {
+                    setCurrentSongId(details.id);
+                  }}
+                >
+                  {details.name}
+                </button>
+              )}{" "}
               {isModify && parentType !== "Playlist" && (
                 <input
                   className="w-full text-svgGrey bg-displayBlack"
