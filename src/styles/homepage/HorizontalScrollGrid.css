@@ -4,7 +4,7 @@
 
 @layer components {
   .horizontal-scroll-grid {
-    @apply flex flex-col overflow-y-visible min-h-fit h-auto w-full pl-4 pr-4 mt-6;
+    @apply flex flex-col overflow-y-visible min-h-fit h-auto w-full pl-4 pr-4 mt-1 md:mt-4 lg:mt-6;
   }
   .horizontal-scroll-grid-header {
     @apply relative min-h-[30px] flex justify-between items-center mb-4;
