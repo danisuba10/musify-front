@@ -1,17 +1,14 @@
 import { useState } from "react";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
-
 import "./App.css";
 import Home from "./components/homepage/Home";
 import "./styles/tailwind.css";
 import UserLibrary from "./components/user_library/ULibrary";
 import SearchBar from "./components/search_bar/SearchBar";
 import AuthOverlay from "./components/auth/AuthOverlay";
-
 import Search from "./components/search/Search";
 import CollectionDetail from "./components/details/CollectionDetail/CollectionDetail";
 import ProfileDetail from "./components/details/ProfileDetail/ProfileDetail";
-
 import { artist, songs, profile } from "./assets/Constants";
 import AdminPanel from "./components/AdminPanel/AdminPanel";
 import AuthProvider from "./components/auth/AuthProvider";
@@ -25,58 +22,66 @@ import React from "react";
 import ViewPlaylist from "./components/AdminPanel/ViewPlaylist";
 import Album from "./components/AdminPanel/Album";
 import Profile from "./components/User/Profile";
+import MusicPlayer from "./components/MusicPlayer/MusicPlayer";
+
+const AlbumRoute = ({
+  term,
+  isModify,
+  setIsModify,
+  setCurrentSongId,
+  setSearchPopupAllowed,
+}) => {
+  const { id } = useParams();
+  useEffect(() => {
+    console.log("AlbumRoute mounted or id changed:", id);
+  }, [id]);
+  return (
+    <Album
+      id={id}
+      searchTerm={term}
+      isModify={isModify}
+      setIsModify={setIsModify}
+      setCurrentSongId={setCurrentSongId}
+      setSearchPopupAllowed={setSearchPopupAllowed}
+    />
+  );
+};
+
+const ProfileRoute = ({ isModify, setIsModify }) => {
+  const { id } = useParams();
+  useEffect(() => {
+    console.log("ProfileRoute mounted or id changed:", id);
+  }, [id]);
+  return <Profile id={id} isModify={isModify} setIsModify={setIsModify} />;
+};
+
+const PlaylistRoute = ({ term }) => {
+  const { id } = useParams();
+  useEffect(() => {
+    console.log("PlaylistRoute mounted or id changed:", id);
+  }, [id]);
+  return <ViewPlaylist id={id} isModify={true} searchTerm={term} />;
+};
+
+const ArtistRoute = ({ term }) => {
+  const { id } = useParams();
+  useEffect(() => {
+    console.log("ArtistRoute mounted or id changed:", id);
+  }, [id]);
+  return <ViewArtist id={id} isModify={false} searchTerm={term} />;
+};
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [searchPopupAllowed, setSearchPopupAllowed] = useState(true);
   const [isSearch, setIsSearch] = useState(false);
   const [term, setTerm] = useState("");
-
+  const [currentSongId, setCurrentSongId] = useState(null);
   const [isModify, setIsModify] = useState(false);
 
   const HomeRoute = () => {
     setSearchPopupAllowed(true);
     return <Home />;
-  };
-
-  const AlbumRoute = () => {
-    const { id } = useParams();
-    useEffect(() => {
-      setSearchPopupAllowed(true);
-    }, [id]);
-    return (
-      <Album
-        id={id}
-        searchTerm={term}
-        setSearchPopupAllowed={setSearchPopupAllowed}
-        isModify={isModify}
-        setIsModify={setIsModify}
-      />
-    );
-  };
-
-  const ProfileRoute = () => {
-    const { id } = useParams();
-    useEffect(() => {
-      setSearchPopupAllowed(true);
-    }, [id]);
-    return <Profile id={id} isModify={isModify} setIsModify={setIsModify} />;
-  };
-
-  const PlaylistRoute = () => {
-    const { id } = useParams();
-    useEffect(() => {
-      setSearchPopupAllowed(true);
-    }, [id]);
-    return <ViewPlaylist id={id} isModify={true} searchTerm={term} />;
-  };
-
-  const ArtistRoute = () => {
-    const { id } = useParams();
-    useEffect(() => {
-      setSearchPopupAllowed(true);
-    }, [id]);
-    return <ViewArtist id={id} isModify={false} searchTerm={term} />;
   };
 
   return (
@@ -110,7 +115,7 @@ function App() {
                       defaultFilter="All"
                     />
                   ) : (
-                    <ArtistRoute />
+                    <ArtistRoute term={term} />
                   )
                 }
               />
@@ -126,7 +131,13 @@ function App() {
                       defaultFilter="All"
                     />
                   ) : (
-                    <AlbumRoute />
+                    <AlbumRoute
+                      term={term}
+                      isModify={isModify}
+                      setIsModify={setIsModify}
+                      setCurrentSongId={setCurrentSongId}
+                      setSearchPopupAllowed={setSearchPopupAllowed}
+                    />
                   )
                 }
               />
@@ -142,7 +153,7 @@ function App() {
                       defaultFilter="All"
                     />
                   ) : (
-                    <PlaylistRoute />
+                    <PlaylistRoute term={term} />
                   )
                 }
               />
@@ -158,7 +169,10 @@ function App() {
                       defaultFilter="All"
                     />
                   ) : (
-                    <ProfileRoute />
+                    <ProfileRoute
+                      isModify={isModify}
+                      setIsModify={setIsModify}
+                    />
                   )
                 }
               />
@@ -185,6 +199,9 @@ function App() {
             </Routes>
           </div>
           {showLogin && <AuthOverlay onClose={() => setShowLogin(false)} />}
+          <div className="playbar-container">
+            <MusicPlayer songId={currentSongId} />
+          </div>
         </div>
       </AuthProvider>
     </Router>
