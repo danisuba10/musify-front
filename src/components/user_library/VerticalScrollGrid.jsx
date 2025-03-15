@@ -93,6 +93,7 @@ const VerticalScrollGrid = ({ title, cards, type, compact }) => {
                 compact={compact}
               />
             ))}
+            <div className="mt-6"></div>
           </div>
         )}
       </div>

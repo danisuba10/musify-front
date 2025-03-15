@@ -11,7 +11,7 @@ body {
 
 @layer components {
   .library-container {
-    min-height: 100vh;
+    height: 100%;
     /* min-width: 140px; */
     background-image: linear-gradient(to right, #191910, #191912);
     flex-grow: 1;

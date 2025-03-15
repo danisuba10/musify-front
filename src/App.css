@@ -22,8 +22,12 @@ body {
     @apply lg:h-[10vh] bg-black;
   }
   .app-container {
-    @apply flex flex-row gap-5 bg-black w-full h-full;
+    @apply flex flex-row gap-5 bg-black w-full flex-1;
     overflow-y: hidden;
+  }
+
+  .playbar-container {
+    @apply h-[10vh] w-full bg-black;
   }
 
   .app-container > * {
