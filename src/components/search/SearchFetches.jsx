@@ -107,6 +107,17 @@ export const search = async ({
   } catch (error) {
     console.error("Error fetching:", error);
     setHasMore(false);
+    setSearchDisplay(
+      <TableSearch
+        title={title}
+        elements={allResults}
+        type={rounded ? "circle" : ""}
+        selectionFunc={selectionFunc}
+        onLoadMore={onLoadMore}
+        hasMore={data.searchResults.$values.length === 25}
+        onClickRedir={onClickRedir}
+      />
+    );
     if (error.message === "Not Found" && existingResults.length === 0) {
       if (setSearchDisplay) {
         setSearchDisplay(
