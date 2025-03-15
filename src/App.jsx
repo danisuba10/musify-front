@@ -88,7 +88,7 @@ function App() {
               term={term}
             />
           </div>
-          <div className="app-container">
+          <div className="app-container fixed">
             <UserLibrary />
             <Routes>
               <Route
