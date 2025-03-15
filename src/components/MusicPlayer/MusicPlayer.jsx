@@ -210,7 +210,7 @@ const MusicPlayer = ({ songId }) => {
               max={duration || 0}
               value={currentTime}
               onChange={handleSeek}
-              className="flex w-[40%] h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-green-500"
+              className="flex w-[40%] h-1 bg-gray-600 rounded-lg cursor-pointer accent-green-500"
             />
             <span className="text-xs text-gray-400 w-10">
               {formatTime(duration)}
@@ -232,7 +232,7 @@ const MusicPlayer = ({ songId }) => {
               step="0.01"
               value={isMuted ? 0 : volume}
               onChange={handleVolumeChange}
-              className="w-24 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-green-500"
+              className="w-24 h-1 bg-gray-600 rounded-lg cursor-pointer accent-green-500"
             />
           </div>
         )}
