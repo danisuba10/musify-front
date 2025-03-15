@@ -15,6 +15,7 @@ const CollectionDetailList = ({
   handleAddArtist,
   parentType,
   hasPermission,
+  setCurrentSongId,
 }) => {
   const [songErrorMessage, setSongErrorMessage] = useState(null);
   const [songSuccessMessage, setSongSuccessMessage] = useState(null);
@@ -62,6 +63,7 @@ const CollectionDetailList = ({
                 setErrorMessage={setSongErrorMessage}
                 setSuccessMessage={setSongSuccessMessage}
                 hasPermission={hasPermission}
+                setCurrentSongId={setCurrentSongId}
               />
             </div>
           ))}

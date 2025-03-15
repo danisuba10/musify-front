@@ -25,6 +25,7 @@ const CollectionDetailListCard = ({
   setSuccessMessage,
   parentType,
   hasPermission,
+  setCurrentSongId,
 }) => {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
@@ -248,7 +249,13 @@ const CollectionDetailListCard = ({
               details.order}
             {isHovered &&
               !isMobile &&
-              (!isModify || parentType === "Playlist") && <PlayButton />}
+              (!isModify || parentType === "Playlist") && (
+                <PlayButton
+                  onClickFunc={() => {
+                    setCurrentSongId(details.id);
+                  }}
+                />
+              )}
             {isModify && parentType !== "Playlist" && (
               <input
                 className="w-[5vw] text-center bg-displayBlack"

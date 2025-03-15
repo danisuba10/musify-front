@@ -27,7 +27,14 @@ import { useNavigate } from "react-router-dom";
 // Cache key generation function
 const generateCacheKey = (id) => `album_data_${id}`;
 
-const ViewAlbum = ({ id, searchTerm, isAdd, isModify, switchModify }) => {
+const ViewAlbum = ({
+  id,
+  searchTerm,
+  isAdd,
+  isModify,
+  switchModify,
+  setCurrentSongId,
+}) => {
   const navigate = useNavigate();
   const isPageReloaded = () => {
     const savedSearchVisibility = JSON.parse(
@@ -729,6 +736,7 @@ const ViewAlbum = ({ id, searchTerm, isAdd, isModify, switchModify }) => {
               handleAddArtist={handleAddArtist}
               parentType={"Album"}
               hasPermission={hasModifyPermission}
+              setCurrentSongId={setCurrentSongId}
             />
           )}
         </div>
