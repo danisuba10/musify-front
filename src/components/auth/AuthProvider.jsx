@@ -54,7 +54,6 @@ const AuthProvider = ({ children }) => {
   const decodeToken = (token) => {
     try {
       const decoded = jwtDecode(token);
-      console.log("Decoded Token: ", decoded);
       setUserInfo(decoded);
     } catch (error) {
       console.log("Error decoding token ", error);
@@ -133,9 +132,7 @@ const AuthProvider = ({ children }) => {
         const token = await response.text();
         localStorage.setItem("userToken", token);
         handleValidToken(token);
-        console.log("Token after register:", token);
       } else {
-        console.log("Register failed! Checking codes now!");
         if (response.status === 409) {
           throw new Error("User already exists with this email!");
         }

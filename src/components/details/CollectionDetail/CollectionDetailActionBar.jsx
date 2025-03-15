@@ -23,7 +23,6 @@ const CollectionDetailActionBar = ({
   const [isModify, setIsModify] = useState(initialIsModify);
 
   const switchModify = () => {
-    console.log("Modify switch!");
     setIsModify(!isModify);
     if (switchParentIsModify) {
       switchParentIsModify();

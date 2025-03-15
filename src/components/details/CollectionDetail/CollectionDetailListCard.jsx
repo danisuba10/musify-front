@@ -73,14 +73,6 @@ const CollectionDetailListCard = ({
     setSuccessMessage(null);
     const newDurationS = object_to_seconds(newDuration);
 
-    console.log("Details: ", details);
-    console.log("newData: ", {
-      order: newOrder,
-      name: newName,
-      duration: newDurationS,
-      artists: newArtists,
-    });
-
     var endPoint;
 
     if (!details.id) {
@@ -133,7 +125,6 @@ const CollectionDetailListCard = ({
     });
 
     if (response.ok) {
-      console.log("Song updated successfully!");
       if (!isMarkedForDelete) {
         setSuccessMessage("Song updated successfully!");
       } else {
@@ -145,10 +136,6 @@ const CollectionDetailListCard = ({
       console.log("Error data title:", errorData.title);
       setErrorMessage(errorData.title);
     }
-
-    console.log(
-      `API call has been made to change data for song with ID: ${details.id}!`
-    );
   };
 
   const selectionFunc = (artist) => {
@@ -160,7 +147,6 @@ const CollectionDetailListCard = ({
       const updatedArtists = new Set(oldArtists);
       if (type === "add") {
         if (![...updatedArtists].some((artist) => artist.id === id)) {
-          console.log(`Artist {id:${id}} name:${name} image:${image}} added!`);
           updatedArtists.add({ id, name, image });
         }
       } else if (type === "remove") {
@@ -210,7 +196,6 @@ const CollectionDetailListCard = ({
 
   useEffect(() => {
     if (window.innerWidth < 600) {
-      console.log("Mobile!");
       setIsMobile(true);
     } else {
       setIsMobile(false);
@@ -219,7 +204,6 @@ const CollectionDetailListCard = ({
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 600) {
-        console.log("Mobile!");
         setIsMobile(true);
       } else {
         setIsMobile(false);

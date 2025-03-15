@@ -78,7 +78,6 @@ export const PlaylistSelectionMenu = ({
       }
 
       const data = await response.json();
-      console.log(data);
       const playlists_l = data.$values.map((playlist) => ({
         id: playlist.id,
         name: playlist.name,
@@ -118,7 +117,6 @@ export const PlaylistSelectionMenu = ({
       }
 
       const data = await response.json();
-      console.log(data);
       const playlists_l = data.$values.map((playlist) => ({
         id: playlist.id,
         name: playlist.name,
@@ -189,7 +187,6 @@ export const PlaylistSelectionMenu = ({
       );
 
       if (!response.ok) {
-        console.log(response);
         throw new Error(await response.text());
       }
 

@@ -39,7 +39,6 @@ const ViewArtist = ({
     }
 
     const response = await fetch(`${apiURL}/artist/${id}`);
-    console.log(response);
     const data = await response.json();
 
     const collection = {
@@ -63,7 +62,6 @@ const ViewArtist = ({
       })),
     };
 
-    console.log(collection);
     setArtistView(collection);
   };
 
@@ -74,7 +72,6 @@ const ViewArtist = ({
     artistFormData.append("Id", id);
     artistFormData.append("FormFile", artistDTO.file);
     artistFormData.append("Name", artistDTO.name);
-    console.log("Artist form data for update: ", artistFormData);
 
     const endPoint = `${apiURL}/artist/update-artist`;
     const response = await fetch(endPoint, {
@@ -95,7 +92,6 @@ const ViewArtist = ({
   };
 
   const deleteArtist = async () => {
-    console.log("Delete artist called: ");
     setErrorMessage(null);
     setSuccessMessage(null);
 

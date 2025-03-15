@@ -85,13 +85,10 @@ const ViewAlbum = ({
 
   const getData = async (forceRefresh = false) => {
     if (isPageReloaded()) {
-      console.log("Page was reloaded!");
       forceRefresh = true;
     }
 
     try {
-      console.log("Get data called!");
-
       if (!id) {
         const emptyCollection = {
           type: "Album",
@@ -117,7 +114,6 @@ const ViewAlbum = ({
 
       // Check if we already have data for this ID in memory
       if (id === lastFetchedIdRef.current && albumView && !forceRefresh) {
-        console.log(`Using existing in-memory data for album ID: ${id}`);
         return;
       }
 
@@ -126,7 +122,6 @@ const ViewAlbum = ({
       const cachedData = !forceRefresh ? localStorage.getItem(cacheKey) : null;
 
       if (cachedData && !forceRefresh) {
-        console.log(`Loading album from cache for ID: ${id}`);
         const { albumData, songsData, artistsData, oldArtistsData } =
           JSON.parse(cachedData);
 
@@ -141,7 +136,6 @@ const ViewAlbum = ({
       // If no cached data or force refresh, fetch from API
       setIsLoading(true);
       const response = await fetch(`${apiURL}/album/${id}`);
-      console.log(response);
       const data = await response.json();
 
       const collection = {
@@ -230,12 +224,7 @@ const ViewAlbum = ({
   useEffect(() => {
     // Only fetch data if we don't have it for the current ID
     if (id !== lastFetchedIdRef.current || !albumView) {
-      console.log(
-        `ID changed or albumView not set, fetching data for ID: ${id}`
-      );
       getData();
-    } else {
-      console.log(`Using existing data for ID: ${id}`);
     }
 
     // Cleanup function to invalidate cache after a certain time
@@ -273,7 +262,6 @@ const ViewAlbum = ({
     const oldArtistIds = oldCreators.map((creator) => creator.id);
     const artistIds = creators.map((creator) => creator.id);
 
-    console.log("AlbumDTO: ", albumDTO);
     var albumUpdateDTO = {
       name: null,
       year: null,
@@ -298,8 +286,6 @@ const ViewAlbum = ({
     ) {
       albumUpdateDTO.artistIds = artistIds;
     }
-
-    console.log("Artist ids after convert:", albumUpdateDTO.artistIds);
 
     if (
       albumUpdateDTO.name === null &&
@@ -335,7 +321,6 @@ const ViewAlbum = ({
         albumFormData.append("ArtistIds", artistId);
       });
     }
-    console.log(albumFormData);
 
     try {
       const response = await fetch(endPoint, {
@@ -347,7 +332,6 @@ const ViewAlbum = ({
       });
 
       if (response.ok) {
-        console.log("Album updated successfully!");
         setAlbumUpdateSuccessMessage("Album updated successfully!");
 
         // Clear the cache after successful update
@@ -370,8 +354,6 @@ const ViewAlbum = ({
   };
 
   const deleteAlbum = async () => {
-    console.log(`Album marked to be deleted: ${!markedToBeDeleted}`);
-
     try {
       const endPoint = `${apiURL}/album/${encodeURIComponent(id)}/remove`;
       const response = await fetch(endPoint, {
@@ -457,9 +439,7 @@ const ViewAlbum = ({
     const savedSearchVisibility = JSON.parse(
       localStorage.getItem("showArtistSearch")
     );
-    console.log("Saved showArtistSearch: ", savedSearchVisibility);
     if (savedSearchVisibility !== null) {
-      console.log("Setting showArtistSearch to: ", savedSearchVisibility);
       setShowArtistSearch(savedSearchVisibility);
     } else {
       toggleArtistSearch(false);
@@ -491,7 +471,6 @@ const ViewAlbum = ({
         (creator) => creator.id === artist.id
       );
       if (!artistExists) {
-        console.log(`Album artist added: ${artist.name} (${artist.id})`);
         return [
           ...prevCreators,
           {
@@ -542,7 +521,6 @@ const ViewAlbum = ({
     setCreators((prevCreators) =>
       prevCreators.filter((creator) => creator.id !== id)
     );
-    console.log(`Album artist with ID: ${id} removed!`);
 
     // Update the cache when artists are removed
     if (id) {

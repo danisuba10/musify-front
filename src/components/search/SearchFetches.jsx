@@ -26,7 +26,6 @@ export const search = async ({
     LastCreatedAt: lastCreatedAt,
     PageSize: 25,
   }).toString();
-  console.log("Last data: ", lastName, lastCreatedAt);
 
   if (setSearchDisplay) {
     setSearchDisplay(
@@ -54,7 +53,6 @@ export const search = async ({
     }
 
     const data = await response.json();
-    console.log("Data fetched: ", data);
 
     if (
       !data.searchResults?.$values ||

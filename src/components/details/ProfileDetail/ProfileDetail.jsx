@@ -28,14 +28,11 @@ export default function ProfileDetail({
   };
 
   const switchModify = () => {
-    console.log("Modify switched");
-    console.log("Old isModify, new isModify", isModify, !isModify);
     setIsModify(!isModify);
   };
 
   const getDTO = () => {
     if (type === "Artist" || type === "Profile") {
-      console.log("Got DTO: ", cardRef.current?.getArtistInfoDTO());
       return cardRef.current?.getArtistInfoDTO();
     }
   };
