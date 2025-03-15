@@ -15,7 +15,7 @@ export default function UserLibrary() {
         }
         return;
       }
-      ssetCompact(Cookies.get("compact") !== "false");
+      setCompact(Cookies.get("compact") !== "false");
     };
 
     const cookieChangeListener = setInterval(handleCookieChange, 1000);
