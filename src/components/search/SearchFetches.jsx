@@ -110,7 +110,7 @@ export const search = async ({
     setSearchDisplay(
       <TableSearch
         title={title}
-        elements={allResults}
+        elements={existingResults}
         type={rounded ? "circle" : ""}
         selectionFunc={selectionFunc}
         onLoadMore={onLoadMore}
