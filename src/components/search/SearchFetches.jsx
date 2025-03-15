@@ -114,7 +114,7 @@ export const search = async ({
         type={rounded ? "circle" : ""}
         selectionFunc={selectionFunc}
         onLoadMore={onLoadMore}
-        hasMore={data.searchResults.$values.length === 25}
+        hasMore={false}
         onClickRedir={onClickRedir}
       />
     );
