@@ -20,7 +20,6 @@ const ProfileActionBar = ({
   switchModify,
   type,
 }) => {
-  console.log("ProfileActionBar ismodify", isModify);
   const { userToken, getUserId, isAdmin } = useContext(AuthContext);
 
   const self = () => {

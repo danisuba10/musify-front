@@ -127,7 +127,6 @@ const Profile = ({ id, isModify, setIsModify }) => {
   const saveProfile = async (profileDTO) => {
     setSuccessMessage(null);
     setSuccessMessage(null);
-    console.log("Saving dto: ", profileDTO);
     try {
       var formData = new FormData();
       formData.append("DisplayName", profileDTO.name);

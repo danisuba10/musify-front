@@ -35,7 +35,6 @@ const MixedSearchResult = ({ term, clearSearch }) => {
       }
 
       const data = await response.json();
-      console.log("Data fetched: ", data);
 
       const artists = data.artists.$values.map((artist) => ({
         id: artist.id,

@@ -5,12 +5,6 @@ export function object_to_seconds(durationObj) {
   const minutes = parseInt(durationObj.minutes, 10);
   const seconds = parseInt(durationObj.seconds, 10);
 
-  console.log("Time object to be converted to seconds:", {
-    hours,
-    minutes,
-    seconds,
-  });
-
   return hours * 3600 + minutes * 60 + seconds;
 }
 

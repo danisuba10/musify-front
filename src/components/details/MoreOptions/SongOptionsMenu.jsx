@@ -18,7 +18,6 @@ const SongOptionsMenu = ({ songId, songName, onSongRemove, hasPermission }) => {
         x: rect.left,
         y: rect.bottom,
       });
-      console.log("Position:", position);
     }
 
     setIsMenuOpen(true);

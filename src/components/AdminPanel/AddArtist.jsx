@@ -23,9 +23,6 @@ const AddArtist = () => {
     setErrorMessage(null);
     setSuccessMessage(null);
     try {
-      for (let [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
       const response = await fetch(`${apiURL}/artist/add-artist`, {
         method: "POST",
         body: formData,
@@ -36,11 +33,8 @@ const AddArtist = () => {
 
       if (response.ok) {
         setSuccessMessage("Artist added successfully!");
-        console.log("Artist added successfully!");
       } else {
         setErrorMessage("Error adding artist!");
-        console.error("Error adding artist");
-        console.log(response);
       }
     } catch (error) {
       console.log("Error:", error);

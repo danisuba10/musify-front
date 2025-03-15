@@ -21,8 +21,6 @@ export default function Search({
   setIsSearch,
   setGlobalTerm,
 }) {
-  console.log("Default filter: ", defaultFilter);
-  console.log("Session filter: ", sessionStorage.getItem("selectedFilter"));
   const { userToken } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,7 +39,6 @@ export default function Search({
   const [lastFoundCreatedAt, setLastFoundCreatedAt] = useState(null);
 
   useEffect(() => {
-    console.log("Last found:", lastFoundName, lastFoundCreatedAt);
     lastFoundNameRef.current = lastFoundName;
     lastFoundCreatedAtRef.current = lastFoundCreatedAt;
   }, [lastFoundName, lastFoundCreatedAt]);
@@ -54,7 +51,6 @@ export default function Search({
   const scrollPositionRef = useRef(0);
 
   useEffect(() => {
-    console.log("Results changed. New results: ", results);
     resultsRef.current = results;
 
     const container = document.querySelector(".table-container");
@@ -90,7 +86,6 @@ export default function Search({
 
     switch (filterValue) {
       case "All":
-        console.log("Term before all search: ", term);
         setSearchDisplay(
           <MixedSearch
             term={term}
@@ -177,8 +172,6 @@ export default function Search({
       endPoint: endPoint,
     });
 
-    console.log("Old results:", resultsRef.current);
-    console.log("New results:", [newResults]);
     setResults((prevResults) => [...prevResults, ...newResults]);
   };
 

@@ -20,8 +20,6 @@ const MusicPlayer = ({ songId }) => {
 
   useEffect(() => {
     if (!songInfo) return;
-    console.log("Audio path", songInfo.streamUrl);
-    console.log("Song duration", duration);
     if (audioRef.current) {
       audioRef.current.load();
       audioRef.current

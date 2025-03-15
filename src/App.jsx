@@ -32,9 +32,6 @@ const AlbumRoute = ({
   setSearchPopupAllowed,
 }) => {
   const { id } = useParams();
-  useEffect(() => {
-    console.log("AlbumRoute mounted or id changed:", id);
-  }, [id]);
   return (
     <Album
       id={id}
@@ -49,25 +46,16 @@ const AlbumRoute = ({
 
 const ProfileRoute = ({ isModify, setIsModify }) => {
   const { id } = useParams();
-  useEffect(() => {
-    console.log("ProfileRoute mounted or id changed:", id);
-  }, [id]);
   return <Profile id={id} isModify={isModify} setIsModify={setIsModify} />;
 };
 
 const PlaylistRoute = ({ term }) => {
   const { id } = useParams();
-  useEffect(() => {
-    console.log("PlaylistRoute mounted or id changed:", id);
-  }, [id]);
   return <ViewPlaylist id={id} isModify={true} searchTerm={term} />;
 };
 
 const ArtistRoute = ({ term }) => {
   const { id } = useParams();
-  useEffect(() => {
-    console.log("ArtistRoute mounted or id changed:", id);
-  }, [id]);
   return <ViewArtist id={id} isModify={false} searchTerm={term} />;
 };
 
