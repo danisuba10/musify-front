@@ -79,7 +79,7 @@ const MusicPlayer = ({ songId }) => {
           setSongInfo({
             streamUrl: `${apiURL}/sound/${encodeURIComponent(
               data.songFileUrl
-            )}?format=opus&bitrate=128`,
+            )}?format=mp3&bitrate=128`,
             songTitle: data.song.title,
             artists: data.song.artists.$values.map((artist) => artist.name),
             image: `${apiURL}/image/${encodeURIComponent(data.songImage)}`,
@@ -164,7 +164,7 @@ const MusicPlayer = ({ songId }) => {
   };
 
   return (
-    <div className="fixed h-[25vh] md:h-[15vh] lg:h-[10vh] bottom-0 left-0 right-0 bg-black border-t border-gray-800 px-4 py-2 flex items-center z-50">
+    <div className="fixed max-h-[25vh] md:max-h-[15vh] lg:max-h-[10vh] bottom-0 left-0 right-0 bg-black border-t border-gray-800 px-4 py-2 flex items-center z-50">
       <audio
         ref={audioRef}
         src={songInfo?.streamUrl}
