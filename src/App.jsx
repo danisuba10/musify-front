@@ -228,9 +228,7 @@ function App() {
               </Routes>
             </div>
             {showLogin && <AuthOverlay onClose={() => setShowLogin(false)} />}
-            <div className="playbar-container">
-              <MusicPlayerWithQueue />
-            </div>
+            <MusicPlayerWithQueue />
           </div>
         </QueueProvider>
       </AuthProvider>

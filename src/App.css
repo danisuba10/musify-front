@@ -27,7 +27,7 @@ body {
   }
 
   .playbar-container {
-    @apply h-[10vh] w-full bg-black;
+    @apply w-full bg-black;
   }
 
   .app-container > * {
