@@ -3,7 +3,13 @@ import { MoreOptionsButton } from "./MoreOptionsButton";
 import { OptionsMenu } from "./FirstLevel/OptionsMenu";
 import { PlaylistSelectionMenu } from "./SecondLevel/PlaylistSelectionMenu";
 
-const SongOptionsMenu = ({ songId, songName, onSongRemove, hasPermission }) => {
+const SongOptionsMenu = ({
+  songId,
+  songName,
+  onSongRemove,
+  hasPermission,
+  onAddToQueue,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPlaylistMenuOpen, setIsPlaylistMenuOpen] = useState(false);
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
@@ -50,6 +56,7 @@ const SongOptionsMenu = ({ songId, songName, onSongRemove, hasPermission }) => {
         onAddToPlaylist={handleAddToPlaylist}
         onSongRemove={onSongRemove}
         hasPermission={hasPermission}
+        onAddToQueue={onAddToQueue}
       />
       <PlaylistSelectionMenu
         isOpen={isPlaylistMenuOpen}

@@ -337,6 +337,9 @@ const CollectionDetailListCard = ({
                 songName={details.name}
                 hasPermission={hasPermission}
                 onSongRemove={toDelete}
+                onAddToQueue={() => {
+                  queue.add(details.id);
+                }}
               />
             </div>
           )}

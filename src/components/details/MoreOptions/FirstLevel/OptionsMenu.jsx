@@ -7,6 +7,7 @@ export const OptionsMenu = ({
   onAddToPlaylist,
   onSongRemove,
   hasPermission,
+  onAddToQueue,
 }) => {
   if (!isOpen) return null;
 
@@ -43,10 +44,22 @@ export const OptionsMenu = ({
         >
           Add to playlist
         </button>
+        <button
+          className="w-full text-left px-4 py-2 text-white hover:bg-neutral-700 flex items-center"
+          onClick={() => {
+            onAddToQueue();
+            onClose();
+          }}
+        >
+          Add to play queue
+        </button>
         {hasPermission() && (
           <button
             className="w-full text-left px-4 py-2 text-white hover:bg-neutral-700 flex items-center"
-            onClick={onSongRemove}
+            onClick={() => {
+              onSongRemove();
+              onClose();
+            }}
           >
             Remove song
           </button>
