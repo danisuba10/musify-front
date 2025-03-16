@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
+import { AuthContext } from "../../../auth/AuthProvider";
 
 export const OptionsMenu = ({
   isOpen,
@@ -10,6 +11,8 @@ export const OptionsMenu = ({
   onAddToQueue,
 }) => {
   if (!isOpen) return null;
+
+  const { userToken } = useContext(AuthContext);
 
   const menuRef = useRef(null);
 
@@ -38,12 +41,14 @@ export const OptionsMenu = ({
         className="absolute z-50 bg-neutral-800 shadow-lg rounded-md py-1 min-w-[200px]"
         style={{ top: `${position.y}px`, right: `${position.x}px` }}
       >
-        <button
-          className="w-full text-left px-4 py-2 text-white hover:bg-neutral-700 flex items-center"
-          onClick={onAddToPlaylist}
-        >
-          Add to playlist
-        </button>
+        {userToken && (
+          <button
+            className="w-full text-left px-4 py-2 text-white hover:bg-neutral-700 flex items-center"
+            onClick={onAddToPlaylist}
+          >
+            Add to playlist
+          </button>
+        )}
         <button
           className="w-full text-left px-4 py-2 text-white hover:bg-neutral-700 flex items-center"
           onClick={() => {

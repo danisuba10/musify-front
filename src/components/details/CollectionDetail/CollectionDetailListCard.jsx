@@ -330,7 +330,7 @@ const CollectionDetailListCard = ({
           </div>
         </div>
         <div className="song-duration-part">
-          {!isModify && userToken && (
+          {!isModify && (
             <div className="ml-4">
               <SongOptionsMenu
                 songId={details.id}
@@ -388,6 +388,9 @@ const CollectionDetailListCard = ({
                       songName={details.name}
                       hasPermission={hasPermission}
                       onSongRemove={toDelete}
+                      onAddToQueue={() => {
+                        queue.add(details.id);
+                      }}
                     />
                   </div>
                 )}
