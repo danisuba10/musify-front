@@ -314,6 +314,12 @@ const ViewPlaylist = ({
     });
   };
 
+  const addToQueuePlaylist = () => {
+    songs.forEach((song) => {
+      queue.add(song.id);
+    });
+  };
+
   return (
     <>
       <div className="w-full">
@@ -338,6 +344,7 @@ const ViewPlaylist = ({
               switchParentIsModify={switchModify}
               hasModifyPermission={hasModifyPermission}
               playAlbum={playPlaylist}
+              addToQueueAlbum={addToQueuePlaylist}
             />
           )}
           {isModify && playlistUpdateSuccessMessage && (

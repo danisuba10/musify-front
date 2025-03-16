@@ -627,6 +627,12 @@ const ViewAlbum = ({
     });
   };
 
+  const addToQueueAlbum = () => {
+    songs.forEach((song) => {
+      queue.add(song.id);
+    });
+  };
+
   return (
     <>
       <div
@@ -679,6 +685,7 @@ const ViewAlbum = ({
               hasModifyPermission={isAdmin}
               switchParentIsModify={switchModify}
               playAlbum={playAlbum}
+              addToQueueAlbum={addToQueueAlbum}
             />
           )}
           {isModify && albumUpdateSuccessMessage && (
