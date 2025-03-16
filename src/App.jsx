@@ -25,6 +25,7 @@ import Profile from "./components/User/Profile";
 import MusicPlayer from "./components/MusicPlayer/MusicPlayer";
 import { apiURL } from "./assets/Constants";
 import QueueProvider, { useQueue } from "./components/MusicPlayer/Queue";
+import Footer from "./components/Footer/Footer";
 
 const AlbumRoute = ({ term, isModify, setIsModify, setSearchPopupAllowed }) => {
   const { id } = useParams();
@@ -229,6 +230,7 @@ function App() {
             </div>
             {showLogin && <AuthOverlay onClose={() => setShowLogin(false)} />}
             <MusicPlayerWithQueue />
+            <Footer />
           </div>
         </QueueProvider>
       </AuthProvider>
