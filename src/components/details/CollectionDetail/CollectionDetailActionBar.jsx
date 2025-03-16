@@ -18,6 +18,7 @@ const CollectionDetailActionBar = ({
   toSave,
   switchParentIsModify,
   hasModifyPermission,
+  playAlbum,
 }) => {
   const { userToken, isAdmin } = useContext(AuthContext);
   const [isModify, setIsModify] = useState(initialIsModify);
@@ -48,7 +49,7 @@ const CollectionDetailActionBar = ({
         {!isModify && (
           <>
             <div className="add-button-container">
-              <PlayButton />
+              <PlayButton onClickFunc={playAlbum} />
             </div>
           </>
         )}

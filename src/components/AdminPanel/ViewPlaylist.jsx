@@ -18,7 +18,13 @@ import {
 } from "../Service/TimeService";
 import { useNavigate } from "react-router-dom";
 
-const ViewPlaylist = ({ id, searchTerm, isAdd, isModify: initalIsModify }) => {
+const ViewPlaylist = ({
+  id,
+  searchTerm,
+  isAdd,
+  isModify: initalIsModify,
+  queue,
+}) => {
   const navigate = useNavigate();
   const { userToken, isAdmin, getUserId } = useContext(AuthContext);
   const [isModify, setIsModify] = useState(initalIsModify);
@@ -301,6 +307,13 @@ const ViewPlaylist = ({ id, searchTerm, isAdd, isModify: initalIsModify }) => {
     setShowArtistSearch(true);
   };
 
+  const playPlaylist = () => {
+    queue.clear();
+    songs.forEach((song) => {
+      queue.add(song.id);
+    });
+  };
+
   return (
     <>
       <div className="w-full">
@@ -324,6 +337,7 @@ const ViewPlaylist = ({ id, searchTerm, isAdd, isModify: initalIsModify }) => {
               toSave={makeChange}
               switchParentIsModify={switchModify}
               hasModifyPermission={hasModifyPermission}
+              playAlbum={playPlaylist}
             />
           )}
           {isModify && playlistUpdateSuccessMessage && (
@@ -352,6 +366,7 @@ const ViewPlaylist = ({ id, searchTerm, isAdd, isModify: initalIsModify }) => {
               searchTerm={searchTerm}
               parentType={"Playlist"}
               hasPermission={hasModifyPermission}
+              queue={queue}
             />
           )}
         </div>

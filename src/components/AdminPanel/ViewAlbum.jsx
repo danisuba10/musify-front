@@ -33,7 +33,7 @@ const ViewAlbum = ({
   isAdd,
   isModify,
   switchModify,
-  setCurrentSongId,
+  queue,
 }) => {
   const navigate = useNavigate();
   const isPageReloaded = () => {
@@ -620,6 +620,13 @@ const ViewAlbum = ({
     setAddSongErrorMessage("");
   };
 
+  const playAlbum = () => {
+    queue.clear();
+    songs.forEach((song) => {
+      queue.add(song.id);
+    });
+  };
+
   return (
     <>
       <div
@@ -671,6 +678,7 @@ const ViewAlbum = ({
               toSave={makeChange}
               hasModifyPermission={isAdmin}
               switchParentIsModify={switchModify}
+              playAlbum={playAlbum}
             />
           )}
           {isModify && albumUpdateSuccessMessage && (
@@ -714,7 +722,7 @@ const ViewAlbum = ({
               handleAddArtist={handleAddArtist}
               parentType={"Album"}
               hasPermission={hasModifyPermission}
-              setCurrentSongId={setCurrentSongId}
+              queue={queue}
             />
           )}
         </div>

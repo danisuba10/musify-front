@@ -10,7 +10,7 @@ const Album = ({
   setSearchPopupAllowed,
   isModify,
   setIsModify,
-  setCurrentSongId,
+  queue,
 }) => {
   const { isAdmin } = useContext(AuthContext);
 
@@ -36,14 +36,14 @@ const Album = ({
       searchTerm={searchTerm}
       isModify={true}
       switchModify={switchModify}
-      setCurrentSongId={setCurrentSongId}
+      queue={queue}
     />
   ) : (
     <ViewOnlyAlbum
       id={id}
       searchTerm={searchTerm}
       switchModify={switchModify}
-      setCurrentSongId={setCurrentSongId}
+      queue={queue}
     />
   );
 };

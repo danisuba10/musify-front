@@ -9,17 +9,20 @@ import {
   VolumeX,
 } from "lucide-react";
 
-const MusicPlayer = ({ songId }) => {
+const MusicPlayer = ({ queue }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.7);
   const [isMuted, setIsMuted] = useState(false);
+
   const [songInfo, setSongInfo] = useState(null);
 
   const audioRef = useRef(null);
 
   const [isMobile, setIsMobile] = useState(false);
+
+  var currentSongId = queue.current;
 
   useEffect(() => {
     if (window.innerWidth < 600) {
@@ -55,11 +58,12 @@ const MusicPlayer = ({ songId }) => {
   }, [songInfo]);
 
   useEffect(() => {
-    if (!songId) return;
+    console.log(currentSongId);
+    if (!currentSongId) return;
     const fetchSongFile = async () => {
       try {
         const response = await fetch(
-          `${apiURL}/song/${encodeURIComponent(songId)}/play`
+          `${apiURL}/song/${encodeURIComponent(currentSongId)}/play`
         );
 
         if (response.ok) {
@@ -80,7 +84,7 @@ const MusicPlayer = ({ songId }) => {
             streamUrl: `${apiURL}/sound/${encodeURIComponent(
               data.songFileUrl
             )}?format=mp3&bitrate=128`,
-            songTitle: data.song.title,
+            songTitle: newTitle,
             artists: data.song.artists.$values.map((artist) => artist.name),
             image: `${apiURL}/image/${encodeURIComponent(data.songImage)}`,
           });
@@ -92,7 +96,7 @@ const MusicPlayer = ({ songId }) => {
       }
     };
     fetchSongFile();
-  }, [songId]);
+  }, [currentSongId]);
 
   const handleLoadedMetadata = () => {
     if (audioRef.current) {
@@ -163,13 +167,38 @@ const MusicPlayer = ({ songId }) => {
     setCurrentTime(seekTime);
   };
 
+  const skipForward = () => {
+    queue.next();
+  };
+
+  const skipBackward = () => {
+    console.log(queue);
+    // If we're more than 3 seconds into a song, go back to the start
+    if (currentTime > 3) {
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        setCurrentTime(0);
+      }
+    } else if (queue.index > 0) {
+      queue.previous();
+      setCurrentTime(0);
+    }
+  };
+
+  const handleSongEnd = () => {
+    setIsPlaying(false);
+
+    // Automatically play next song if available
+    currentSongId = queue.next();
+  };
+
   return (
     <div className="fixed max-h-[25vh] md:max-h-[15vh] lg:max-h-[10vh] bottom-0 left-0 right-0 bg-black border-t border-gray-800 px-4 py-2 flex items-center z-50">
       <audio
         ref={audioRef}
         src={songInfo?.streamUrl}
         onTimeUpdate={handleTimeUpdate}
-        onEnded={() => setIsPlaying(false)}
+        onEnded={handleSongEnd}
         onLoadedMetadata={handleTimeUpdate}
       />
 
@@ -217,7 +246,11 @@ const MusicPlayer = ({ songId }) => {
             <div className="flex items-center justify-center mb-2 w-full">
               {/* Playback controls */}
               <div className="flex items-center justify-center space-x-4">
-                <button className="text-gray-400 hover:text-white focus:outline-none">
+                <button
+                  className="text-gray-400 hover:text-white focus:outline-none"
+                  onClick={skipBackward}
+                  disabled={queue.index === 0 && currentTime <= 3}
+                >
                   <SkipBack size={20} />
                 </button>
                 <button
@@ -226,7 +259,11 @@ const MusicPlayer = ({ songId }) => {
                 >
                   {isPlaying ? <Pause size={24} /> : <Play size={24} />}
                 </button>
-                <button className="text-gray-400 hover:text-white focus:outline-none">
+                <button
+                  className="text-gray-400 hover:text-white focus:outline-none"
+                  onClick={skipForward}
+                  disabled={queue.index >= queue.length}
+                >
                   <SkipForward size={20} />
                 </button>
               </div>

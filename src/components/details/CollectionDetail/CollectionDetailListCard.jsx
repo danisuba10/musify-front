@@ -25,7 +25,7 @@ const CollectionDetailListCard = ({
   setSuccessMessage,
   parentType,
   hasPermission,
-  setCurrentSongId,
+  queue,
 }) => {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
@@ -237,7 +237,8 @@ const CollectionDetailListCard = ({
               (!isModify || parentType === "Playlist") && (
                 <PlayButton
                   onClickFunc={() => {
-                    setCurrentSongId(details.id);
+                    queue.clear();
+                    queue.add(details.id);
                   }}
                 />
               )}
@@ -256,7 +257,8 @@ const CollectionDetailListCard = ({
               {(!isModify || parentType === "Playlist") && (
                 <button
                   onClick={() => {
-                    setCurrentSongId(details.id);
+                    queue.clear();
+                    queue.add(details.id);
                   }}
                 >
                   {details.name}
