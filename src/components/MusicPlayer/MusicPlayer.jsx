@@ -193,7 +193,7 @@ const MusicPlayer = ({ queue }) => {
   };
 
   return (
-    <div className="flex-1 max-h-[25vh] min-h-[20vh] md:max-h-[15vh] md:min-h-[15vh] lg:max-h-[10vh] bottom-0 left-0 right-0 bg-black border-t border-gray-800 px-4 py-2 flex items-center z-50">
+    <div className="flex-1 max-h-[25vh] md:max-h-[15vh] lg:max-h-[10vh] bottom-0 left-0 right-0 bg-black border-t border-gray-800 px-4 py-2 flex items-center z-50">
       <audio
         ref={audioRef}
         src={songInfo?.streamUrl}
@@ -202,7 +202,7 @@ const MusicPlayer = ({ queue }) => {
         onLoadedMetadata={handleTimeUpdate}
       />
 
-      <div className="flex flex-col h-full w-full justify-start">
+      <div className="min-h-[20vh] md:min-h-[15vh] flex flex-col h-full w-full justify-start">
         {isMobile && (
           <div className="w-full flex relative items-center h-min">
             {songInfo?.image && (
