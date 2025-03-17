@@ -22,7 +22,7 @@ body {
     @apply lg:h-[10vh] bg-black;
   }
   .app-container {
-    @apply flex flex-row gap-5 bg-black w-full flex-1;
+    @apply flex flex-col bg-black w-full overflow-hidden;
     overflow-y: hidden;
   }
 
@@ -31,6 +31,6 @@ body {
   }
 
   .app-container > * {
-    @apply rounded-lg overflow-y-scroll h-full;
+    @apply rounded-t-lg overflow-y-scroll h-full;
   }
 }

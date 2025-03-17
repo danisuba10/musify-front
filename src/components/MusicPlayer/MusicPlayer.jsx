@@ -202,7 +202,7 @@ const MusicPlayer = ({ queue }) => {
         onLoadedMetadata={handleTimeUpdate}
       />
 
-      <div className="flex flex-col h-full w-full justify-start">
+      <div className="flex flex-col h-full w-full justify-center">
         {isMobile && (
           <div className="w-full flex relative items-center h-min">
             {songInfo?.image && (

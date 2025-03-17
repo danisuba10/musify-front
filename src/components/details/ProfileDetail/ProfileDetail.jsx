@@ -7,6 +7,7 @@ import CollectionDetailCard from "../CollectionDetail/CollectionDetailCard";
 import ProfileActionBar from "./ProfileActionBar";
 import HorizontalScrollGrid from "../../homepage/HorizontalScrollGrid";
 import { AuthContext } from "../../auth/AuthProvider";
+import Footer from "../../Footer/Footer";
 
 // import CollectionDetailActionBar from "./CollectionDetailActionBar";
 // import CollectionDetailList from "./CollectionDetailList";
@@ -66,7 +67,6 @@ export default function ProfileDetail({
               initialElements={profile.albums}
               route={"/album/"}
             />
-            <div className="mt-16"></div>
           </>
         )}
         {type === "Profile" && <div className="flex flex-col gap-2"></div>}
@@ -78,7 +78,7 @@ export default function ProfileDetail({
             route={data.route}
           />
         ))}
-        <div className="mt-32"></div>
+        <Footer />
       </div>
     </div>
   );

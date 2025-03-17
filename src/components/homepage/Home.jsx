@@ -1,6 +1,7 @@
 import React from "react";
 import HorizontalScrollGrid from "./HorizontalScrollGrid";
 import { apiURL } from "../../assets/Constants";
+import Footer from "../Footer/Footer";
 
 import { artists } from "../../assets/Constants";
 
@@ -21,6 +22,7 @@ export default function Home() {
         url={`${apiURL}/album/search`}
         route="/album/"
       />
+      <Footer className="mt-auto" />
       {/*
       <HorizontalScrollGrid
         title="Popular users"
@@ -35,7 +37,6 @@ export default function Home() {
         type="circle"
       />
       <HorizontalScrollGrid title="Favourite artists" artists={artists} /> */}
-      <div className="mt-10"></div>
     </div>
   );
 }

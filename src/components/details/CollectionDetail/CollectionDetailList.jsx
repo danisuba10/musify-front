@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import "../../../styles/details/CollectionDetailList.css";
 import Duration from "../../../assets/duration.svg?react";
 import Search from "../../search/Search";
+import Footer from "../../Footer/Footer";
 
 import CollectionDetailListCard from "./CollectionDetailListCard";
 
@@ -67,7 +68,7 @@ const CollectionDetailList = ({
               />
             </div>
           ))}
-          <div className="mt-16"></div>
+          <Footer />
         </div>
       </div>
     </>
