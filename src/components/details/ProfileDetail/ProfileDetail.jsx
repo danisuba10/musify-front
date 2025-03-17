@@ -40,7 +40,7 @@ export default function ProfileDetail({
 
   return (
     <div className="profile-container">
-      <div className="overflow-y-scroll overflow-x-hidden scroll-smooth h-full">
+      <div className="overflow-y-scroll overflow-x-hidden scroll-smooth h-full flex flex-col">
         <CollectionDetailCard
           ref={cardRef}
           collection={profile}

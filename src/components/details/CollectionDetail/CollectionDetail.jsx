@@ -10,7 +10,7 @@ import CollectionDetailList from "./CollectionDetailList";
 export default function CollectionDetail({ collection, elements, type }) {
   return (
     <div className="detail-container">
-      <div className="overflow-y-scroll overflow-x-hidden scroll-smooth h-full">
+      <div className="overflow-y-scroll overflow-x-hidden scroll-smooth h-full flex flex-col">
         <CollectionDetailCard collection={collection} type={type} />
         <CollectionDetailActionBar
           middleColor={collection.colors.middle}

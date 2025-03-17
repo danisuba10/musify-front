@@ -158,7 +158,7 @@ const Profile = ({ id, isModify, setIsModify }) => {
 
   return (
     <div
-      className="flex flex-col gap-1 w-full overflow-hidden"
+      className="flex flex-col gap-1 w-full h-full overflow-hidden"
       style={{ backgroundImage: "linear-gradient(to right, #191910, #191912)" }}
     >
       {isModify && successMessage && (
