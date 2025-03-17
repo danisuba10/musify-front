@@ -355,9 +355,9 @@ const ViewAlbum = ({
 
   const deleteAlbum = async () => {
     try {
-      const endPoint = `${apiURL}/album/${encodeURIComponent(id)}/remove`;
+      const endPoint = `${apiURL}/album/${encodeURIComponent(id)}`;
       const response = await fetch(endPoint, {
-        method: "POST",
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
@@ -378,9 +378,9 @@ const ViewAlbum = ({
 
   const deleteItemFromList = async (itemId) => {
     try {
-      const endpoint = `${apiURL}/song/${encodeURIComponent(itemId)}/remove`;
+      const endpoint = `${apiURL}/song/${encodeURIComponent(itemId)}`;
       const response = await fetch(endpoint, {
-        method: "POST",
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${userToken}`,
         },

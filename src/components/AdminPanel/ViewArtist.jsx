@@ -96,13 +96,9 @@ const ViewArtist = ({
     setErrorMessage(null);
     setSuccessMessage(null);
 
-    var artistFormData = new FormData();
-    artistFormData.append("Id", id);
-
-    const endPoint = `${apiURL}/artist/remove-artist`;
+    const endPoint = `${apiURL}/artist/${encodeURIComponent(id)}`;
     const response = await fetch(endPoint, {
-      method: "POST",
-      body: artistFormData,
+      method: "DELETE",
       headers: {
         Authorization: `Bearer ${userToken}`,
       },

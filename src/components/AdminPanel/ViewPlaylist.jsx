@@ -244,9 +244,9 @@ const ViewPlaylist = ({
 
   const deletePlaylist = async () => {
     try {
-      const endPoint = `${apiURL}/playlist/${encodeURIComponent(id)}/remove`;
+      const endPoint = `${apiURL}/playlist/${encodeURIComponent(id)}`;
       const response = await fetch(endPoint, {
-        method: "POST",
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
