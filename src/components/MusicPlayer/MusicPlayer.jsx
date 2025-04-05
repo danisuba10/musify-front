@@ -71,13 +71,13 @@ const MusicPlayer = ({ queue }) => {
           var newTitle = "";
           if (isMobile) {
             newTitle =
-              data.song.title.length > 234
-                ? `${data.song.title.slice(0, 234)}...`
+              data.song.title.length > 70
+                ? `${data.song.title.slice(0, 70)}...`
                 : data.song.title;
           } else {
             newTitle =
-              data.song.title.length > 68
-                ? `${data.song.title.slice(0, 68)}...`
+              data.song.title.length > 52
+                ? `${data.song.title.slice(0, 52)}...`
                 : data.song.title;
           }
           setSongInfo({
