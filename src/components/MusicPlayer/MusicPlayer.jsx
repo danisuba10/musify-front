@@ -193,7 +193,7 @@ const MusicPlayer = ({ queue }) => {
   };
 
   return (
-    <div className="flex-1 max-h-[25vh] min-h-[25vh] md:max-h-[15vh] md:min-h-[12vh] lg:max-h-[10vh] lg:min-h-[9vh] bottom-0 left-0 right-0 bg-black border-t border-gray-800 px-4 py-2 flex items-center z-50">
+    <div className="flex-grow flex-shrink max-h-[25vh] min-h-[25vh] md:max-h-[15vh] md:min-h-[12vh] lg:max-h-[10vh] lg:min-h-[9vh] bottom-0 left-0 right-0 bg-black border-t border-gray-800 px-4 py-2 flex items-center z-50">
       <audio
         ref={audioRef}
         src={songInfo?.streamUrl}

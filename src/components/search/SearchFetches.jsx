@@ -121,8 +121,10 @@ export const search = async ({
     if (error.message === "Not Found" && existingResults.length === 0) {
       if (setSearchDisplay) {
         setSearchDisplay(
-          <div className="text-white text-3xl font-bold ml-10 mr-10 w-auto h-auto overflow-hidden break-words">
-            No {title.toLowerCase()} found for "{term}".
+          <div className="flex flex-col overflow-y-auto overflow-x-hidden w-full h-full">
+            <div className="text-white text-3xl font-bold ml-10 mr-10 w-auto h-full overflow-hidden break-words">
+              No {title.toLowerCase()} found for "{term}".
+            </div>
           </div>
         );
       }
