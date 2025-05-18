@@ -41,7 +41,7 @@
     @apply flex items-center justify-center gap-3;
   }
   .search-input {
-    @apply h-[7.5vh] w-[38vw] flex flex-row items-center rounded-full gap-1;
+    @apply h-[7.5vh] w-[38vw] flex flex-row items-center rounded-full gap-1 overflow-hidden pr-3;
     background-image: linear-gradient(to right, #191910, #191912);
   }
   .search-input:hover {
