@@ -29,10 +29,8 @@ export const search = async ({
 
   if (setSearchDisplay) {
     setSearchDisplay(
-      <div className="w-full h-full">
-        <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
-          Loading..
-        </div>
+      <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
+        Loading..
       </div>
     );
   }
@@ -64,10 +62,8 @@ export const search = async ({
       if (existingResults.length === 0) {
         if (setSearchDisplay) {
           setSearchDisplay(
-            <div className="w-full h-full">
-              <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
-                No {title.toLowerCase()} found for "{term}".
-              </div>
+            <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
+              No {title.toLowerCase()} found for "{term}".
             </div>
           );
         }
@@ -125,10 +121,8 @@ export const search = async ({
     if (error.message === "Not Found" && existingResults.length === 0) {
       if (setSearchDisplay) {
         setSearchDisplay(
-          <div className="w-full h-full">
-            <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
-              No {title.toLowerCase()} found for "{term}".
-            </div>
+          <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
+            No {title.toLowerCase()} found for "{term}".
           </div>
         );
       }
@@ -137,11 +131,9 @@ export const search = async ({
 
     if (setSearchDisplay && existingResults.length === 0) {
       setSearchDisplay(
-        <div className="w-full h-full">
-          <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
-            An error occurred while fetching {title.toLowerCase()}. Error:{" "}
-            {error.message}
-          </div>
+        <div className="text-white text-3xl font-bold ml-10 w-full h-auto">
+          An error occurred while fetching {title.toLowerCase()}. Error:{" "}
+          {error.message}
         </div>
       );
       return [];
