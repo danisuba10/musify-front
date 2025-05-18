@@ -22,7 +22,7 @@ body {
     @apply lg:h-[10vh] bg-black;
   }
   .app-container {
-    @apply flex flex-col bg-black w-full overflow-hidden;
+    @apply flex flex-col bg-black w-full overflow-hidden min-h-full;
     overflow-y: hidden;
   }
 
