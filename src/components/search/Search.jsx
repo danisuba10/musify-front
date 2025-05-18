@@ -198,7 +198,7 @@ export default function Search({
 
   const fetchData = debounce(async () => {
     await updateSearchDisplay(filter);
-  }, 400);
+  }, 250);
 
   useEffect(() => {
     if (setGlobalTerm) {
