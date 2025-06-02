@@ -165,7 +165,7 @@ const TwoFactorDisable = ({ onCancel }) => {
           <div className="mt-6 flex justify-between">
             <button
               onClick={() => setIsConfirming(false)}
-              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
             >
               Cancel
             </button>
@@ -276,7 +276,7 @@ const TwoFactorDisable = ({ onCancel }) => {
               <button
                 type="button"
                 onClick={() => setUseRecoveryCode(!useRecoveryCode)}
-                className="text-sm text-blue-600 hover:text-blue-500"
+                className="text-sm text-green-600 hover:text-green-500"
               >
                 {useRecoveryCode
                   ? "Use authenticator code"
@@ -301,7 +301,7 @@ const TwoFactorDisable = ({ onCancel }) => {
                       e.target.value.replace(/\D/g, "").slice(0, 6)
                     )
                   }
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-center text-lg font-mono"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 text-center text-lg font-mono"
                   placeholder="000000"
                   maxLength="6"
                   autoComplete="off"
@@ -327,7 +327,7 @@ const TwoFactorDisable = ({ onCancel }) => {
                       e.target.value.replace(/[^A-Z0-9]/g, "").slice(0, 8)
                     )
                   }
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-center text-lg font-mono uppercase"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 text-center text-lg font-mono uppercase"
                   placeholder="A1B2C3D4"
                   maxLength="8"
                   autoComplete="off"
@@ -342,7 +342,7 @@ const TwoFactorDisable = ({ onCancel }) => {
               <button
                 type="button"
                 onClick={handleCancel}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
               >
                 Cancel
               </button>

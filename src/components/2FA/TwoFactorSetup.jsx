@@ -140,7 +140,7 @@ const TwoFactorSetup = ({ onCancel }) => {
             <div
               className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
                 step >= 1
-                  ? "bg-blue-600 text-white"
+                  ? "bg-green-600 text-white"
                   : "bg-gray-200 text-gray-600"
               }`}
             >
@@ -148,13 +148,13 @@ const TwoFactorSetup = ({ onCancel }) => {
             </div>
             <div
               className={`flex-1 h-1 mx-2 ${
-                step >= 2 ? "bg-blue-600" : "bg-gray-200"
+                step >= 2 ? "bg-green-600" : "bg-gray-200"
               }`}
             ></div>
             <div
               className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
                 step >= 2
-                  ? "bg-blue-600 text-white"
+                  ? "bg-green-600 text-white"
                   : "bg-gray-200 text-gray-600"
               }`}
             >
@@ -162,13 +162,13 @@ const TwoFactorSetup = ({ onCancel }) => {
             </div>
             <div
               className={`flex-1 h-1 mx-2 ${
-                step >= 3 ? "bg-blue-600" : "bg-gray-200"
+                step >= 3 ? "bg-green-600" : "bg-gray-200"
               }`}
             ></div>
             <div
               className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
                 step >= 3
-                  ? "bg-blue-600 text-white"
+                  ? "bg-green-600 text-white"
                   : "bg-gray-200 text-gray-600"
               }`}
             >
@@ -259,7 +259,7 @@ const TwoFactorSetup = ({ onCancel }) => {
               <button
                 onClick={() => setStep(2)}
                 disabled={loading || !qrCodeUrl}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Next
               </button>
@@ -294,7 +294,7 @@ const TwoFactorSetup = ({ onCancel }) => {
                         e.target.value.replace(/\D/g, "").slice(0, 6)
                       )
                     }
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-center text-lg font-mono"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 text-center text-lg font-mono"
                     placeholder="000000"
                     maxLength="6"
                     autoComplete="off"
@@ -304,14 +304,14 @@ const TwoFactorSetup = ({ onCancel }) => {
                   <button
                     type="button"
                     onClick={() => setStep(1)}
-                    className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                   >
                     Back
                   </button>
                   <button
                     type="submit"
                     disabled={loading || verificationCode.length !== 6}
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? (
                       <>
@@ -422,7 +422,7 @@ const TwoFactorSetup = ({ onCancel }) => {
               <div className="flex space-x-3">
                 <button
                   onClick={copyRecoveryCodes}
-                  className="flex-1 inline-flex justify-center items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  className="flex-1 inline-flex justify-center items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
                   <svg
                     className="w-4 h-4 mr-2"
@@ -441,7 +441,7 @@ const TwoFactorSetup = ({ onCancel }) => {
                 </button>
                 <button
                   onClick={downloadRecoveryCodes}
-                  className="flex-1 inline-flex justify-center items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  className="flex-1 inline-flex justify-center items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
                   <svg
                     className="w-4 h-4 mr-2"
