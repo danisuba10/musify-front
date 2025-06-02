@@ -26,6 +26,12 @@ import MusicPlayer from "./components/MusicPlayer/MusicPlayer";
 import { apiURL } from "./assets/Constants";
 import QueueProvider, { useQueue } from "./components/MusicPlayer/Queue";
 import Footer from "./components/Footer/Footer";
+import TwoFactorSetup from "./components/2FA/TwoFactorSetup";
+import TwoFactorVerification from "./components/2FA/TwoFactorVerification";
+import { RequireAuth } from "./components/2FA/AutoWrapper";
+import TwoFactorDisable from "./components/2FA/TwoFactorDisable";
+import { TwoFactorProvider } from "./components/Context/TwoFactorContext";
+import TwoFactorSettings from "./components/2FA/TwoFactorSettings";
 
 const AlbumRoute = ({ term, isModify, setIsModify, setSearchPopupAllowed }) => {
   const { id } = useParams();
@@ -114,127 +120,137 @@ function App() {
     <Router>
       <AuthProvider>
         <QueueProvider>
-          <div className="top-parent">
-            <div className="global-search-bar">
-              <SearchBar
-                onClick={() => setShowLogin(true)}
-                onSearch={(is, e) => {
-                  setIsSearch(is);
-                  setTerm(e);
-                }}
-                setIsSearch={setIsSearch}
-                setGlobalTerm={setTerm}
-                term={term}
-              />
-            </div>
-            <div className="app-container">
-              <div className="flex flex-row gap-5 h-full overflow-hidden">
-                <UserLibrary />
-                <div className="h-full w-full overflow-auto">
-                  <Routes>
-                    <Route
-                      path="/artist/:id"
-                      element={
-                        isSearch && searchPopupAllowed ? (
-                          <Search
-                            initialTerm={term}
-                            key={term}
-                            setIsSearch={setIsSearch}
-                            setGlobalTerm={setTerm}
-                            defaultFilter="All"
-                          />
-                        ) : (
-                          <ArtistRoute term={term} />
-                        )
-                      }
-                    />
-                    <Route
-                      path="/album/:id"
-                      element={
-                        isSearch && searchPopupAllowed ? (
-                          <Search
-                            initialTerm={term}
-                            key={"search-over-album"}
-                            setIsSearch={setIsSearch}
-                            setGlobalTerm={setTerm}
-                            defaultFilter="All"
-                          />
-                        ) : (
-                          <AlbumRoute
-                            term={term}
-                            isModify={isModify}
-                            setIsModify={setIsModify}
-                            setSearchPopupAllowed={setSearchPopupAllowed}
-                          />
-                        )
-                      }
-                    />
-                    <Route
-                      path="/artist/:id/albums"
-                      element={<ArtistAlbumsRoute term={term} />}
-                    />
-                    <Route
-                      path="/playlist/:id"
-                      element={
-                        isSearch && searchPopupAllowed ? (
-                          <Search
-                            initialTerm={term}
-                            key={term}
-                            setIsSearch={setIsSearch}
-                            setGlobalTerm={setTerm}
-                            defaultFilter="All"
-                          />
-                        ) : (
-                          <PlaylistRoute term={term} />
-                        )
-                      }
-                    />
-                    <Route
-                      path="/profile/:id"
-                      element={
-                        isSearch && searchPopupAllowed ? (
-                          <Search
-                            initialTerm={term}
-                            key={term}
-                            setIsSearch={setIsSearch}
-                            setGlobalTerm={setTerm}
-                            defaultFilter="All"
-                          />
-                        ) : (
-                          <ProfileRoute
-                            isModify={isModify}
-                            setIsModify={setIsModify}
-                          />
-                        )
-                      }
-                    />
-                    <Route
-                      path="/admin/*"
-                      element={<AdminPanel searchTerm={term} />}
-                    />
-                    <Route
-                      path="/"
-                      element={
-                        isSearch && searchPopupAllowed ? (
-                          <Search
-                            initialTerm={term}
-                            key={term}
-                            setIsSearch={setIsSearch}
-                            setGlobalTerm={setTerm}
-                            defaultFilter="All"
-                          />
-                        ) : (
-                          <HomeRoute />
-                        )
-                      }
-                    />
-                  </Routes>
-                </div>
+          <TwoFactorProvider>
+            <div className="top-parent">
+              <div className="global-search-bar">
+                <SearchBar
+                  onClick={() => setShowLogin(true)}
+                  onSearch={(is, e) => {
+                    setIsSearch(is);
+                    setTerm(e);
+                  }}
+                  setIsSearch={setIsSearch}
+                  setGlobalTerm={setTerm}
+                  term={term}
+                />
               </div>
+              <RequireAuth require2FA={true}>
+                <div className="app-container">
+                  <div className="flex flex-row gap-5 h-full overflow-hidden">
+                    <UserLibrary />
+                    <div className="h-full w-full overflow-auto">
+                      <Routes>
+                        <Route
+                          path="/artist/:id"
+                          element={
+                            isSearch && searchPopupAllowed ? (
+                              <Search
+                                initialTerm={term}
+                                key={term}
+                                setIsSearch={setIsSearch}
+                                setGlobalTerm={setTerm}
+                                defaultFilter="All"
+                              />
+                            ) : (
+                              <ArtistRoute term={term} />
+                            )
+                          }
+                        />
+                        <Route
+                          path="/album/:id"
+                          element={
+                            isSearch && searchPopupAllowed ? (
+                              <Search
+                                initialTerm={term}
+                                key={"search-over-album"}
+                                setIsSearch={setIsSearch}
+                                setGlobalTerm={setTerm}
+                                defaultFilter="All"
+                              />
+                            ) : (
+                              <AlbumRoute
+                                term={term}
+                                isModify={isModify}
+                                setIsModify={setIsModify}
+                                setSearchPopupAllowed={setSearchPopupAllowed}
+                              />
+                            )
+                          }
+                        />
+                        <Route
+                          path="/artist/:id/albums"
+                          element={<ArtistAlbumsRoute term={term} />}
+                        />
+                        <Route
+                          path="/playlist/:id"
+                          element={
+                            isSearch && searchPopupAllowed ? (
+                              <Search
+                                initialTerm={term}
+                                key={term}
+                                setIsSearch={setIsSearch}
+                                setGlobalTerm={setTerm}
+                                defaultFilter="All"
+                              />
+                            ) : (
+                              <PlaylistRoute term={term} />
+                            )
+                          }
+                        />
+                        <Route
+                          path="/profile/:id"
+                          element={
+                            isSearch && searchPopupAllowed ? (
+                              <Search
+                                initialTerm={term}
+                                key={term}
+                                setIsSearch={setIsSearch}
+                                setGlobalTerm={setTerm}
+                                defaultFilter="All"
+                              />
+                            ) : (
+                              <ProfileRoute
+                                isModify={isModify}
+                                setIsModify={setIsModify}
+                              />
+                            )
+                          }
+                        />
+                        <Route
+                          path="/admin/*"
+                          element={<AdminPanel searchTerm={term} />}
+                        />
+                        <Route
+                          path="/"
+                          element={
+                            isSearch && searchPopupAllowed ? (
+                              <Search
+                                initialTerm={term}
+                                key={term}
+                                setIsSearch={setIsSearch}
+                                setGlobalTerm={setTerm}
+                                defaultFilter="All"
+                              />
+                            ) : (
+                              <HomeRoute />
+                            )
+                          }
+                        />
+                        <Route
+                          path="/account/security"
+                          element={<TwoFactorSettings />}
+                        />
+                      </Routes>
+                    </div>
+                  </div>
+                </div>
+                {showLogin && (
+                  <AuthOverlay onClose={() => setShowLogin(false)} />
+                )}
+                <MusicPlayerWithQueue />
+              </RequireAuth>
             </div>
-            {showLogin && <AuthOverlay onClose={() => setShowLogin(false)} />}
-            <MusicPlayerWithQueue />
-          </div>
+          </TwoFactorProvider>
         </QueueProvider>
       </AuthProvider>
     </Router>

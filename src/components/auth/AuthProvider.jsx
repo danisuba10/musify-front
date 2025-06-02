@@ -74,7 +74,7 @@ const AuthProvider = ({ children }) => {
         clearInterval(interval);
         logout();
       }
-    }, 2 * 60 * 1000);
+    }, 0.2 * 60 * 1000);
 
     return () => clearInterval(interval);
   };
@@ -98,7 +98,9 @@ const AuthProvider = ({ children }) => {
       });
 
       if (response.ok) {
-        const token = await response.text();
+        const response2 = await response.json();
+        const token = response2.token;
+
         localStorage.setItem("userToken", token);
         handleValidToken(token);
       } else {
@@ -114,6 +116,12 @@ const AuthProvider = ({ children }) => {
       console.error("Error during login:", error);
       throw error;
     }
+  };
+
+  const setToken = (token) => {
+    console.log("Setting token:", token);
+    localStorage.setItem("userToken", token);
+    handleValidToken(token);
   };
 
   const register = async (email, password, displayName) => {
@@ -161,6 +169,7 @@ const AuthProvider = ({ children }) => {
         register,
         logout,
         getUserId,
+        setToken,
       }}
     >
       {children}

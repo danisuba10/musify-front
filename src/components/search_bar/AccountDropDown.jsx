@@ -48,6 +48,11 @@ const AccountDropDown = ({ onSignOut }) => {
     setIsOpen(false);
   };
 
+  const handleAccountSecurityClick = () => {
+    navigate("/account/security");
+    setIsOpen(false);
+  };
+
   const handleLogoutClick = () => {
     onSignOut();
     setIsOpen(false);
@@ -78,6 +83,12 @@ const AccountDropDown = ({ onSignOut }) => {
               className="w-full text-left px-4 py-2 text-sm bg-slate-200 text-gray-700 hover:bg-gray-400"
             >
               My profile
+            </button>
+            <button
+              onClick={handleAccountSecurityClick}
+              className="w-full text-left px-4 py-2 text-sm bg-slate-200 text-gray-700 hover:bg-gray-400"
+            >
+              Account security
             </button>
             <button
               onClick={handleLogoutClick}
