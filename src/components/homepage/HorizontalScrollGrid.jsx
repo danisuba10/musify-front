@@ -74,6 +74,14 @@ const HorizontalScrollGrid = ({
     const container = scrollContainerRef.current;
     if (container) {
       container.addEventListener("scroll", checkScroll);
+      setTimeout(() => {
+        const { scrollWidth, clientWidth } = container;
+        if (scrollWidth > clientWidth) {
+          setShowRightArrow(true);
+        } else {
+          setShowRightArrow(false);
+        }
+      }, 0);
       checkScroll();
     }
     return () => {
