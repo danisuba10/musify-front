@@ -91,6 +91,14 @@ const HorizontalScrollGrid = ({
     }
   };
 
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (container && elements && elements.length > 0) {
+      const { scrollWidth, clientWidth } = container;
+      setShowRightArrow(scrollWidth > clientWidth);
+    }
+  }, [elements]);
+
   return (
     <div className="horizontal-scroll-grid">
       <div className="horizontal-scroll-grid-header">
