@@ -10,7 +10,7 @@ export const artists = [
   {
     id: "2a",
     image:
-      "https://render.fineartamerica.com/images/rendered/default/poster/5.5/8/break/images/artworkimages/medium/3/1-dave-mustaine-megadeth-concert-photos.jpg",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffiles.merca20.com%2Fuploads%2F2021%2F09%2Fdave-mustaine-megadeth.jpeg&f=1&nofb=1&ipt=38463716e6169ed5181067f6dc0a715ce3fa071dffa5ef30ff6e4df4e209f96e",
     name: "Dave Mustaine",
     subtitle: "Artist",
   },
@@ -44,7 +44,7 @@ export const artists = [
   {
     id: "7a",
     image:
-      "https://render.fineartamerica.com/images/rendered/default/poster/5.5/8/break/images/artworkimages/medium/3/1-dave-mustaine-megadeth-concert-photos.jpg",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffiles.merca20.com%2Fuploads%2F2021%2F09%2Fdave-mustaine-megadeth.jpeg&f=1&nofb=1&ipt=38463716e6169ed5181067f6dc0a715ce3fa071dffa5ef30ff6e4df4e209f96e",
     name: "Dave Mustaine",
     subtitle: "Artist",
   },
@@ -78,7 +78,7 @@ export const artists = [
   {
     id: "12a",
     image:
-      "https://render.fineartamerica.com/images/rendered/default/poster/5.5/8/break/images/artworkimages/medium/3/1-dave-mustaine-megadeth-concert-photos.jpg",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffiles.merca20.com%2Fuploads%2F2021%2F09%2Fdave-mustaine-megadeth.jpeg&f=1&nofb=1&ipt=38463716e6169ed5181067f6dc0a715ce3fa071dffa5ef30ff6e4df4e209f96e",
     name: "Dave Mustaine",
     subtitle: "Artist",
   },
@@ -116,7 +116,7 @@ export const library = [
   {
     id: "2l",
     image:
-      "https://render.fineartamerica.com/images/rendered/default/poster/5.5/8/break/images/artworkimages/medium/3/1-dave-mustaine-megadeth-concert-photos.jpg",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffiles.merca20.com%2Fuploads%2F2021%2F09%2Fdave-mustaine-megadeth.jpeg&f=1&nofb=1&ipt=38463716e6169ed5181067f6dc0a715ce3fa071dffa5ef30ff6e4df4e209f96e",
     name: "Dave Mustaine",
     subtitle: "Artist",
     creator: "Creator2",
@@ -155,7 +155,7 @@ export const library = [
   {
     id: "7l",
     image:
-      "https://render.fineartamerica.com/images/rendered/default/poster/5.5/8/break/images/artworkimages/medium/3/1-dave-mustaine-megadeth-concert-photos.jpg",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffiles.merca20.com%2Fuploads%2F2021%2F09%2Fdave-mustaine-megadeth.jpeg&f=1&nofb=1&ipt=38463716e6169ed5181067f6dc0a715ce3fa071dffa5ef30ff6e4df4e209f96e",
     name: "Dave Mustaine",
     subtitle: "Artist",
     creator: "Creator7",
@@ -194,7 +194,7 @@ export const library = [
   {
     id: "12l",
     image:
-      "https://render.fineartamerica.com/images/rendered/default/poster/5.5/8/break/images/artworkimages/medium/3/1-dave-mustaine-megadeth-concert-photos.jpg",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffiles.merca20.com%2Fuploads%2F2021%2F09%2Fdave-mustaine-megadeth.jpeg&f=1&nofb=1&ipt=38463716e6169ed5181067f6dc0a715ce3fa071dffa5ef30ff6e4df4e209f96e",
     name: "Dave Mustaine",
     subtitle: "Artist",
     creator: "Creator12",
@@ -232,7 +232,7 @@ export const artist = {
   },
   image: "https://i.scdn.co/image/ab67616d00001e027b178f928742be1492c6fba2",
   artist_img:
-    "https://render.fineartamerica.com/images/rendered/default/poster/5.5/8/break/images/artworkimages/medium/3/1-dave-mustaine-megadeth-concert-photos.jpg",
+    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffiles.merca20.com%2Fuploads%2F2021%2F09%2Fdave-mustaine-megadeth.jpeg&f=1&nofb=1&ipt=38463716e6169ed5181067f6dc0a715ce3fa071dffa5ef30ff6e4df4e209f96e",
   name: "Countdown to Extinction",
   creator: "Dave Mustaine",
   type: "Album",
@@ -332,7 +332,7 @@ export const profile = {
     top: "#2a162c",
   },
   image:
-    "https://render.fineartamerica.com/images/rendered/default/poster/5.5/8/break/images/artworkimages/medium/3/1-dave-mustaine-megadeth-concert-photos.jpg",
+    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffiles.merca20.com%2Fuploads%2F2021%2F09%2Fdave-mustaine-megadeth.jpeg&f=1&nofb=1&ipt=38463716e6169ed5181067f6dc0a715ce3fa071dffa5ef30ff6e4df4e209f96e",
   name: "User Profile",
   type: "Profile",
   details: {
