@@ -64,4 +64,40 @@ body {
     background-image: linear-gradient(to right, #5b5b4e, #5b5b51);
     transform: scale(1.03);
   } */
+
+  /* --- Typo Tolerant Toggle --- */
+  .typo-tolerant-toggle {
+    @apply flex items-center gap-2 pr-4 pl-2 cursor-pointer select-none;
+    @apply text-white rounded-full pt-1 pb-1;
+    background-image: linear-gradient(to right, #454539, #454541);
+    transition: transform 0.1s ease;
+  }
+  .typo-tolerant-toggle:hover {
+    background-image: linear-gradient(to right, #5b5b4e, #5b5b51);
+    transform: scale(1.03);
+  }
+  .typo-tolerant-label {
+    @apply text-white text-sm font-medium whitespace-nowrap;
+  }
+  .typo-tolerant-switch-wrapper {
+    @apply relative inline-block w-10 h-5 flex-shrink-0;
+  }
+  .typo-tolerant-checkbox {
+    @apply opacity-0 w-0 h-0 absolute;
+  }
+  .typo-tolerant-slider {
+    @apply absolute inset-0 rounded-full cursor-pointer transition-colors duration-200;
+    background-color: #6b6b61;
+  }
+  .typo-tolerant-slider::before {
+    content: "";
+    @apply absolute w-3.5 h-3.5 left-0.5 bottom-0.5 rounded-full bg-white transition-transform duration-200;
+  }
+  .typo-tolerant-checkbox:checked + .typo-tolerant-slider {
+    background-image: linear-gradient(to right, #e0e0d2, #e0e0d7);
+  }
+  .typo-tolerant-checkbox:checked + .typo-tolerant-slider::before {
+    @apply translate-x-5;
+    background-color: #201c1c;
+  }
 }

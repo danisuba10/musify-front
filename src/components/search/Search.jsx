@@ -1,14 +1,13 @@
 import React, { useEffect, useRef, useContext } from "react";
 import { useState } from "react";
-import HorizontalScrollGrid from "../homepage/HorizontalScrollGrid";
-import MixedSearch from "./MixedSearch";
+import MixedSearch, { TypoMixedSearch } from "./MixedSearch";
 
 import { apiURL, artists } from "../../assets/Constants";
 
 import "../../styles/homepage/home.css";
 import TableSearch from "./TableSearch";
 
-import { search } from "../search/SearchFetches";
+import { search, searchEngine } from "../search/SearchFetches";
 import { debounce } from "../Service/Debounce";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../auth/AuthProvider";
@@ -33,11 +32,21 @@ export default function Search({
   const [filter, setFilter] = useState(initialFilter);
   const [searchDisplay, setSearchDisplay] = useState(null);
   const [term, setTerm] = useState(initialTerm);
+  const [typoTolerant, setTypoTolerant] = useState(
+    () => sessionStorage.getItem("typoTolerant") === "true"
+  );
+
+  const typoTolerantRef = useRef(false);
 
   const lastFoundNameRef = useRef(null);
   const lastFoundCreatedAtRef = useRef(null);
   const [lastFoundName, setLastFoundName] = useState(null);
   const [lastFoundCreatedAt, setLastFoundCreatedAt] = useState(null);
+
+  useEffect(() => {
+    typoTolerantRef.current = typoTolerant;
+    sessionStorage.setItem("typoTolerant", typoTolerant);
+  }, [typoTolerant]);
 
   useEffect(() => {
     lastFoundNameRef.current = lastFoundName;
@@ -67,6 +76,8 @@ export default function Search({
   const loadMore = async (filterValue) => {
     if (!hasMoreRef.current) return;
 
+    const currentTypoTolerant = typoTolerantRef.current;
+
     const searchParams = {
       setSearchDisplay: setSearchDisplay,
       term: term,
@@ -83,6 +94,56 @@ export default function Search({
       userToken: userToken,
     };
 
+    const engineFilters = ["All", "Songs", "Albums", "Artists"];
+    if (currentTypoTolerant && engineFilters.includes(filterValue)) {
+      if (filterValue === "All") {
+        setSearchDisplay(
+          <TypoMixedSearch
+            term={term}
+            clearSearch={() => {
+              if (setIsSearch) setIsSearch(false);
+              if (setGlobalTerm) setGlobalTerm("");
+            }}
+          />
+        );
+        return;
+      }
+
+      searchParams.entityFilter = filterValue;
+
+      switch (filterValue) {
+        case "Songs":
+          searchParams.onClickRedir = (id) => {
+            if (setIsSearch) setIsSearch(false);
+            if (setGlobalTerm) setGlobalTerm("");
+            navigate(`/album/${id}`);
+          };
+          break;
+        case "Albums":
+          searchParams.onClickRedir = (id) => {
+            if (setIsSearch) setIsSearch(false);
+            if (setGlobalTerm) setGlobalTerm("");
+            navigate(`/album/${id}`);
+          };
+          break;
+        case "Artists":
+          searchParams.onClickRedir = (id) => {
+            if (setIsSearch) setIsSearch(false);
+            if (setGlobalTerm) setGlobalTerm("");
+            navigate(`/artist/${id}`);
+          };
+          break;
+      }
+
+      const container = document.querySelector(".table-container");
+      scrollPositionRef.current = container ? container.scrollTop : 0;
+
+      const newResults = await searchEngine(searchParams);
+      setResults((prevResults) => [...prevResults, ...newResults]);
+      return;
+    }
+
+    // --- Standard search path ---
     var endPoint = "";
 
     switch (filterValue) {
@@ -216,7 +277,7 @@ export default function Search({
       clearTimeout(timeout);
       fetchData.cancel();
     };
-  }, [filter, term, defaultFilter]);
+  }, [filter, term, defaultFilter, typoTolerant]);
 
   useEffect(() => {
     setTerm(initialTerm);
@@ -237,9 +298,38 @@ export default function Search({
     setFilter(filterValue);
   };
 
+  const handleToggleTypoTolerant = () => {
+    setTypoTolerant((prev) => !prev);
+  };
+
   return (
     <div className="homepage-container overflow-x-hidden overflow-y-hidden h-full w-full">
       <div className="search-filter-container">
+        <div
+          className="typo-tolerant-toggle"
+          title="Typo Tolerant Search"
+          onClick={handleToggleTypoTolerant}
+          role="switch"
+          aria-checked={typoTolerant}
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleToggleTypoTolerant();
+            }
+          }}
+        >
+          <span className="typo-tolerant-label">Typo Tolerant</span>
+          <div className="typo-tolerant-switch-wrapper">
+            <input
+              type="checkbox"
+              className="typo-tolerant-checkbox"
+              checked={typoTolerant}
+              readOnly
+            />
+            <span className="typo-tolerant-slider"></span>
+          </div>
+        </div>
         {(onlyFilter && defaultFilter === "All") || !onlyFilter ? (
           <button
             className={
