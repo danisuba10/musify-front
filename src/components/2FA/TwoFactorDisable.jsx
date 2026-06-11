@@ -88,7 +88,7 @@ const TwoFactorDisable = ({ onCancel }) => {
   if (isConfirming) {
     return (
       <div
-        className="w-full min-h-full h-fit p-16 flex flex-grow"
+        className="w-full h-full pt-10 overflow-y-auto"
         style={{
           backgroundImage: "linear-gradient(to right, #191910, #191912)",
         }}
@@ -210,10 +210,10 @@ const TwoFactorDisable = ({ onCancel }) => {
 
   return (
     <div
-      className="w-full min-h-full h-fit p-16 flex flex-grow"
+      className="w-full h-full pt-10 overflow-y-auto"
       style={{ backgroundImage: "linear-gradient(to right, #191910, #191912)" }}
     >
-      <div className="flex flex-col height-fit flex-grow max-w-2xl mx-auto p-6 bg-displayBlack rounded-lg shadow-md border border-gray-800 overflow-hidden">
+      <div className="max-w-2xl mx-auto p-6 bg-displayBlack rounded-lg shadow-md border border-gray-800">
         <div className="mb-6">
           <div className="flex items-center mb-4">
             <button

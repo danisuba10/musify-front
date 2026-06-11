@@ -106,12 +106,12 @@ const TwoFactorSetup = ({ onCancel }) => {
 
   return (
     <div
-      className="min-h-full h-fit w-full pt-16"
+      className="h-full w-full py-12 overflow-y-auto flex flex-col"
       style={{ backgroundImage: "linear-gradient(to right, #191910, #191912)" }}
     >
-      <div className="max-w-2xl mx-auto p-6 bg-displayBlack rounded-lg shadow-md border border-gray-800">
-        <div className="mb-6">
-          <div className="flex items-center mb-4">
+      <div className="max-w-xl w-full mx-auto p-4 bg-displayBlack rounded-lg shadow-md border border-gray-800 flex flex-col flex-1">
+        <div className="mb-2">
+          <div className="flex items-center mb-2">
             <button
               onClick={onCancel}
               className="mr-4 text-gray-400 hover:text-gray-300 transition-colors"
@@ -130,15 +130,15 @@ const TwoFactorSetup = ({ onCancel }) => {
                 ></path>
               </svg>
             </button>
-            <h2 className="text-2xl font-bold text-white">
+            <h2 className="text-xl font-bold text-white">
               Enable Two-Factor Authentication
             </h2>
           </div>
 
           {/* Progress indicator */}
-          <div className="flex items-center mb-6">
+          <div className="flex items-center mb-3">
             <div
-              className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
+              className={`flex items-center justify-center w-7 h-7 rounded-full text-xs font-medium ${
                 step >= 1
                   ? "bg-green-500 text-white"
                   : "bg-gray-800 text-gray-400"
@@ -147,12 +147,12 @@ const TwoFactorSetup = ({ onCancel }) => {
               1
             </div>
             <div
-              className={`flex-1 h-1 mx-2 ${
+              className={`flex-1 h-0.5 mx-2 ${
                 step >= 2 ? "bg-green-500" : "bg-gray-800"
               }`}
             ></div>
             <div
-              className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
+              className={`flex items-center justify-center w-7 h-7 rounded-full text-xs font-medium ${
                 step >= 2
                   ? "bg-green-500 text-white"
                   : "bg-gray-800 text-gray-400"
@@ -161,12 +161,12 @@ const TwoFactorSetup = ({ onCancel }) => {
               2
             </div>
             <div
-              className={`flex-1 h-1 mx-2 ${
+              className={`flex-1 h-0.5 mx-2 ${
                 step >= 3 ? "bg-green-500" : "bg-gray-800"
               }`}
             ></div>
             <div
-              className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
+              className={`flex items-center justify-center w-7 h-7 rounded-full text-xs font-medium ${
                 step >= 3
                   ? "bg-green-500 text-white"
                   : "bg-gray-800 text-gray-400"
@@ -178,7 +178,7 @@ const TwoFactorSetup = ({ onCancel }) => {
         </div>
 
         {setupError && (
-          <div className="mb-4 p-4 bg-red-900/30 border border-red-800 rounded-md">
+          <div className="mb-2 p-2 bg-red-900/30 border border-red-800 rounded-md">
             <div className="flex">
               <div className="flex-shrink-0">
                 <svg
@@ -201,31 +201,31 @@ const TwoFactorSetup = ({ onCancel }) => {
         )}
 
         {step === 1 && (
-          <div>
-            <h3 className="text-lg font-medium text-gray-200 mb-4">
+          <div className="flex flex-col flex-1 min-h-0">
+            <h3 className="text-base font-medium text-gray-200 mb-2">
               Step 1: Scan QR Code
             </h3>
-            <div className="bg-menuGrey rounded-lg p-6 text-center">
-              <p className="text-gray-400 mb-4">
+            <div className="bg-menuGrey rounded-lg p-4 flex-1 flex flex-col items-center justify-center text-center overflow-y-auto">
+              <p className="text-sm text-gray-400 mb-3">
                 Scan this QR code with your authenticator app (like Google
                 Authenticator, Authy, or Microsoft Authenticator):
               </p>
               {qrCodeUrl ? (
                 <div className="flex flex-col items-center">
-                  <div className="flex flex-row items-center justify-center mb-4 w-[50%] h-[50%]">
+                  <div className="mb-2 max-w-[150px]">
                     <img
                       src={qrCodeUrl}
                       alt="2FA QR Code"
-                      className="border border-gray-700 rounded-lg"
+                      className="border border-gray-700 rounded-lg w-full"
                     />
                   </div>
                 </div>
               ) : (
-                <div className="flex justify-center mb-4">
-                  <div className="w-48 h-48 bg-gray-800 border border-gray-700 rounded-lg flex items-center justify-center">
+                <div className="flex justify-center mb-2">
+                  <div className="w-32 h-32 bg-gray-800 border border-gray-700 rounded-lg flex items-center justify-center">
                     {loading ? (
                       <svg
-                        className="animate-spin h-8 w-8 text-gray-400"
+                        className="animate-spin h-6 w-6 text-gray-400"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -245,17 +245,16 @@ const TwoFactorSetup = ({ onCancel }) => {
                         ></path>
                       </svg>
                     ) : (
-                      <span className="text-gray-400">Loading QR Code...</span>
+                      <span className="text-sm text-gray-400">Loading...</span>
                     )}
                   </div>
                 </div>
               )}
-              <p className="text-sm text-gray-400">
-                Can't scan? You can manually enter the secret key in your
-                authenticator app.
+              <p className="text-xs text-gray-400">
+                Can't scan? Enter the secret key manually.
               </p>
             </div>
-            <div className="mt-6 flex justify-end">
+            <div className="mt-3 flex justify-end">
               <button
                 onClick={() => setStep(2)}
                 disabled={loading || !qrCodeUrl}
@@ -268,20 +267,20 @@ const TwoFactorSetup = ({ onCancel }) => {
         )}
 
         {step === 2 && (
-          <div>
-            <h3 className="text-lg font-medium text-gray-200 mb-4">
+          <div className="flex flex-col flex-1 min-h-0">
+            <h3 className="text-base font-medium text-gray-200 mb-2">
               Step 2: Verify Setup
             </h3>
-            <div className="bg-menuGrey rounded-lg p-6">
-              <p className="text-gray-400 mb-4">
+            <div className="bg-menuGrey rounded-lg p-4 flex-1 flex flex-col justify-center overflow-y-auto">
+              <p className="text-sm text-gray-400 mb-3">
                 Enter the 6-digit code from your authenticator app to verify the
                 setup:
               </p>
               <form onSubmit={handleVerifyCode}>
-                <div className="mb-4">
+                <div className="mb-3">
                   <label
                     htmlFor="verification-code"
-                    className="block text-sm font-medium text-gray-300 mb-2"
+                    className="block text-sm font-medium text-gray-300 mb-1"
                   >
                     Verification Code
                   </label>
@@ -316,7 +315,7 @@ const TwoFactorSetup = ({ onCancel }) => {
                     {loading ? (
                       <>
                         <svg
-                          className="animate-spin -ml-1 mr-3 h-4 w-4 text-white"
+                          className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
@@ -348,15 +347,15 @@ const TwoFactorSetup = ({ onCancel }) => {
         )}
 
         {step === 3 && (
-          <div>
-            <h3 className="text-lg font-medium text-gray-200 mb-4">
+          <div className="flex flex-col flex-1 min-h-0">
+            <h3 className="text-base font-medium text-gray-200 mb-2">
               Step 3: Save Recovery Codes
             </h3>
-            <div className="bg-green-900/30 border border-green-800 rounded-md p-4 mb-6">
-              <div className="flex">
+            <div className="bg-green-900/30 border border-green-800 rounded-md p-3 mb-2">
+              <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <svg
-                    className="h-5 w-5 text-green-400"
+                    className="h-4 w-4 text-green-400"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -367,19 +366,18 @@ const TwoFactorSetup = ({ onCancel }) => {
                     />
                   </svg>
                 </div>
-                <div className="ml-3">
-                  <p className="text-sm text-green-300">
+                <div className="ml-2">
+                  <p className="text-xs text-green-300">
                     Two-factor authentication has been successfully enabled!
                   </p>
                 </div>
               </div>
             </div>
-
-            <div className="bg-yellow-900/30 border border-yellow-800 rounded-md p-4 mb-6">
-              <div className="flex">
+            <div className="bg-yellow-900/30 border border-yellow-800 rounded-md p-3 mb-2">
+              <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <svg
-                    className="h-5 w-5 text-yellow-400"
+                    className="h-4 w-4 text-yellow-400"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -390,26 +388,18 @@ const TwoFactorSetup = ({ onCancel }) => {
                     />
                   </svg>
                 </div>
-                <div className="ml-3">
-                  <h3 className="text-sm font-medium text-yellow-300">
-                    Important!
-                  </h3>
-                  <div className="mt-2 text-sm text-yellow-400">
-                    <p>
-                      Save these recovery codes in a safe place. You can use
-                      them to access your account if you lose your authenticator
-                      device. Each code can only be used once.
-                    </p>
-                  </div>
+                <div className="ml-2">
+                  <p className="text-xs text-yellow-300">
+                    Save these codes in a safe place. Each code can only be used once.
+                  </p>
                 </div>
               </div>
             </div>
-
-            <div className="bg-menuGrey rounded-lg p-6">
-              <h4 className="text-sm font-medium text-gray-200 mb-4">
+            <div className="bg-menuGrey rounded-lg p-3 flex-1 flex flex-col justify-center overflow-y-auto">
+              <h4 className="text-sm font-medium text-gray-200 mb-2">
                 Recovery Codes
               </h4>
-              <div className="grid grid-cols-2 gap-2 mb-4">
+              <div className="grid grid-cols-3 gap-2 mb-2">
                 {recoveryCodesGenerated.map((code, index) => (
                   <div
                     key={index}
@@ -419,13 +409,13 @@ const TwoFactorSetup = ({ onCancel }) => {
                   </div>
                 ))}
               </div>
-              <div className="flex space-x-3">
+              <div className="flex space-x-2">
                 <button
                   onClick={copyRecoveryCodes}
-                  className="flex-1 inline-flex justify-center items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-md text-gray-300 bg-formGrey hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  className="flex-1 inline-flex justify-center items-center px-3 py-2 border border-gray-700 text-sm font-medium rounded-md text-gray-300 bg-formGrey hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
                   <svg
-                    className="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -437,14 +427,14 @@ const TwoFactorSetup = ({ onCancel }) => {
                       d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
                     ></path>
                   </svg>
-                  Copy Codes
+                  Copy
                 </button>
                 <button
                   onClick={downloadRecoveryCodes}
-                  className="flex-1 inline-flex justify-center items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-md text-gray-300 bg-formGrey hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  className="flex-1 inline-flex justify-center items-center px-3 py-2 border border-gray-700 text-sm font-medium rounded-md text-gray-300 bg-formGrey hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
                   <svg
-                    className="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -460,8 +450,7 @@ const TwoFactorSetup = ({ onCancel }) => {
                 </button>
               </div>
             </div>
-
-            <div className="mt-6 flex justify-end">
+            <div className="mt-3 flex justify-end">
               <button
                 onClick={handleComplete}
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
