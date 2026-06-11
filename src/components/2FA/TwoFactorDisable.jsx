@@ -93,12 +93,12 @@ const TwoFactorDisable = ({ onCancel }) => {
           backgroundImage: "linear-gradient(to right, #191910, #191912)",
         }}
       >
-        <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
+        <div className="max-w-2xl mx-auto p-6 bg-displayBlack rounded-lg shadow-md border border-gray-800">
           <div className="mb-6">
             <div className="flex items-center mb-4">
               <button
                 onClick={() => setIsConfirming(false)}
-                className="mr-4 text-gray-400 hover:text-gray-600 transition-colors"
+                className="mr-4 text-gray-400 hover:text-gray-300 transition-colors"
               >
                 <svg
                   className="w-6 h-6"
@@ -114,13 +114,13 @@ const TwoFactorDisable = ({ onCancel }) => {
                   ></path>
                 </svg>
               </button>
-              <h2 className="text-2xl font-bold text-gray-900">
+              <h2 className="text-2xl font-bold text-white">
                 Confirm Disable 2FA
               </h2>
             </div>
           </div>
 
-          <div className="bg-red-50 border border-red-200 rounded-md p-4 mb-6">
+          <div className="bg-red-900/30 border border-red-800 rounded-md p-4 mb-6">
             <div className="flex">
               <div className="flex-shrink-0">
                 <svg
@@ -136,8 +136,8 @@ const TwoFactorDisable = ({ onCancel }) => {
                 </svg>
               </div>
               <div className="ml-3">
-                <h3 className="text-sm font-medium text-red-800">Warning</h3>
-                <div className="mt-2 text-sm text-red-700">
+                <h3 className="text-sm font-medium text-red-300">Warning</h3>
+                <div className="mt-2 text-sm text-red-400">
                   <p className="text-justify">
                     You are about to disable two-factor authentication for your
                     account. This will reduce the security of your account. Are
@@ -148,11 +148,11 @@ const TwoFactorDisable = ({ onCancel }) => {
             </div>
           </div>
 
-          <div className="bg-gray-50 rounded-lg p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">
+          <div className="bg-menuGrey rounded-lg p-6">
+            <h3 className="text-lg font-medium text-gray-200 mb-4">
               Security Implications
             </h3>
-            <ul className="list-disc list-inside space-y-2 text-sm text-gray-600">
+            <ul className="list-disc list-inside space-y-2 text-sm text-gray-400">
               <li>Your account will only be protected by your password</li>
               <li>You will be more vulnerable to unauthorized access</li>
               <li>Your recovery codes will no longer be valid</li>
@@ -165,7 +165,7 @@ const TwoFactorDisable = ({ onCancel }) => {
           <div className="mt-6 flex justify-between">
             <button
               onClick={() => setIsConfirming(false)}
-              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+              className="inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-md text-gray-300 bg-formGrey hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
             >
               Cancel
             </button>
@@ -213,12 +213,12 @@ const TwoFactorDisable = ({ onCancel }) => {
       className="w-full min-h-full h-fit p-16 flex flex-grow"
       style={{ backgroundImage: "linear-gradient(to right, #191910, #191912)" }}
     >
-      <div className="flex flex-col height-fit flex-grow max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="flex flex-col height-fit flex-grow max-w-2xl mx-auto p-6 bg-displayBlack rounded-lg shadow-md border border-gray-800 overflow-hidden">
         <div className="mb-6">
           <div className="flex items-center mb-4">
             <button
               onClick={handleCancel}
-              className="mr-4 text-gray-400 hover:text-gray-600 transition-colors"
+              className="mr-4 text-gray-400 hover:text-gray-300 transition-colors"
             >
               <svg
                 className="w-6 h-6"
@@ -234,18 +234,18 @@ const TwoFactorDisable = ({ onCancel }) => {
                 ></path>
               </svg>
             </button>
-            <h2 className="text-md md:text-xl lg:text-2xl font-bold text-gray-900">
+            <h2 className="text-md md:text-xl lg:text-2xl font-bold text-white">
               Disable Two-Factor Authentication
             </h2>
           </div>
-          <p className="text-gray-600 text-justify">
+          <p className="text-gray-400 text-justify">
             To disable two-factor authentication, please verify your identity
             with a code from your authenticator app or a recovery code.
           </p>
         </div>
 
         {disableError && (
-          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
+          <div className="mb-4 p-4 bg-red-900/30 border border-red-800 rounded-md">
             <div className="flex">
               <div className="flex-shrink-0">
                 <svg
@@ -261,22 +261,22 @@ const TwoFactorDisable = ({ onCancel }) => {
                 </svg>
               </div>
               <div className="ml-3">
-                <p className="text-sm text-red-800">{disableError}</p>
+                <p className="text-sm text-red-300">{disableError}</p>
               </div>
             </div>
           </div>
         )}
 
         <form onSubmit={handleVerifyAndDisable}>
-          <div className="bg-gray-50 rounded-lg p-6">
+          <div className="bg-menuGrey rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-medium text-gray-900">
+              <h3 className="text-lg font-medium text-gray-200">
                 Verification Required
               </h3>
               <button
                 type="button"
                 onClick={() => setUseRecoveryCode(!useRecoveryCode)}
-                className="text-sm text-green-600 hover:text-green-500"
+                className="text-sm text-green-400 hover:text-green-300"
               >
                 {useRecoveryCode
                   ? "Use authenticator code"
@@ -288,7 +288,7 @@ const TwoFactorDisable = ({ onCancel }) => {
               <div className="mb-4">
                 <label
                   htmlFor="verification-code"
-                  className="block text-sm font-medium text-gray-700 mb-2"
+                  className="block text-sm font-medium text-gray-300 mb-2"
                 >
                   Authenticator Code
                 </label>
@@ -301,12 +301,12 @@ const TwoFactorDisable = ({ onCancel }) => {
                       e.target.value.replace(/\D/g, "").slice(0, 6)
                     )
                   }
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 text-center text-lg font-mono"
+                  className="block w-full px-3 py-2 border border-gray-700 rounded-md shadow-sm bg-formGrey text-white placeholder-gray-500 focus:outline-none focus:ring-green-500 focus:border-green-500 text-center text-lg font-mono"
                   placeholder="000000"
                   maxLength="6"
                   autoComplete="off"
                 />
-                <p className="mt-2 text-sm text-gray-500">
+                <p className="mt-2 text-sm text-gray-400">
                   Enter the 6-digit code from your authenticator app
                 </p>
               </div>
@@ -314,7 +314,7 @@ const TwoFactorDisable = ({ onCancel }) => {
               <div className="mb-4">
                 <label
                   htmlFor="recovery-code"
-                  className="block text-sm font-medium text-gray-700 mb-2"
+                  className="block text-sm font-medium text-gray-300 mb-2"
                 >
                   Recovery Code
                 </label>
@@ -327,12 +327,12 @@ const TwoFactorDisable = ({ onCancel }) => {
                       e.target.value.replace(/[^A-Z0-9]/g, "").slice(0, 8)
                     )
                   }
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 text-center text-lg font-mono uppercase"
+                  className="block w-full px-3 py-2 border border-gray-700 rounded-md shadow-sm bg-formGrey text-white placeholder-gray-500 focus:outline-none focus:ring-green-500 focus:border-green-500 text-center text-lg font-mono uppercase"
                   placeholder="A1B2C3D4"
                   maxLength="8"
                   autoComplete="off"
                 />
-                <p className="mt-2 text-sm text-gray-500">
+                <p className="mt-2 text-sm text-gray-400">
                   Enter one of your saved recovery codes
                 </p>
               </div>
@@ -342,7 +342,7 @@ const TwoFactorDisable = ({ onCancel }) => {
               <button
                 type="button"
                 onClick={handleCancel}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                className="inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-md text-gray-300 bg-formGrey hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
               >
                 Cancel
               </button>

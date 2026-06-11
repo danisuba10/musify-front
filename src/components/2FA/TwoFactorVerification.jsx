@@ -84,7 +84,7 @@ const TwoFactorVerification = ({
       <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         {/* Background overlay */}
         <div
-          className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+          className="fixed inset-0 bg-black bg-opacity-80 transition-opacity"
           onClick={handleClose}
         ></div>
 
@@ -97,11 +97,11 @@ const TwoFactorVerification = ({
         </span>
 
         {/* Modal content */}
-        <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+        <div className="inline-block align-bottom bg-displayBlack rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl border border-gray-800 transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
           <div className="sm:flex sm:items-start">
-            <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+            <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-900/50 sm:mx-0 sm:h-10 sm:w-10">
               <svg
-                className="h-6 w-6 text-blue-600"
+                className="h-6 w-6 text-green-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -115,12 +115,12 @@ const TwoFactorVerification = ({
               </svg>
             </div>
             <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left flex-1">
-              <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+              <h3 className="text-lg leading-6 font-medium text-white mb-4">
                 {title}
               </h3>
 
               {verificationError && (
-                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md">
+                <div className="mb-4 p-3 bg-red-900/30 border border-red-800 rounded-md">
                   <div className="flex">
                     <div className="flex-shrink-0">
                       <svg
@@ -136,7 +136,7 @@ const TwoFactorVerification = ({
                       </svg>
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-red-800">
+                      <p className="text-sm text-red-300">
                         {verificationError}
                       </p>
                     </div>
@@ -147,13 +147,13 @@ const TwoFactorVerification = ({
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-gray-300">
                       {useRecoveryCode ? "Recovery Code" : "Authenticator Code"}
                     </label>
                     <button
                       type="button"
                       onClick={() => setUseRecoveryCode(!useRecoveryCode)}
-                      className="text-sm text-blue-600 hover:text-blue-500"
+                      className="text-sm text-green-400 hover:text-green-300"
                     >
                       {useRecoveryCode
                         ? "Use authenticator"
@@ -171,13 +171,13 @@ const TwoFactorVerification = ({
                             e.target.value.replace(/\D/g, "").slice(0, 6)
                           )
                         }
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-center text-lg font-mono"
+                        className="block w-full px-3 py-2 border border-gray-700 rounded-md shadow-sm bg-formGrey text-white placeholder-gray-500 focus:outline-none focus:ring-green-500 focus:border-green-500 text-center text-lg font-mono"
                         placeholder="000000"
                         maxLength="6"
                         autoComplete="off"
                         autoFocus
                       />
-                      <p className="mt-1 text-sm text-gray-500">
+                      <p className="mt-1 text-sm text-gray-400">
                         Enter the 6-digit code from your authenticator app
                       </p>
                     </>
@@ -191,13 +191,13 @@ const TwoFactorVerification = ({
                             e.target.value.replace(/[^A-Z0-9]/g, "").slice(0, 8)
                           )
                         }
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-center text-lg font-mono uppercase"
+                        className="block w-full px-3 py-2 border border-gray-700 rounded-md shadow-sm bg-formGrey text-white placeholder-gray-500 focus:outline-none focus:ring-green-500 focus:border-green-500 text-center text-lg font-mono uppercase"
                         placeholder="A1B2C3D4"
                         maxLength="8"
                         autoComplete="off"
                         autoFocus
                       />
-                      <p className="mt-1 text-sm text-gray-500">
+                      <p className="mt-1 text-sm text-gray-400">
                         Enter one of your saved recovery codes
                       </p>
                     </>
@@ -209,7 +209,7 @@ const TwoFactorVerification = ({
                     type="button"
                     onClick={handleClose}
                     disabled={loading}
-                    className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-md text-gray-300 bg-formGrey hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Cancel
                   </button>
@@ -220,7 +220,7 @@ const TwoFactorVerification = ({
                       (!useRecoveryCode && verificationCode.length !== 6) ||
                       (useRecoveryCode && recoveryCode.length !== 8)
                     }
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? (
                       <>

@@ -54,19 +54,19 @@ const TwoFactorSettings = () => {
       className="w-full h-full pt-16"
       style={{ backgroundImage: "linear-gradient(to right, #191910, #191912)" }}
     >
-      <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
+      <div className="max-w-2xl mx-auto p-6 bg-displayBlack rounded-lg shadow-md border border-gray-800">
         <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          <h2 className="text-2xl font-bold text-white mb-2">
             Two-Factor Authentication
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-400">
             Add an extra layer of security to your account by enabling
             two-factor authentication.
           </p>
         </div>
 
         {error && (
-          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
+          <div className="mb-4 p-4 bg-red-900/30 border border-red-800 rounded-md">
             <div className="flex">
               <div className="flex-shrink-0">
                 <svg
@@ -82,12 +82,12 @@ const TwoFactorSettings = () => {
                 </svg>
               </div>
               <div className="ml-3">
-                <p className="text-sm text-red-800">{error}</p>
+                <p className="text-sm text-red-300">{error}</p>
               </div>
               <div className="ml-auto pl-3">
                 <button
                   onClick={clearError}
-                  className="inline-flex text-red-400 hover:text-red-600"
+                  className="inline-flex text-red-400 hover:text-red-300"
                 >
                   <svg
                     className="h-5 w-5"
@@ -106,14 +106,14 @@ const TwoFactorSettings = () => {
           </div>
         )}
 
-        <div className="bg-gray-50 rounded-lg p-6">
+        <div className="bg-menuGrey rounded-lg p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 {is2FAEnabled ? (
-                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-green-900/50 rounded-full flex items-center justify-center">
                     <svg
-                      className="w-5 h-5 text-green-600"
+                      className="w-5 h-5 text-green-400"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -127,9 +127,9 @@ const TwoFactorSettings = () => {
                     </svg>
                   </div>
                 ) : (
-                  <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center">
                     <svg
-                      className="w-5 h-5 text-gray-600"
+                      className="w-5 h-5 text-gray-400"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -145,10 +145,10 @@ const TwoFactorSettings = () => {
                 )}
               </div>
               <div className="ml-4">
-                <h3 className="text-lg font-medium text-gray-900">
+                <h3 className="text-lg font-medium text-gray-200">
                   Two-Factor Authentication
                 </h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-400">
                   {is2FAEnabled
                     ? "Your account is protected with 2FA"
                     : "Your account is not protected with 2FA"}
@@ -159,8 +159,8 @@ const TwoFactorSettings = () => {
               <span
                 className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                   is2FAEnabled
-                    ? "bg-green-100 text-green-800"
-                    : "bg-gray-100 text-gray-800"
+                    ? "bg-green-900/50 text-green-300"
+                    : "bg-gray-800 text-gray-400"
                 }`}
               >
                 {is2FAEnabled ? "Enabled" : "Disabled"}
@@ -207,7 +207,7 @@ const TwoFactorSettings = () => {
               <button
                 onClick={handleEnableClick}
                 disabled={loading}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-black bg-green-400 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>
@@ -241,7 +241,7 @@ const TwoFactorSettings = () => {
           </div>
         </div>
 
-        <div className="mt-6 bg-green-50 border border-blue-200 rounded-md p-4">
+        <div className="mt-6 bg-green-900/20 border border-green-800 rounded-md p-4">
           <div className="flex">
             <div className="flex-shrink-0">
               <svg
@@ -257,10 +257,10 @@ const TwoFactorSettings = () => {
               </svg>
             </div>
             <div className="ml-3">
-              <h3 className="text-sm font-medium text-green-800">
+              <h3 className="text-sm font-medium text-green-300">
                 About Two-Factor Authentication
               </h3>
-              <div className="mt-2 text-sm text-green-700">
+              <div className="mt-2 text-sm text-green-400">
                 <p>
                   Two-factor authentication adds an extra layer of security to
                   your account. You'll need to provide a code from your
