@@ -75,24 +75,24 @@ const AccountDropDown = ({ onSignOut }) => {
             top: `${dropdownPosition.top}px`,
             right: `${dropdownPosition.right}px`,
           }}
-          className="fixed w-48 bg-menuGrey rounded-md shadow-lg z-50 border border-gray-700"
+          className="fixed w-48 bg-menuGrey rounded-md shadow-lg z-50"
         >
           <div className="py-1">
             <button
               onClick={handleProfileClick}
-              className="w-full text-left px-4 py-2 text-sm bg-menuGrey text-gray-200 hover:bg-formGrey"
+              className="w-full text-left px-4 py-2.5 text-base bg-menuGrey text-gray-200 hover:bg-formGrey"
             >
               My profile
             </button>
             <button
               onClick={handleAccountSecurityClick}
-              className="w-full text-left px-4 py-2 text-sm bg-menuGrey text-gray-200 hover:bg-formGrey"
+              className="w-full text-left px-4 py-2.5 text-base bg-menuGrey text-gray-200 hover:bg-formGrey"
             >
               Account security
             </button>
             <button
               onClick={handleLogoutClick}
-              className="w-full text-left px-4 py-2 text-sm bg-menuGrey text-gray-200 hover:bg-formGrey"
+              className="w-full text-left px-4 py-2.5 text-base bg-menuGrey text-gray-200 hover:bg-formGrey"
             >
               Sign out
             </button>
