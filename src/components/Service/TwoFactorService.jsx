@@ -2,7 +2,6 @@ import { apiURL } from "../../assets/Constants";
 
 class TwoFactorService {
   constructor(getToken) {
-    console.log("TwoFactorService initialized token:", getToken());
     this.getToken = getToken;
   }
 

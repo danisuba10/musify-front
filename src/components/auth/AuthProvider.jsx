@@ -119,7 +119,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const setToken = (token) => {
-    console.log("Setting token:", token);
     localStorage.setItem("userToken", token);
     handleValidToken(token);
   };

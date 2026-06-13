@@ -16,7 +16,6 @@ export const RequireAuth = ({ children, require2FA = false }) => {
     userInfo.TwoFactorEnabled === "true" &&
     userInfo.TwoFactorPending === "true";
 
-  console.log("User Info:", userInfo);
   if (needs2FA) {
     if (!isModalOpen) setIsModalOpen(true);
     return (

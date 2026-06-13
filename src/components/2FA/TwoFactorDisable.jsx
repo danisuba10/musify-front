@@ -68,7 +68,6 @@ const TwoFactorDisable = ({ onCancel }) => {
     try {
       const result = await disable2FA();
       if (result.success) {
-        console.log("Disabling, new token", result.token);
         onCancel(result.token);
       } else {
         setDisableError("Failed to disable 2FA. Please try again.");
@@ -79,7 +78,6 @@ const TwoFactorDisable = ({ onCancel }) => {
   };
 
   const handleCancel = (token) => {
-    console.log("Token", token);
     setIsConfirming(false);
     setToken(token);
     onCancel();
