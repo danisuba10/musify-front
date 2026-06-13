@@ -39,6 +39,8 @@ const VerticalScrollGrid = ({ title, cards, type, compact, hasMore = true, onLoa
           creator={card.creator}
           typeCSS={typeCSS}
           compact={isCompact}
+          itemId={card.itemId}
+          itemType={card.itemType}
         />
       </div>
     ));
