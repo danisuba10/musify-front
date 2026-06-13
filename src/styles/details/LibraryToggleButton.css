@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .library-toggle-button {
+    @apply relative flex justify-center h-[60%] items-center bg-svgGrey rounded-full aspect-square p-2;
+    transition: transform 0.1s ease;
+  }
+  .library-toggle-button:hover {
+    @apply bg-gray-400;
+    transform: scale(1.05);
+  }
+}

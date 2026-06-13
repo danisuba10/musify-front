@@ -37,7 +37,7 @@ const VerticalScrollCard = ({
           </div>
           <div className="vertical-scroll-text">
             <h3 className="vertical-scroll-name">{name}</h3>
-            <p className="vertical-scroll-subtitle">{`${subtitle} ● ${creator}`}</p>
+            <p className="vertical-scroll-subtitle">{creator ? `${subtitle} ● ${creator}` : subtitle}</p>
           </div>
         </div>
       </div>

@@ -1,31 +1,54 @@
-import React, { useRef } from "react";
+import React, { useRef, useCallback } from "react";
 import VerticalCard from "./VerticalScrollCard";
 import "../../styles/library/VerticalScrollGrid.css";
-import Plus from "../../assets/plus.svg?react";
-import RightArrow from "../../assets/arrow.svg?react";
 import Library from "../../assets/library.svg?react";
 import Cookies from "js-cookie";
 
-const VerticalScrollGrid = ({ title, cards, type, compact }) => {
+const VerticalScrollGrid = ({ title, cards, type, compact, hasMore = true, onLoadMore, loading = false }) => {
   const typeCSS = type === "circle" ? "rounded-full" : "";
 
   const scrollContainerRef = useRef(null);
+  const observerRef = useRef();
 
-  const scroll = (direction) => {
-    const container = scrollContainerRef.current;
-    if (container) {
-      const scrollAmount = direction === "up" ? -200 : 200;
-      container.scrollBy({ top: scrollAmount, behavior: "smooth" });
-    }
-  };
+  const lastElementCallback = useCallback(
+    (node) => {
+      if (observerRef.current) observerRef.current.disconnect();
+      observerRef.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && hasMore && !loading) {
+            onLoadMore?.();
+          }
+        },
+        { root: null, rootMargin: "100px", threshold: 0.1 }
+      );
+      if (node) observerRef.current.observe(node);
+    },
+    [onLoadMore, hasMore, loading]
+  );
+
+  const renderCards = (isCompact) =>
+    cards.map((card, index) => (
+      <div
+        key={card.id ?? index}
+        ref={index === cards.length - 1 ? lastElementCallback : null}
+      >
+        <VerticalCard
+          image={card.image}
+          name={card.name}
+          subtitle={card.subtitle}
+          creator={card.creator}
+          typeCSS={typeCSS}
+          compact={isCompact}
+        />
+      </div>
+    ));
 
   return (
     <div className="vertical-scroll-grid">
       {!compact && (
         <div className="vertical-scroll-grid-header">
-          {/* <h2 className="vertical-scroll-grid-title">{title}</h2> */}
           <button
-            className="w-[50%]"
+            className="w-full flex items-center justify-center"
             onClick={() => {
               const newCompactValue = !compact;
               Cookies.set("compact", newCompactValue, {
@@ -34,12 +57,8 @@ const VerticalScrollGrid = ({ title, cards, type, compact }) => {
               });
             }}
           >
-            <Library className="library-svg" />
+            <Library className="svg-library-compact w-[3vw] h-[3vw]" />
           </button>
-          <div className="relative flex flex-row w-[50%] gap-3  ">
-            <Plus className="library-svg" />
-            <RightArrow className="library-svg" />
-          </div>
         </div>
       )}
       {compact && (
@@ -65,37 +84,14 @@ const VerticalScrollGrid = ({ title, cards, type, compact }) => {
         </div>
       )}
       <div className="vertical-scroll-grid-container group">
-        {!compact && (
-          <div ref={scrollContainerRef} className="vertical-scroll-grid-scroll">
-            {cards.map((card, index) => (
-              <VerticalCard
-                key={index}
-                image={card.image}
-                name={card.name}
-                subtitle={card.subtitle}
-                creator={card.creator}
-                typeCSS={typeCSS}
-                compact={compact}
-              />
-            ))}
-          </div>
-        )}
-        {compact && (
-          <div ref={scrollContainerRef} className="vertical-scroll-grid-scroll">
-            {cards.map((card, index) => (
-              <VerticalCard
-                key={index}
-                image={card.image}
-                name={card.name}
-                subtitle={card.subtitle}
-                creator={card.creator}
-                typeCSS={typeCSS}
-                compact={compact}
-              />
-            ))}
-            <div className="mt-6"></div>
-          </div>
-        )}
+        <div ref={scrollContainerRef} className="vertical-scroll-grid-scroll">
+          {renderCards(compact)}
+          {loading && (
+            <div className="flex justify-center py-3">
+              <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-400 border-t-transparent" />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

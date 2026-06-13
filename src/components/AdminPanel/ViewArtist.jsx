@@ -6,11 +6,12 @@ import { AuthContext } from "../auth/AuthProvider";
 
 const ViewArtist = ({
   id,
-  isModify = false,
+  isModify: initialIsModify = false,
   setErrorMessage = () => {},
   setSuccessMessage = () => {},
 }) => {
   const { userToken } = useContext(AuthContext);
+  const [isModify, setIsModify] = useState(initialIsModify);
 
   if (!userToken) {
     isModify = false;
@@ -126,6 +127,7 @@ const ViewArtist = ({
           profile={artistView}
           type="Artist"
           isModify={isModify}
+          setIsModify={setIsModify}
           toSave={(artistDTO) => saveArtist(artistDTO)}
           toDelete={deleteArtist}
         />

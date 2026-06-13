@@ -345,6 +345,9 @@ const ViewPlaylist = ({
               hasModifyPermission={hasModifyPermission}
               playAlbum={playPlaylist}
               addToQueueAlbum={addToQueuePlaylist}
+              itemId={id}
+              itemType="Playlist"
+              isOwner={playlistCreator && getUserId() == playlistCreator}
             />
           )}
           {isModify && playlistUpdateSuccessMessage && (

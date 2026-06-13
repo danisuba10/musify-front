@@ -686,6 +686,9 @@ const ViewAlbum = ({
               switchParentIsModify={switchModify}
               playAlbum={playAlbum}
               addToQueueAlbum={addToQueueAlbum}
+              itemId={id}
+              itemType="Album"
+              isOwner={false}
             />
           )}
           {isModify && albumUpdateSuccessMessage && (
