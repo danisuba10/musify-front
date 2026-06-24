@@ -13,9 +13,11 @@ const ViewArtist = ({
   const { userToken } = useContext(AuthContext);
   const [isModify, setIsModify] = useState(initialIsModify);
 
-  if (!userToken) {
-    isModify = false;
-  }
+  useEffect(() => {
+    if (!userToken) {
+      setIsModify(false);
+    }
+  }, [userToken]);
 
   const [artistView, setArtistView] = useState(null);
 
