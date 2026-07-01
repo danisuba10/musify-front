@@ -36,7 +36,8 @@ export const search = async ({
   }
 
   try {
-    const response = await fetch(`${endPoint}?${queryParams}`, {
+    const separator = endPoint.includes('?') ? '&' : '?';
+    const response = await fetch(`${endPoint}${separator}${queryParams}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${userToken}`,

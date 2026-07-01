@@ -13,13 +13,13 @@ export default function Home() {
       <div className="mt-2"></div>
       <HorizontalScrollGrid
         title="Popular artists"
-        url={`${apiURL}/artist/search`}
+        url={`${apiURL}/artist/top?count=25`}
         type="circle"
         route="/artist/"
       />
       <HorizontalScrollGrid
         title="Popular albums"
-        url={`${apiURL}/album/search`}
+        url={`${apiURL}/album/top?count=25`}
         route="/album/"
       />
       <Footer className="mt-auto" />
